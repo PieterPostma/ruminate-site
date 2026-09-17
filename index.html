@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruminate · drie eindversies van de website</title>
+<link rel="icon" href="branding/ruminate-icon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Jost:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--papier:#e8e4d6;--groen:#192b1b;--rood:#c8524a;--sage:#5c7f68}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--papier);color:var(--groen);font-family:'Jost',sans-serif;font-weight:300;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:8vh 5vw}
+.kader{max-width:900px}
+.merk{font-family:'Baloo 2',sans-serif;font-weight:600;font-size:34px}
+.rum-i{position:relative;display:inline-block}
+.rum-i::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:.09em;width:.17em;height:.17em;border-radius:50%;background:var(--rood)}
+p.uitleg{margin-top:10px;color:rgba(25,43,27,.65);max-width:38em}
+.lijst{display:grid;gap:14px;margin-top:44px}
+a.optie{display:grid;grid-template-columns:110px 1fr auto;gap:24px;align-items:center;text-decoration:none;color:var(--groen);border:1px solid rgba(25,43,27,.18);border-radius:14px;padding:24px 28px;transition:all .2s;background:rgba(255,255,255,.3)}
+a.optie:hover{border-color:var(--rood);transform:translateX(6px)}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rood)}
+.optie b{font-size:21px;font-weight:400;display:block}
+.optie span{font-size:14.5px;color:rgba(25,43,27,.62)}
+.optie .pijl{font-size:22px;color:var(--rood)}
+.swatch{height:64px;border-radius:9px;overflow:hidden;display:flex}
+.swatch i{flex:1}
+.voetnoot{margin-top:40px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:rgba(25,43,27,.4)}
+</style>
+</head>
+<body>
+<div class="kader">
+    <div class="merk">rum<span class="rum-i">&#305;</span>nate</div>
+    <p class="uitleg">Drie eindversies van de informatieve website. Zelfde inhoud, zelfde merk, drie karakters. In alle drie loopt de koe onderin mee met het scrollen. Laat haar even staan en ze gaat grazen.</p>
+    <div class="lijst">
+        <a class="optie" href="weide.html">
+            <div class="swatch"><i style="background:#e8e4d6"></i><i style="background:#5c7f68"></i><i style="background:#8a7a4a"></i><i style="background:#c8524a"></i></div>
+            <div><div class="tag">Versie 1 &middot; De Weide</div><b>Licht &amp; redactioneel</b><span>Warm papier, serif. Drie gekleurde banen (data, kennis, rekenkracht) tekenen zichzelf bij het scrollen en vloeien samen bij het model.</span></div>
+            <div class="pijl">&rarr;</div>
+        </a>
+        <a class="optie" href="nacht.html">
+            <div class="swatch"><i style="background:#141f15"></i><i style="background:#192b1b"></i><i style="background:#d4cfbf"></i><i style="background:#c8524a"></i></div>
+            <div><div class="tag">Versie 2 &middot; De Nachtwacht</div><b>Donker &amp; technisch</b><span>Het deckgroen als nachtlucht, met een levend signaalveld van pens-pH-curves op de achtergrond en een kauwslag-teller in de hero.</span></div>
+            <div class="pijl">&rarr;</div>
+        </a>
+        <a class="optie" href="erf.html">
+            <div class="swatch"><i style="background:#e8e4d6"></i><i style="background:#192b1b"></i><i style="background:#c8524a"></i><i style="background:#7ba58a"></i></div>
+            <div><div class="tag">Versie 3 &middot; Het Erf</div><b>Speels &amp; bold</b><span>Baloo&nbsp;2-koppen zoals het woordmerk, afgeronde blokken in groen, rood en papier, en een marquee van meetwaarden.</span></div>
+            <div class="pijl">&rarr;</div>
+        </a>
+    </div>
+    <div class="voetnoot">assets/Ruminate/website &middot; losse HTML, geen build-stap</div>
+</div>
+</body>
+</html>

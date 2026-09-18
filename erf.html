@@ -24,7 +24,8 @@ html{scroll-behavior:smooth}
 body{background:var(--papier);color:var(--groen);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden}
 ::selection{background:var(--rood);color:var(--papier)}
 
-header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;mix-blend-mode:normal}
+header{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:12px 5vw;background:rgba(232,228,214,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(25,43,27,.08);transition:background .3s,border-color .3s}
+header.op-donker{background:rgba(20,30,21,.78);border-bottom-color:rgba(212,207,191,.12)}
 header.op-donker .woordmerk{color:var(--creme)}
 header.op-donker nav a{color:rgba(212,207,191,.7)}
 .woordmerk{font-family:var(--merk);font-weight:600;font-size:28px;letter-spacing:.012em;color:var(--groen);text-decoration:none;line-height:1;transition:color .3s}
@@ -36,7 +37,7 @@ nav a:hover{background:var(--rood);color:var(--papier)}
 
 .blok{padding:16vh 5vw;position:relative}
 .blok.donker{background:var(--groen);color:var(--creme);border-radius:38px;margin:0 10px}
-.blok.rood-blok{background:var(--rood);color:var(--papier);border-radius:38px;margin:0 10px}
+.blok.rood-blok{background:#a85a52;color:var(--papier);border-radius:38px;margin:0 10px}
 .binnen{max-width:1160px;margin:0 auto}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--rood);margin-bottom:20px}
 .donker .kicker{color:var(--sage)} .rood-blok .kicker{color:rgba(232,228,214,.7)}
@@ -65,13 +66,6 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .badge.b2{border-color:var(--rood);color:var(--rood)}
 .badge.b3{border-color:var(--sage-d);color:var(--sage-d)}
 
-/* marquee */
-.marquee{overflow:hidden;border-top:2px solid var(--groen);border-bottom:2px solid var(--groen);padding:14px 0;background:var(--papier);white-space:nowrap}
-.marquee .baan{display:inline-block;animation:schuif 26s linear infinite}
-.marquee span{font-family:var(--merk);font-weight:600;font-size:22px;margin:0 28px}
-.marquee .dot{color:var(--rood)}
-@keyframes schuif{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 /* kaarten */
 .kaarten{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:56px}
 .kaart{border-radius:26px;padding:34px 30px;background:rgba(232,228,214,.07);border:1px solid rgba(212,207,191,.16)}
@@ -83,7 +77,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 /* de lat, speels */
 .lat{display:grid;grid-template-columns:1.6fr 1fr 1.6fr;gap:12px;margin-top:52px}
 .lat>div{border-radius:20px;padding:22px 24px}
-.lat .links{background:rgba(212,207,191,.1)}
+.lat .links{background:#e9bd4f;color:var(--groen)}
 .lat .midden{background:var(--sage);color:var(--groen)}
 .lat .rechts{background:var(--rood);color:var(--papier)}
 .lat h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
@@ -108,8 +102,8 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .demopaneel{border-radius:26px;padding:34px 30px;background:rgba(232,228,214,.08);border:1px solid rgba(212,207,191,.16)}
 .demopaneel h3{font-family:var(--merk);font-weight:600;font-size:23px}
 .demopaneel .noot{font-size:13.5px;color:rgba(212,207,191,.55);margin-bottom:22px}
-.balkrij{display:grid;grid-template-columns:8.6em 1fr 2.4em;align-items:center;gap:12px;margin-top:12px;font-size:14px;color:rgba(212,207,191,.75)}
-.balk{height:26px;border-radius:99px;background:rgba(212,207,191,.35);transform-origin:left;transform:scaleX(0);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.balkrij{display:grid;grid-template-columns:10.5em 1fr 2.4em;align-items:center;gap:12px;margin-top:12px;font-size:14px;color:rgba(212,207,191,.75)}
+.balk{height:26px;border-radius:99px;background:#e9bd4f;transform-origin:left;transform:scaleX(0);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
 .balk.ok{background:var(--sage)} .balk.zuur{background:#e0847d}
 .zichtbaar .balk{transform:scaleX(1)}
 .balkrij .n{font-family:var(--merk);font-weight:600;font-size:17px;text-align:right;color:var(--creme)}
@@ -161,7 +155,6 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 @media (prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
     .balk{transform:scaleX(1);transition:none}
-    .marquee .baan{animation:none}
 }
 </style>
 </head>
@@ -186,7 +179,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
         <div class="binnen">
             <div class="kicker">Ruminate AI &middot; slim voeren, per koe</div>
             <h1>Elke koe<br>haar <span class="r">eigen</span><br>rantsoen<span class="r">.</span></h1>
-            <p class="intro">Ruminate AI leest de data die jouw bedrijf al elke dag maakt, en voert iedere koe naar haar eigen optimum.</p>
+            <p class="intro">Ruminate AI leest de data die dagelijks op jouw bedrijf wordt gegenereerd en vertaalt die naar voeradvies op maat, voor elke koe.</p>
             <div class="badges reveal">
                 <span class="badge b1">Meer melk</span>
                 <span class="badge b2">Gezonde pens</span>
@@ -195,17 +188,13 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
         </div>
     </section>
 
-    <div class="marquee" aria-hidden="true"><div class="baan" id="baan">
-        <span>melkgift <i class="dot">&bull;</i></span><span>herkauwtijd <i class="dot">&bull;</i></span><span>krachtvoerrest <i class="dot">&bull;</i></span><span>vet &amp; eiwit <i class="dot">&bull;</i></span><span>ureum <i class="dot">&bull;</i></span><span>pens-pH <i class="dot">&bull;</i></span><span>methaan <i class="dot">&bull;</i></span><span>activiteit <i class="dot">&bull;</i></span>
-    </div></div>
-
     <section class="blok" id="probleem">
         <div class="binnen">
             <div class="kicker">Het probleem</div>
             <h2 class="reveal">Geen koe is <span class="r">gemiddeld</span>.</h2>
             <p class="intro reveal">E&eacute;n voertabel voor de hele koppel, terwijl iedere koe haar eigen smalle optimum heeft.</p>
             <div class="lat reveal">
-                <div class="links"><h4>Te weinig</h4><p>Melk blijft liggen.</p></div>
+                <div class="links"><h4>Te weinig krachtvoer</h4><p>Melk blijft liggen.</p></div>
                 <div class="midden"><h4>Optimaal</h4><p>Smal, en per koe anders.</p></div>
                 <div class="rechts"><h4>Te veel</h4><p>Pens verzuurt, &eacute;n korter leven.</p></div>
             </div>
@@ -215,12 +204,11 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     <section class="blok donker">
         <div class="binnen">
             <div class="kicker">Wat dat kost</div>
-            <h2 class="reveal">Pensverzuring zie je vaak <span class="r">niet</span>. Voelen doe je haar wel.</h2>
+            <h2 class="reveal">Pensverzuring merk je vaak pas <span class="r">laat</span> op, met alle gevolgen van dien.</h2>
             <div class="kaarten reveal">
                 <div class="kaart"><b>~3&nbsp;kg</b><span>minder melk per dag, per aangedane koe</span></div>
                 <div class="kaart"><b>&euro;200&ndash;400</b><span>schade per aangedane koe, per jaar</span></div>
                 <div class="kaart"><b>11&ndash;26%</b><span>van de melkkoeien heeft SARA, vaak onzichtbaar</span></div>
-                <div class="kaart s"><b>~30%</b><span>van het menselijk methaan komt uit de veehouderij, uit diezelfde pens</span></div>
             </div>
             <div class="bron">Bron: NL veldstudies &amp; inductieproeven, o.a. Kleen 2009; Khafipour 2009.</div>
         </div>
@@ -252,14 +240,14 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
                 <div class="demopaneel reveal balken">
                     <h3>Generieke voertabel</h3>
                     <div class="noot">&eacute;&eacute;n formule voor elke koe</div>
-                    <div class="balkrij"><span>Te weinig</span><div class="balk" style="width:21%"></div><span class="n">21</span></div>
+                    <div class="balkrij"><span>Te weinig krachtvoer</span><div class="balk" style="width:21%"></div><span class="n">21</span></div>
                     <div class="balkrij"><span>Op haar optimum</span><div class="balk ok" style="width:59%"></div><span class="n">59</span></div>
                     <div class="balkrij"><span>Pens verzuurt</span><div class="balk zuur" style="width:20%"></div><span class="n">20</span></div>
                 </div>
                 <div class="demopaneel reveal balken">
                     <h3>Ruminate AI &middot; per koe</h3>
                     <div class="noot">afgezet tegen haar eigen basislijn</div>
-                    <div class="balkrij"><span>Te weinig</span><div class="balk" style="width:9%"></div><span class="n">9</span></div>
+                    <div class="balkrij"><span>Te weinig krachtvoer</span><div class="balk" style="width:9%"></div><span class="n">9</span></div>
                     <div class="balkrij"><span>Op haar optimum</span><div class="balk ok" style="width:84%"></div><span class="n">84</span></div>
                     <div class="balkrij"><span>Pens verzuurt</span><div class="balk zuur" style="width:7%"></div><span class="n">7</span></div>
                 </div>
@@ -279,7 +267,8 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     <section class="blok rood-blok" id="pilot">
         <div class="binnen">
             <div class="kicker">Pilotprogramma</div>
-            <h2 class="reveal">Doe mee. Het kost je <u>niets</u>.</h2>
+            <h2 class="reveal">We zijn net gestart. Er is nog <u>plek</u>.</h2>
+            <p class="intro reveal">Het pilotprogramma loopt en er is nog ruimte voor enkele boeren om deel te nemen. Het kost je niets.</p>
             <div class="pilotkaarten reveal">
                 <div class="pk"><div class="nr">1</div><h3>Wij komen langs</h3><p>Wij leggen zelf de koppelingen met je melkrobot, managementsysteem en CRV.</p></div>
                 <div class="pk"><div class="nr">2</div><h3>Jouw data blijft van jou</h3><p>Vertrouwelijk, vastgelegd in een NDA.</p></div>
@@ -306,7 +295,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     <section class="blok" id="team">
         <div class="binnen">
             <div class="kicker">Wie wij zijn</div>
-            <h2 class="reveal">Boerenverstand <span class="r">&times;</span> wereldklasse AI.</h2>
+            <h2 class="reveal">Het team.</h2>
             <div class="team">
                 <div class="lid reveal"><img src="team/harm-de-vries-headshot.jpg" alt="Dr. Harm de Vries"><div class="tekst">
                     <h3>Dr. Harm de Vries</h3><div class="rol">AI en modelarchitectuur</div>
@@ -327,10 +316,10 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     <section class="voet" id="contact">
         <div class="binnen">
             <div class="kicker" style="color:var(--sage)">Contact</div>
-            <h2 class="reveal">Boer, adviseur of onderzoeker?<br>Bel <span class="r">gewoon</span> even.</h2>
+            <h2 class="reveal">Boer, adviseur of onderzoeker?<br>Bel of mail <span class="r">even</span>.</h2>
             <div class="contact reveal">
-                <div><b>Dr. Harm de Vries</b><a href="tel:+31642349997">+31 6 42349997</a></div>
-                <div><b>Pieter Postma</b><a href="tel:+31643553427">+31 6 43553427</a></div>
+                <div><b>Dr. Harm de Vries</b><a href="tel:+31642349997">+31 6 42349997</a><br><a href="mailto:harm@ruminate.nl">harm@ruminate.nl</a></div>
+                <div><b>Pieter Postma</b><a href="tel:+31643553427">+31 6 43553427</a><br><a href="mailto:pieter@ruminate.nl">pieter@ruminate.nl</a></div>
             </div>
             <img class="logo" src="branding/ruminate-logo-creme.svg" alt="Ruminate">
             <div class="fijn">&copy; 2026 Ruminate &middot; elke koe haar eigen rantsoen</div>
@@ -355,9 +344,6 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
         });
     }
 })();
-
-/* marquee: baan verdubbelen voor naadloze lus */
-(function(){var b=document.getElementById('baan');b.innerHTML+=b.innerHTML;})();
 
 /* header meekleurend op donkere blokken */
 (function(){

@@ -46,27 +46,32 @@
     /* ---------- voeradvies: krachtvoer per koe, ruwvoer per groep ---------- */
     function advies(k) {
         var lh = Math.round(k.herkauw[13]);
+        var voornaam = k.naam;
         if (k.status === 'zuur') return {
             kv: { delta: -0.8, titel: 'Terug naar ' + (k.kv - 0.8).toFixed(1).replace('.', ',') + ' kg/dag, opbouw pauzeren',
                   uitleg: 'Melkgift onder haar basislijn, herkauwtijd gezakt naar ' + lh + ' min/dag: patroon van beginnende pensverzuring.' },
+            actie: 'Vandaag krijgt ' + voornaam + ' 0,8 kg minder dan haar standaardportie; de robot bouwt daarna in kleinere stappen weer op.',
             rv: { titel: 'Extra structuur aan het voerhek',
                   uitleg: 'Vandaag structuurrijk ruwvoer (hooi of stro) bijmengen; buffer overwegen zolang zij in de rode zone zit.' }
         };
         if (k.status === 'let-op' && k.afst > 0) return {
-            kv: { delta: -0.3, titel: 'Opbouw vertragen: +0,1 kg/dag i.p.v. +0,25',
-                  uitleg: 'Er blijft ' + k.rest.toFixed(1).replace('.', ',') + ' kg krachtvoer liggen; het schema loopt vóór op wat zij aankan.' },
+            kv: { delta: -1.0, titel: 'Portie verlagen: −1,0 kg/dag',
+                  uitleg: 'Ze laat al drie dagen op rij zo’n ' + k.rest.toFixed(1).replace('.', ',') + ' kg krachtvoer liggen; de portie loopt vóór op wat zij opneemt.' },
+            actie: 'Vandaag krijgt ' + voornaam + ' 1,0 kg minder, omdat ze al 3 dagen op rij krachtvoer laat liggen.',
             rv: { titel: 'Zetmeel niet verhogen',
                   uitleg: 'Structuuraandeel van het basisrantsoen handhaven tot zij terug in de groene zone is.' }
         };
         if (k.status === 'let-op') return {
-            kv: { delta: 0.3, titel: 'Bijvoeren: +0,3 kg/dag, in twee stappen',
+            kv: { delta: 0.6, titel: 'Bijvoeren: +0,6 kg/dag, in twee stappen',
                   uitleg: 'Melkgift blijft onder wat zij aankan; er ligt melk op tafel.' },
+            actie: 'Vandaag krijgt ' + voornaam + ' 0,6 kg extra boven op haar standaardportie krachtvoer.',
             rv: { titel: 'Energiedichtheid controleren',
                   uitleg: 'Check of het basisrantsoen genoeg energie biedt voor de hoogproductieve groep.' }
         };
         return {
             kv: { delta: 0, titel: 'Handhaven: ' + k.kv.toFixed(1).replace('.', ',') + ' kg/dag',
                   uitleg: 'Melkgift en herkauwtijd binnen haar bandbreedte; herweging bij de melkcontrole.' },
+            actie: 'Geen wijziging: de robot verstrekt ' + voornaam + ' haar standaardportie.',
             rv: { titel: 'Geen wijziging',
                   uitleg: 'Basisrantsoen past bij deze groep.' }
         };
@@ -124,32 +129,24 @@
         '.ck-paneel{border:1px solid rgba(212,207,191,.12);border-radius:9px;padding:11px 13px;background:rgba(212,207,191,.03)}',
         '.ck-paneel h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
         '.ck-paneel svg{display:block;width:100%;height:64px}',
-        /* de kudde-machine: honderd gestapelde stippen + schuif + schakelaar */
-        '.ck-kudde{border-top:1px solid rgba(212,207,191,.14);padding:15px 18px 14px}',
-        '.ck-kudde h5{margin:0 0 10px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
-        '.ck-machine{display:grid;grid-template-columns:1fr minmax(230px,300px);gap:22px;align-items:center}',
-        '.ck-kgrid{display:grid;grid-template-columns:repeat(20,1fr);gap:6px}',
-        '.ck-koe{aspect-ratio:1;border-radius:50%;background:rgba(212,207,191,.22);transition:background .45s ease,box-shadow .45s ease}',
-        '.ck-koe.lo{background:#b8a472}',
-        '.ck-koe.ok{background:#7ba58a}',
-        '.ck-koe.hi{background:#c8524a;box-shadow:0 0 7px rgba(200,82,74,.55)}',
-        '.ck-bedien .lbl{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
-        '.ck-bedien input[type=range]{width:100%;margin:8px 0 2px;accent-color:#c8524a}',
-        '.ck-voeruit{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:19px;color:#e8e4d6}',
-        '.ck-telling{display:flex;flex-direction:column;gap:5px;margin:12px 0;font-size:13px;color:rgba(212,207,191,.7)}',
-        '.ck-tel{display:flex;align-items:center;gap:9px}',
-        '.ck-tel b{margin-left:auto;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:13.5px;color:#e8e4d6}',
-        '.ck-vlek{width:10px;height:10px;border-radius:50%}',
-        '.ck-vlek.lo{background:#b8a472}.ck-vlek.ok{background:#7ba58a}.ck-vlek.hi{background:#c8524a}',
-        '.ck-schakel{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;user-select:none;',
-        '    border:1px solid rgba(212,207,191,.3);border-radius:99px;padding:9px 9px 9px 16px;font-size:14px;color:#e8e4d6}',
-        '.ck-schakel .knop{width:38px;height:20px;border-radius:99px;background:rgba(212,207,191,.25);position:relative;transition:background .3s;flex:none}',
-        '.ck-schakel .knop::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#e8e4d6;transition:left .3s}',
-        '.ck-schakel.aan{border-color:#c8524a;background:rgba(200,82,74,.1)}',
-        '.ck-schakel.aan .knop{background:#c8524a}',
-        '.ck-schakel.aan .knop::after{left:20px}',
-        '.ck-oordeel{margin:10px 2px 0;font-size:12.5px;line-height:1.5;color:rgba(212,207,191,.6);font-style:italic;min-height:2.6em}',
-        '@media (max-width:760px){.ck-machine{grid-template-columns:1fr}.ck-kgrid{grid-template-columns:repeat(10,1fr)}}',
+        /* hitte-alert bovenin */
+        '.ck-alert{display:flex;gap:12px;align-items:flex-start;padding:10px 18px;border-bottom:1px solid rgba(233,189,79,.35);background:rgba(233,189,79,.1);font-size:13px;line-height:1.5;color:rgba(212,207,191,.85)}',
+        '.ck-alert .ico{flex:none;font-size:15px;line-height:1.4}',
+        '.ck-alert b{font-weight:400;color:#e9bd4f}',
+        /* actie van vandaag in de krachtvoerkaart */
+        '.ck-actie{margin-top:9px;border-top:1px dashed rgba(212,207,191,.25);padding-top:8px}',
+        '.ck-actie h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7ba58a}',
+        '.ck-actie p{margin:0;font-size:13px;line-height:1.5;color:#e8e4d6}',
+        /* optimum-staaf per koe */
+        '.ck-gauge{border:1px solid rgba(212,207,191,.12);border-radius:9px;padding:11px 13px;background:rgba(212,207,191,.03)}',
+        '.ck-gauge h5{margin:0 0 8px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
+        '.ck-gauge svg{display:block;width:100%;height:auto}',
+        /* koppeladvies onderin */
+        '.ck-koppel{border-top:1px solid rgba(212,207,191,.14);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}',
+        '.ck-koppel .ico{flex:none;font-size:15px;line-height:1.5}',
+        '.ck-koppel div{font-size:13.5px;line-height:1.55;color:rgba(212,207,191,.75)}',
+        '.ck-koppel h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#b8a472}',
+        '.ck-koppel b{font-weight:400;color:#e8e4d6}',
         '.ck-voetnoot{padding:9px 18px;border-top:1px solid rgba(212,207,191,.12);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;color:rgba(212,207,191,.38)}',
         '@media (max-width:760px){.ck-romp{grid-template-columns:1fr}.ck-lijst{border-right:0;border-bottom:1px solid rgba(212,207,191,.14)}.ck-rijen{max-height:210px}.ck-grafieken,.ck-voer{grid-template-columns:1fr}.ck-kpis{width:100%;margin-left:0}}'
     ].join('\n');
@@ -163,6 +160,24 @@
             '" stroke="rgba(212,207,191,.3)" stroke-dasharray="3 5" stroke-width="1"/>';
         return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' + b +
             '<path d="' + d + '" fill="none" stroke="' + kleur + '" stroke-width="2" stroke-linecap="round"/></svg>';
+    }
+
+    /* de lat per koe: geel | groen | rood met haar positie t.o.v. haar optimum */
+    function gauge(k) {
+        var W = 560, H = 74, links = 10, rechts = W - 10;
+        function X(afst) { var t = (afst + 1.6) / 3.2; return links + Math.max(0, Math.min(1, t)) * (rechts - links); }
+        var g1 = X(-0.3), g2 = X(0.3), x = X(k.afst);
+        var kleur = k.afst > 0.3 ? '#c8524a' : (k.afst < -0.3 ? '#e9bd4f' : '#7ba58a');
+        return '<svg viewBox="0 0 ' + W + ' ' + H + '">' +
+            '<rect x="' + links + '" y="18" width="' + (g1 - links) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
+            '<rect x="' + g1 + '" y="18" width="' + (g2 - g1) + '" height="22" rx="4" fill="rgba(123,165,138,.4)"/>' +
+            '<rect x="' + g2 + '" y="18" width="' + (rechts - g2) + '" height="22" rx="4" fill="rgba(200,82,74,.3)"/>' +
+            '<line x1="' + ((g1 + g2) / 2) + '" y1="12" x2="' + ((g1 + g2) / 2) + '" y2="46" stroke="rgba(212,207,191,.5)" stroke-dasharray="3 4" stroke-width="1"/>' +
+            '<circle cx="' + x.toFixed(1) + '" cy="29" r="8" fill="' + kleur + '" stroke="#e8e4d6" stroke-width="2"/>' +
+            '<text x="' + links + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5">TE WEINIG KRACHTVOER</text>' +
+            '<text x="' + ((g1 + g2) / 2) + '" y="62" fill="rgba(123,165,138,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="middle">OPTIMUM</text>' +
+            '<text x="' + rechts + '" y="62" fill="rgba(224,132,125,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="end">TE VEEL &#183; VERZUURT</text>' +
+            '</svg>';
     }
 
     function init() {
@@ -180,6 +195,8 @@
             '    <span class="ck-merk">rum<i>&#305;</i>nate</span><span class="ck-tag">cockpit &middot; demobedrijf &middot; ' + koeien.length + ' koeien</span>' +
             '    <span class="ck-kpis"><span>optimum <b>' + nOk + '</b></span><span>aandacht <b class="g">' + nLet + '</b></span><span>risico <b class="r">' + nZuur + '</b></span></span>' +
             '  </div>' +
+            '  <div class="ck-alert" role="note"><span class="ico">&#9888;</span><span><b>Hitte-alert:</b> volgende week woensdag stijgt de temperatuur tot boven de 30&nbsp;&deg;C. ' +
+            'Controleer of de ventilatoren werken en bestel vast goed verteerbaar, smakelijk ruwvoer (bijv. luzerne of jong gemaaide kuil): bij hitte daalt de opname en stijgt het verzuringsrisico. Overweeg extra pensbuffer.</span></div>' +
             '  <div class="ck-romp">' +
             '    <div class="ck-lijst">' +
             '      <div class="ck-filters">' +
@@ -191,23 +208,8 @@
             '    </div>' +
             '    <div class="ck-detail" id="ckDetail"></div>' +
             '  </div>' +
-            '  <div class="ck-kudde"><h5>De kudde-machine &middot; honderd koeien, elk haar eigen optimum</h5>' +
-            '    <div class="ck-machine">' +
-            '      <div class="ck-kgrid" id="ckKgrid" aria-label="Honderd koeien"></div>' +
-            '      <div class="ck-bedien">' +
-            '        <div class="lbl">Krachtvoer voor de hele kudde</div>' +
-            '        <input type="range" id="ckVoer" min="2" max="14" step="0.1" value="6">' +
-            '        <div class="ck-voeruit" id="ckVoerUit">6,0 kg</div>' +
-            '        <div class="ck-telling">' +
-            '          <div class="ck-tel"><span class="ck-vlek lo"></span>Melk blijft liggen<b id="ckTelLo">0</b></div>' +
-            '          <div class="ck-tel"><span class="ck-vlek ok"></span>Op haar optimum<b id="ckTelOk">0</b></div>' +
-            '          <div class="ck-tel"><span class="ck-vlek hi"></span>Pens verzuurt<b id="ckTelHi">0</b></div>' +
-            '        </div>' +
-            '        <div class="ck-schakel" id="ckSchakel" role="switch" tabindex="0" aria-checked="false"><span>Ruminate aan</span><span class="knop"></span></div>' +
-            '        <p class="ck-oordeel" id="ckOordeel"></p>' +
-            '      </div>' +
-            '    </div>' +
-            '  </div>' +
+            '  <div class="ck-koppel"><span class="ico">&#127807;</span><div><h6>Koppeladvies &middot; basisrantsoen &middot; o.b.v. alle datapunten</h6>' +
+            '<span id="ckKoppelTekst"></span></div></div>' +
             '  <div class="ck-voetnoot">demo-omgeving met voorbeelddata &middot; in productie gekoppeld aan melkrobot, halsband en CRV</div>' +
             '</div>';
 
@@ -242,10 +244,12 @@
             detail.innerHTML =
                 '<div class="ck-dkop"><h4>' + k.naam + '</h4><span>krachtvoerrest ' + k.rest.toFixed(1).replace('.', ',') + ' kg</span>' +
                 '<span class="ck-badge ' + k.status + '">' + lbl[k.status] + '</span></div>' +
+                '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
                 '<div class="ck-voer">' +
                 '  <div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
                 '    <div class="cijfer">' + cijfer + '</div>' +
-                '    <div class="titel">' + a.kv.titel + '</div><p>' + a.kv.uitleg + '</p></div>' +
+                '    <div class="titel">' + a.kv.titel + '</div><p>' + a.kv.uitleg + '</p>' +
+                '    <div class="ck-actie"><h6>Vandaag &middot; automatisch uitgevoerd door de melkrobot</h6><p>' + a.actie + '</p></div></div>' +
                 '  <div class="ck-vkaart rv"><h5>Ruwvoer &middot; per groep &middot; aan het voerhek</h5>' +
                 '    <div class="titel">' + a.rv.titel + '</div><p>' + a.rv.uitleg + '</p></div>' +
                 '</div>' +
@@ -255,57 +259,13 @@
                 '</div>';
         }
 
-        /* de kudde-machine: honderd koeien, een schuif, en de Ruminate-schakelaar */
+        /* koppeladvies: een overkoepelend rantsoenadvies o.b.v. de hele koppel */
         (function () {
-            var N = 100, grid = wortel.querySelector('#ckKgrid');
-            var voer = wortel.querySelector('#ckVoer'), voerUit = wortel.querySelector('#ckVoerUit');
-            var tLo = wortel.querySelector('#ckTelLo'), tOk = wortel.querySelector('#ckTelOk'), tHi = wortel.querySelector('#ckTelHi');
-            var schakel = wortel.querySelector('#ckSchakel'), oordeel = wortel.querySelector('#ckOordeel');
-            var slim = false, kr = rng(1912);
-
-            var kudde = [];
-            for (var i = 0; i < N; i++) {
-                var g = 0; for (var j = 0; j < 4; j++) g += kr();      // klokvormige spreiding
-                var el = document.createElement('div');
-                el.className = 'ck-koe';
-                var opt = 3.4 + (g / 4) * 7.6;                         // haar eigen optimum, ~3,4 tot 11 kg
-                el.title = 'Koe ' + String(i + 1) + ', haar optimum: ' + opt.toFixed(1).replace('.', ',') + ' kg';
-                grid.appendChild(el);
-                kudde.push({ opt: opt, tol: 0.55 + kr() * 0.55, fout: (kr() - 0.5) * 1.9, el: el });
-            }
-
-            function teken() {
-                var f = parseFloat(voer.value), lo = 0, ok = 0, hi = 0;
-                kudde.forEach(function (c) {
-                    var gegeven = slim ? c.opt + c.fout : f;
-                    var d = gegeven - c.opt, cls;
-                    if (d < -c.tol) { cls = 'lo'; lo++; }
-                    else if (d > c.tol) { cls = 'hi'; hi++; }
-                    else { cls = 'ok'; ok++; }
-                    c.el.className = 'ck-koe ' + cls;
-                });
-                voerUit.textContent = f.toFixed(1).replace('.', ',') + ' kg';
-                tLo.textContent = lo; tOk.textContent = ok; tHi.textContent = hi;
-                if (slim) oordeel.textContent = ok + ' van de 100 goed. Niet perfect: ook wij schatten haar optimum.';
-                else if (hi > ok) oordeel.textContent = hi + ' koeien krijgen te veel. Bij hen verzuurt de pens.';
-                else if (lo > ok) oordeel.textContent = lo + ' koeien krijgen te weinig. Daar blijft melk liggen.';
-                else oordeel.textContent = 'Op het beste gemiddelde zit ' + (N - ok) + ' van de 100 er nog naast.';
-            }
-            function wissel() {
-                slim = !slim;
-                schakel.classList.toggle('aan', slim);
-                schakel.setAttribute('aria-checked', slim);
-                teken();
-            }
-            voer.addEventListener('input', function () {
-                if (slim) { slim = false; schakel.classList.remove('aan'); schakel.setAttribute('aria-checked', 'false'); }
-                teken();
-            });
-            schakel.addEventListener('click', wissel);
-            schakel.addEventListener('keydown', function (e) {
-                if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); wissel(); }
-            });
-            teken();
+            var el = wortel.querySelector('#ckKoppelTekst');
+            var teLaag = koeien.filter(function (k) { return k.status === 'let-op' && k.afst < 0; }).length;
+            el.innerHTML = 'Gezien de staat van de koppel (' + nOk + ' op optimum, ' + nZuur + ' met verzuringsrisico, ' + teLaag + ' onder haar kunnen): ' +
+                'zorg voor voldoende <b>structuur (prikkelend NDF)</b> en een <b>stabiel zetmeelaandeel</b> in het ruwvoer, en houd een <b>pensbuffer</b> achter de hand. ' +
+                'De energiedichtheid kan iets omhoog voor de hoogproductieve groep. Bespreek dit met je voeradviseur bij het eerstvolgende rantsoenoverleg.';
         })();
 
         function alles() { tekenLijst(); tekenDetail(); }

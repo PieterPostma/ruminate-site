@@ -217,6 +217,17 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     nav{display:none}
     .lat,.demo{grid-template-columns:1fr}
 }
+@media (max-width:640px){
+    /* compacter verticaal ritme op telefoons */
+    .blok{padding:9vh 6vw}
+    .hero{padding-top:15vh;padding-bottom:4vh}
+    .voet{padding:10vh 6vw 16vh}
+    /* demo-balken: label boven de balk, zodat de balk de volle breedte krijgt */
+    .balkrij{grid-template-columns:1fr auto;row-gap:6px}
+    .balkrij>span:first-child{order:1}
+    .balkrij .n{order:2}
+    .balkrij .balk{order:3;grid-column:1/-1}
+}
 @media (prefers-reduced-motion:reduce){
     .reveal,.reveal>*,.reveal .lat>div{opacity:1;transform:none;transition:none}
     .balk{transform:scaleX(1);transition:none}

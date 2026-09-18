@@ -141,6 +141,10 @@
         '.ck-gauge{border:1px solid rgba(212,207,191,.12);border-radius:9px;padding:11px 13px;background:rgba(212,207,191,.03)}',
         '.ck-gauge h5{margin:0 0 8px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
         '.ck-gauge svg{display:block;width:100%;height:auto}',
+        '.ck-gauge-legende{display:flex;justify-content:space-between;margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}',
+        '.ck-gauge-legende .lg-geel{color:rgba(233,189,79,.85)}',
+        '.ck-gauge-legende .lg-groen{color:rgba(123,165,138,.9)}',
+        '.ck-gauge-legende .lg-rood{color:rgba(224,132,125,.9)}',
         /* koppeladvies onderin */
         '.ck-koppel{border-top:1px solid rgba(212,207,191,.14);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}',
         '.ck-koppel .ico{flex:none;font-size:15px;line-height:1.5}',
@@ -166,20 +170,21 @@
     function gauge(k) {
         var W = 560, H = 74, links = 10, rechts = W - 10;
         function X(afst) { var t = (afst + 1.6) / 3.2; return links + Math.max(0, Math.min(1, t)) * (rechts - links); }
+        var H2 = 46;
         var g1 = X(-0.3), g2 = X(0.3), g3 = X(0.8), x = X(k.afst);
         var kleur = k.afst > 0.8 ? '#c8524a' : (Math.abs(k.afst) <= 0.3 ? '#7ba58a' : '#e9bd4f');
-        return '<svg viewBox="0 0 ' + W + ' ' + H + '">' +
-            '<rect x="' + links + '" y="18" width="' + (g1 - links) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
-            '<rect x="' + g1 + '" y="18" width="' + (g2 - g1) + '" height="22" rx="4" fill="rgba(123,165,138,.4)"/>' +
-            '<rect x="' + g2 + '" y="18" width="' + (g3 - g2) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
-            '<rect x="' + g3 + '" y="18" width="' + (rechts - g3) + '" height="22" rx="4" fill="rgba(200,82,74,.3)"/>' +
-            '<line x1="' + ((g1 + g2) / 2) + '" y1="12" x2="' + ((g1 + g2) / 2) + '" y2="46" stroke="rgba(212,207,191,.5)" stroke-dasharray="3 4" stroke-width="1"/>' +
-            '<circle cx="' + x.toFixed(1) + '" cy="29" r="8" fill="' + kleur + '" stroke="#e8e4d6" stroke-width="2"/>' +
-            '<text x="' + links + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5">TE WEINIG</text>' +
-            '<text x="' + ((g1 + g2) / 2) + '" y="62" fill="rgba(123,165,138,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="middle">OPTIMUM</text>' +
-            '<text x="' + ((g2 + g3) / 2) + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="middle">TE VEEL</text>' +
-            '<text x="' + rechts + '" y="62" fill="rgba(224,132,125,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="end">VERZUURT</text>' +
-            '</svg>';
+        return '<svg viewBox="0 0 ' + W + ' ' + H2 + '">' +
+            '<rect x="' + links + '" y="12" width="' + (g1 - links) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
+            '<rect x="' + g1 + '" y="12" width="' + (g2 - g1) + '" height="22" rx="4" fill="rgba(123,165,138,.4)"/>' +
+            '<rect x="' + g2 + '" y="12" width="' + (g3 - g2) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
+            '<rect x="' + g3 + '" y="12" width="' + (rechts - g3) + '" height="22" rx="4" fill="rgba(200,82,74,.3)"/>' +
+            '<line x1="' + ((g1 + g2) / 2) + '" y1="6" x2="' + ((g1 + g2) / 2) + '" y2="40" stroke="rgba(212,207,191,.5)" stroke-dasharray="3 4" stroke-width="1"/>' +
+            '<circle cx="' + x.toFixed(1) + '" cy="23" r="8" fill="' + kleur + '" stroke="#e8e4d6" stroke-width="2"/>' +
+            '</svg>' +
+            /* labels als HTML, zodat ze op elk schermformaat leesbaar blijven */
+            '<div class="ck-gauge-legende">' +
+            '<span class="lg-geel">Te weinig</span><span class="lg-groen">Optimum</span>' +
+            '<span class="lg-geel">Te veel</span><span class="lg-rood">Verzuurt</span></div>';
     }
 
     function init() {

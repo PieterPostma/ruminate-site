@@ -52,14 +52,21 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 
 /* hero */
 .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding-top:14vh}
-.koefilm{display:flex;flex-direction:column;align-items:center;gap:22px;padding:4vh 5vw 9vh}
-.koefilm .kader{width:min(430px,82vw);aspect-ratio:834/1050;transform:rotate(-2deg);
-    border-radius:47% 53% 51% 49% / 55% 47% 53% 45%;overflow:hidden;
-    border:5px solid var(--groen);box-shadow:0 26px 60px rgba(25,43,27,.18);
-    animation:blob 14s ease-in-out infinite}
-.koefilm video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(1.03)}
+.koefilm{display:flex;flex-direction:column;align-items:center;gap:24px;padding:4vh 5vw 9vh}
+.koefilm .kader{width:min(440px,82vw);aspect-ratio:834/1050;
+    border-radius:999px 999px 26px 26px;overflow:hidden;
+    box-shadow:0 30px 70px rgba(25,43,27,.2);
+    outline:1.5px solid rgba(25,43,27,.28);outline-offset:12px}
+.koefilm video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(1.03);
+    transform:scale(1.18);will-change:transform}
 .koefilm figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.45)}
-@keyframes blob{0%,100%{border-radius:47% 53% 51% 49% / 55% 47% 53% 45%}50%{border-radius:52% 48% 46% 54% / 48% 55% 45% 52%}}
+.product-rij{display:grid;grid-template-columns:1fr minmax(230px,310px);gap:20px;align-items:stretch}
+.product-film{margin:0;display:flex;flex-direction:column;background:#101a11;border:1px solid rgba(212,207,191,.16);
+    border-radius:14px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.product-film video{flex:1;min-height:0;width:100%;object-fit:cover}
+.product-film figcaption{padding:9px 14px;border-top:1px solid rgba(212,207,191,.12);
+    font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(212,207,191,.38)}
+@media (max-width:980px){.product-rij{grid-template-columns:1fr}.product-film{aspect-ratio:834/700;max-height:440px}}
 body.koe-donker .koe{--koe-lijn:var(--creme)}
 .koe svg *{transition:stroke .35s ease,fill .35s ease}
 .hero .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
@@ -266,7 +273,13 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             <div class="kicker">Het product &middot; live</div>
             <h2 class="reveal">Dit is de <span class="r">cockpit</span>.</h2>
             <p class="intro reveal">De koppel in &eacute;&eacute;n oogopslag, per koe haar signalen en een concreet voeradvies. Klik gerust rond: demo met voorbeelddata.</p>
-            <div id="cockpit" class="reveal" style="margin-top:48px"></div>
+            <div class="product-rij reveal" style="margin-top:48px">
+                <div id="cockpit"></div>
+                <figure class="product-film" aria-label="Koeien aan het voerhek">
+                    <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/koeien-eten.mp4"></video>
+                    <figcaption>Live uit de stal &middot; het voerhek</figcaption>
+                </figure>
+            </div>
         </div>
     </section>
 
@@ -335,19 +348,30 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 </main>
 
 <script>
-/* rustig aan bij reduced motion */
+/* rustig aan bij reduced motion; anders autoplay-nudge voor alle video's */
 (function(){
-    var v=document.querySelector('.koefilm video');
-    if(!v)return;
+    var vids=[].slice.call(document.querySelectorAll('video'));
+    if(!vids.length)return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-        v.removeAttribute('autoplay');v.pause();
-    }else{
-        /* autoplay kan geblokkeerd zijn: nogmaals proberen bij de eerste interactie */
-        var duw=function(){v.play().catch(function(){});};
-        duw();
-        ['click','scroll','touchstart','keydown'].forEach(function(ev){
-            addEventListener(ev,duw,{once:true,passive:true});
-        });
+        vids.forEach(function(v){v.removeAttribute('autoplay');v.pause();});
+        return;
+    }
+    var duw=function(){vids.forEach(function(v){v.play().catch(function(){});});};
+    duw();
+    ['click','scroll','touchstart','keydown'].forEach(function(ev){
+        addEventListener(ev,duw,{once:true,passive:true});
+    });
+    /* zachte parallax in de staldeur-boog: de video schuift traag mee met het scrollen */
+    var kv=document.querySelector('.koefilm video'),kk=document.querySelector('.koefilm .kader');
+    if(kv&&kk){
+        var teken=function(){
+            var r=kk.getBoundingClientRect();
+            var p=(r.top+r.height/2-innerHeight/2)/innerHeight;
+            kv.style.transform='scale(1.18) translateY('+(p*40).toFixed(1)+'px)';
+        };
+        addEventListener('scroll',teken,{passive:true});
+        addEventListener('resize',teken);
+        teken();
     }
 })();
 

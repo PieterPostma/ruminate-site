@@ -18,8 +18,8 @@
         '.koe.loopt .p1,.koe.loopt .p3{animation:koe-stap .5s ease-in-out infinite;}',
         '.koe.loopt .p2,.koe.loopt .p4{animation:koe-stap .5s ease-in-out infinite -.25s;}',
         '.koe.loopt .lijf{animation:koe-bob .25s ease-in-out infinite;}',
-        '.koe .kop{transform-box:fill-box;transform-origin:14% 78%;transition:transform .9s cubic-bezier(.45,0,.2,1);}',
-        '.koe.graast .kop{transform:rotate(47deg);}',
+        '.koe .kop{transform-box:fill-box;transform-origin:10% 85%;transition:transform .9s cubic-bezier(.45,0,.2,1);}',
+        '.koe.graast .kop{transform:rotate(50deg);}',
         '.koe.graast .snuit{animation:koe-kauw 1.05s ease-in-out infinite;}',
         '.koe .staart{transform-box:fill-box;transform-origin:85% 8%;animation:koe-staart 3.4s ease-in-out infinite;}',
         '@keyframes koe-stap{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}',
@@ -33,34 +33,44 @@
     var svg =
 '<svg viewBox="0 0 230 150" xmlns="http://www.w3.org/2000/svg">' +
 '<g class="spiegel">' +
-'<g fill="none" stroke="var(--koe-lijn,#192b1b)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">' +
+'<g fill="none" stroke="var(--koe-lijn,#192b1b)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
   // achterpoten
-'  <g class="poot p1"><path d="M60 88 L58 118 L59 134 M59 134 L66 134"/></g>' +
-'  <g class="poot p2"><path d="M78 90 L77 119 L78 134 M78 134 L85 134"/></g>' +
+'  <g class="poot p1"><path d="M64 91 L62 112 L63 131 M58 131 h11"/></g>' +
+'  <g class="poot p2"><path d="M80 92 L79 113 L80 131 M75 131 h11"/></g>' +
   // voorpoten
-'  <g class="poot p3"><path d="M138 90 L139 119 L139 134 M139 134 L146 134"/></g>' +
-'  <g class="poot p4"><path d="M155 88 L157 118 L157 134 M157 134 L164 134"/></g>' +
+'  <g class="poot p3"><path d="M136 92 L137 113 L137 131 M132 131 h11"/></g>' +
+'  <g class="poot p4"><path d="M152 90 L154 112 L154 131 M149 131 h11"/></g>' +
 '  <g class="lijf">' +
-     // staart
-'    <g class="staart"><path d="M46 50 C 34 58 30 76 35 92 M35 92 l-3 7" /></g>' +
-     // romp
-'    <path d="M47 62 C 44 42 62 33 88 32 L 142 31 C 160 30 172 38 176 50 L 179 60 C 182 75 172 88 155 89 L 72 92 C 56 92 49 78 47 62 Z"/>' +
-     // uier
-'    <path d="M116 90 c 1.5 7 13 7 15 -1" stroke-width="3.6"/>' +
-     // rugvlek
-'    <path d="M92 33 C 88 46 96 58 112 57 C 126 56 130 44 126 32 Z" fill="var(--koe-lijn,#192b1b)" opacity=".14" stroke="none"/>' +
-'    <path d="M150 66 C 144 72 146 82 155 84 C 163 85 168 78 166 70 Z" fill="var(--koe-lijn,#192b1b)" opacity=".14" stroke="none"/>' +
+     // staart met pluim
+'    <g class="staart"><path d="M52 46 C 45 60 43 78 46 96 M46 96 c -2 5 -1 10 2 14"/></g>' +
+     // romp: kruis, rug met lichte deuk, schoft, nek, borst, buik, achterhand
+'    <path d="M52 44 C 54 37 63 33 74 32 C 96 29 122 29 142 32 C 152 33 162 34 172 33 L 178 44 C 172 56 166 66 162 76 C 158 85 150 90 138 92 C 116 96 94 96 78 93 C 64 90 55 82 53 70 C 51 60 51 51 52 44 Z"/>' +
+     // heupbot
+'    <path d="M62 35 l 4 6" stroke-width="3.2"/>' +
+     // uier met spenen
+'    <path d="M98 93 C 100 104 118 105 122 94" stroke-width="3.4"/>' +
+'    <path d="M104 103 l 0 5 M113 104 l 0 5" stroke-width="2.8"/>' +
+     // vlekken
+'    <path d="M96 32 C 87 48 95 63 115 61 C 133 59 138 44 128 31 Z" fill="var(--koe-lijn,#192b1b)" opacity=".16" stroke="none"/>' +
+'    <path d="M60 50 C 55 62 59 74 71 72 C 80 70 80 56 74 47 Z" fill="var(--koe-lijn,#192b1b)" opacity=".16" stroke="none"/>' +
+'    <path d="M148 40 C 143 48 146 57 155 56 C 162 55 163 45 158 39 Z" fill="var(--koe-lijn,#192b1b)" opacity=".12" stroke="none"/>' +
      // kop (draait bij grazen)
 '    <g class="kop">' +
-'      <path d="M170 52 C 178 44 186 40 196 40"/>' +
+       // schedel en neusrug naar snuit
+'      <path d="M172 30 C 180 26 188 26 194 31 C 203 36 211 44 216 51"/>' +
 '      <g class="snuit">' +
-'        <path d="M196 40 C 208 40 214 46 215 55 C 216 63 210 68 202 68 C 193 68 188 62 188 54"/>' +
-'        <path d="M209 63 l0 .1" stroke-width="5"/>' +
-'        <circle cx="196" cy="48" r="1.6" fill="var(--koe-lijn,#192b1b)" stroke="none"/>' +
+'        <path d="M216 51 C 218 55 215 59 209 59 C 202 60 196 57 192 52"/>' +
+'        <path d="M211 53 l 0 .1" stroke-width="4.5"/>' +
 '      </g>' +
-       // oor + tittel-vlek (knipoog naar het logo)
-'      <path d="M192 38 C 189 31 182 29 177 32 C 181 36 186 39 192 38 Z"/>' +
-'      <circle cx="199" cy="33" r="4" fill="var(--koe-accent,#c8524a)" stroke="none"/>' +
+       // kaaklijn terug naar de nek
+'      <path d="M192 52 C 186 49 181 45 178 40"/>' +
+       // oog
+'      <circle cx="193" cy="37" r="1.8" fill="var(--koe-lijn,#192b1b)" stroke="none"/>' +
+       // twee oren
+'      <path d="M176 29 C 171 24 164 23 159 26 C 163 30 170 31 176 29 Z"/>' +
+'      <path d="M185 27 C 183 21 177 17 172 19 C 175 24 180 27 185 27 Z"/>' +
+       // tittel-vlek (knipoog naar het logo)
+'      <circle cx="192" cy="27" r="4" fill="var(--koe-accent,#c8524a)" stroke="none"/>' +
 '    </g>' +
 '  </g>' +
 '</g></g></svg>';

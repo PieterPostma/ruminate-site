@@ -12,6 +12,7 @@
 <style>
 :root{
     --papier:#e8e4d6; --groen:#192b1b; --groen-2:#1e3221;
+    /* de meelopende koe wisselt van lijnkleur boven donkere blokken */
     --creme:#d4cfbf; --rood:#c8524a; --sage:#7ba58a; --sage-d:#5c7f68; --goud:#b8a472;
     --merk:'Baloo 2',system-ui,sans-serif;
     --sans:'Jost',system-ui,sans-serif;
@@ -50,16 +51,17 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .donker .intro{color:rgba(212,207,191,.72)} .rood-blok .intro{color:rgba(232,228,214,.85)}
 
 /* hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:14vh;position:relative}
-.hero>*{position:relative;z-index:1}
-.hero-koe{position:absolute;right:5vw;top:50%;transform:translateY(-48%) rotate(-2deg);width:min(30vw,390px);aspect-ratio:834/1050;z-index:0;pointer-events:none;
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding-top:14vh}
+.koefilm{display:flex;flex-direction:column;align-items:center;gap:22px;padding:4vh 5vw 9vh}
+.koefilm .kader{width:min(430px,82vw);aspect-ratio:834/1050;transform:rotate(-2deg);
     border-radius:47% 53% 51% 49% / 55% 47% 53% 45%;overflow:hidden;
     border:5px solid var(--groen);box-shadow:0 26px 60px rgba(25,43,27,.18);
     animation:blob 14s ease-in-out infinite}
-.hero-koe video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(1.03)}
+.koefilm video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(1.03)}
+.koefilm figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.45)}
 @keyframes blob{0%,100%{border-radius:47% 53% 51% 49% / 55% 47% 53% 45%}50%{border-radius:52% 48% 46% 54% / 48% 55% 45% 52%}}
-@media (max-width:980px){.hero-koe{display:none}}
-@media (prefers-reduced-motion:reduce){.hero-koe{animation:none}}
+body.koe-donker .koe{--koe-lijn:var(--creme)}
+.koe svg *{transition:stroke .35s ease,fill .35s ease}
 .hero .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
 .badge{font-family:var(--merk);font-weight:500;font-size:15px;padding:9px 20px;border-radius:99px;border:2px solid var(--groen)}
 .badge.b1{background:var(--groen);color:var(--papier)}
@@ -175,7 +177,6 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 <main id="top">
 
     <section class="blok hero">
-        <div class="hero-koe" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/grazende-koe.mp4"></video></div>
         <div class="binnen">
             <div class="kicker">Ruminate AI &middot; slim voeren, per koe</div>
             <h1>Elke koe<br>haar <span class="r">eigen</span><br>rantsoen<span class="r">.</span></h1>
@@ -187,6 +188,11 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
             </div>
         </div>
     </section>
+
+    <figure class="koefilm" aria-label="Grazende koe">
+        <div class="kader"><video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/grazende-koe.mp4"></video></div>
+        <figcaption>Elke koe haar eigen rantsoen</figcaption>
+    </figure>
 
     <section class="blok" id="probleem">
         <div class="binnen">
@@ -331,7 +337,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 <script>
 /* rustig aan bij reduced motion */
 (function(){
-    var v=document.querySelector('.hero-koe video');
+    var v=document.querySelector('.koefilm video');
     if(!v)return;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){
         v.removeAttribute('autoplay');v.pause();
@@ -353,6 +359,9 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
         var y=56;
         var op=donker.some(function(d){var r=d.getBoundingClientRect();return r.top<y&&r.bottom>y;});
         kop.classList.toggle('op-donker',op);
+        var yk=innerHeight-60; /* de zone waar de koe loopt */
+        var koeOp=donker.some(function(d){var r=d.getBoundingClientRect();return r.top<yk&&r.bottom>yk;});
+        document.body.classList.toggle('koe-donker',koeOp);
     }
     addEventListener('scroll',check,{passive:true});check();
 })();

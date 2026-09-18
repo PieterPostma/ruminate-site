@@ -48,17 +48,17 @@ nav a{font-family:var(--merk);font-weight:500;font-size:var(--t-body);letter-spa
 nav a:hover{background:var(--rood);color:var(--papier)}
 
 .blok{padding:16vh 5vw;position:relative}
-.blok.donker{background:var(--groen);color:var(--creme);border-radius:38px;margin:0 10px}
-.blok.rood-blok{background:#a85a52;color:var(--papier);border-radius:38px;margin:0 10px}
+.blok.donker{background:var(--groen);color:var(--creme);border-radius:38px;margin:16px 10px}
+.blok.rood-blok{background:#a85a52;color:var(--papier);border-radius:38px;margin:16px 10px}
 .binnen{max-width:1160px;margin:0 auto}
-.kicker{font-family:var(--mono);font-size:var(--t-label);line-height:1.4;letter-spacing:.18em;text-transform:uppercase;color:var(--rood);margin-bottom:20px}
+.kicker{font-family:var(--mono);font-size:var(--t-label);line-height:1.4;letter-spacing:.18em;text-transform:uppercase;color:var(--rood);margin-bottom:28px}
 .donker .kicker{color:var(--sage)} .rood-blok .kicker{color:rgba(232,228,214,.7)}
 h1,h2{font-family:var(--merk);font-weight:600}
 h1{font-size:var(--t-display);line-height:1.02;letter-spacing:-.02em}
 h2{font-size:var(--t-h2);line-height:1.08;letter-spacing:-.015em;max-width:14em}
 h1 .r,h2 .r{color:var(--rood)} .donker h2 .r{color:#e0847d}
 h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
-.intro{font-size:var(--t-body-l);line-height:1.6;max-width:36em;margin-top:24px;color:rgba(25,43,27,.72)}
+.intro{font-size:var(--t-body-l);line-height:1.6;max-width:36em;margin-top:28px;color:rgba(25,43,27,.72)}
 .donker .intro{color:rgba(212,207,191,.72)} .rood-blok .intro{color:rgba(232,228,214,.85)}
 
 /* hero */
@@ -95,10 +95,10 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .kaart.som b{font-size:var(--t-cijfer);flex:none}
 .kaart.som span{margin-top:0;max-width:44em}
 .kaart.som strong{font-weight:500;color:#e8e4d6}
-.bron{margin-top:20px;font-family:var(--mono);font-size:var(--t-label-s);line-height:1.5;letter-spacing:.12em;color:rgba(212,207,191,.4)}
+.bron{margin-top:40px;font-family:var(--mono);font-size:var(--t-label-s);line-height:1.5;letter-spacing:.12em;color:rgba(212,207,191,.4)}
 
 /* de lat, speels */
-.lat{display:grid;grid-template-columns:1.6fr 1fr 1.6fr;gap:12px;margin-top:52px}
+.lat{display:grid;grid-template-columns:1.6fr 1fr 1.6fr;gap:12px;margin-top:56px}
 .lat>div{border-radius:20px;padding:22px 24px}
 .lat .links{background:#e9bd4f;color:var(--groen)}
 .lat .midden{background:var(--sage);color:var(--groen)}
@@ -114,14 +114,14 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .stap:nth-child(3) .nr{background:var(--sage-d)}
 .stap h3{font-family:var(--merk);font-weight:600;font-size:var(--t-h3);line-height:1.25;letter-spacing:-.01em;margin-top:18px}
 .stap p{font-size:var(--t-body);line-height:1.55;color:rgba(25,43,27,.7);margin-top:8px}
-.stap ul{list-style:none;margin-top:14px}
-.stap li{font-size:var(--t-body-s);line-height:1.55;padding:7px 0;border-top:1px dashed rgba(25,43,27,.18);color:rgba(25,43,27,.75)}
+.stap ul{list-style:none;margin-top:20px}
+.stap li{font-size:var(--t-body-s);line-height:1.55;padding:10px 0;border-top:1px dashed rgba(25,43,27,.18);color:rgba(25,43,27,.75)}
 .stap li b{font-weight:500;color:var(--groen)}
-.oogst{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
+.oogst{display:flex;gap:12px;margin-top:56px;flex-wrap:wrap}
 .oogst div{font-family:var(--merk);font-weight:600;font-size:1.0625rem;letter-spacing:.01em;padding:12px 24px;border-radius:99px;background:var(--sage-d);color:var(--papier)}
 
 /* demo speels */
-.demo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
 .demopaneel{border-radius:26px;padding:34px 30px;background:rgba(232,228,214,.08);border:1px solid rgba(212,207,191,.16)}
 .demopaneel h3{font-family:var(--merk);font-weight:600;font-size:var(--t-h3);line-height:1.25;letter-spacing:-.01em}
 .demopaneel .noot{font-size:var(--t-body-s);line-height:1.5;color:rgba(212,207,191,.55);margin-bottom:22px}
@@ -132,7 +132,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .balkrij .n{font-family:var(--merk);font-weight:600;font-size:1.0625rem;text-align:right;color:var(--creme)}
 
 /* pilot in het rode blok */
-.pilotkaarten{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:52px}
+.pilotkaarten{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:56px}
 .pk{background:rgba(232,228,214,.12);border-radius:26px;padding:32px 28px}
 .pk .nr{font-family:var(--merk);font-weight:700;font-size:2.5rem;line-height:1;color:var(--papier)}
 .pk h3{font-family:var(--merk);font-weight:600;font-size:var(--t-h3);line-height:1.25;letter-spacing:-.01em;margin-top:12px}
@@ -140,8 +140,8 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .pk.gratis{background:var(--papier);color:var(--groen)}
 .pk.gratis .nr{color:var(--sage-d)}
 .pk.gratis p{color:rgba(25,43,27,.7)}
-.citaat{margin-top:52px;font-family:var(--merk);font-weight:500;font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.4;letter-spacing:-.005em;max-width:26em}
-.knop{display:inline-block;margin-top:44px;font-family:var(--merk);font-weight:600;font-size:1.1875rem;letter-spacing:.01em;background:var(--groen);color:var(--papier);padding:16px 36px;border-radius:99px;text-decoration:none;transition:transform .2s}
+.citaat{margin-top:64px;font-family:var(--merk);font-weight:500;font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.4;letter-spacing:-.005em;max-width:26em}
+.knop{display:inline-block;margin-top:56px;font-family:var(--merk);font-weight:600;font-size:1.1875rem;letter-spacing:.01em;background:var(--groen);color:var(--papier);padding:16px 36px;border-radius:99px;text-decoration:none;transition:transform .2s}
 .knop:hover{transform:scale(1.04) rotate(-1deg)}
 .knop-mail{margin-top:14px;font-family:var(--mono);font-size:var(--t-body-s);letter-spacing:.04em}
 .knop-mail a{color:var(--papier);text-decoration:none;border-bottom:1px solid rgba(232,228,214,.45)}
@@ -161,7 +161,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 
 /* voet */
 .voet{background:var(--groen);color:var(--creme);border-radius:38px 38px 0 0;margin:10vh 10px 0;padding:14vh 5vw 20vh}
-.voet .contact{display:flex;gap:40px;flex-wrap:wrap;margin-top:44px;font-family:var(--mono);font-size:var(--t-body-s);line-height:1.7}
+.voet .contact{display:flex;gap:40px;flex-wrap:wrap;margin-top:56px;font-family:var(--mono);font-size:var(--t-body-s);line-height:1.7}
 .voet .contact a{color:var(--creme);text-decoration:none;border-bottom:1px solid rgba(212,207,191,.35)}
 .voet .contact b{display:block;font-family:var(--sans);font-weight:400;font-size:var(--t-body);margin-bottom:6px;color:rgba(212,207,191,.75)}
 .voet img.logo{height:42px;margin-top:64px;opacity:.92}
@@ -287,7 +287,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             <div class="kicker">Het product &middot; live</div>
             <h2 class="reveal">Dit is de <span class="r">cockpit</span>.</h2>
             <p class="intro reveal">De koppel in &eacute;&eacute;n oogopslag, per koe haar signalen en een concreet voeradvies. Klik gerust rond: demo met voorbeelddata.</p>
-            <div class="product-rij reveal" style="margin-top:48px">
+            <div class="product-rij reveal" style="margin-top:56px">
                 <div id="cockpit"></div>
                 <figure class="product-film" aria-label="Koeien aan het voerhek">
                     <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/koeien-eten.mp4"></video>

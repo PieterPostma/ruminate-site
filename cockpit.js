@@ -166,17 +166,19 @@
     function gauge(k) {
         var W = 560, H = 74, links = 10, rechts = W - 10;
         function X(afst) { var t = (afst + 1.6) / 3.2; return links + Math.max(0, Math.min(1, t)) * (rechts - links); }
-        var g1 = X(-0.3), g2 = X(0.3), x = X(k.afst);
-        var kleur = k.afst > 0.3 ? '#c8524a' : (k.afst < -0.3 ? '#e9bd4f' : '#7ba58a');
+        var g1 = X(-0.3), g2 = X(0.3), g3 = X(0.8), x = X(k.afst);
+        var kleur = k.afst > 0.8 ? '#c8524a' : (Math.abs(k.afst) <= 0.3 ? '#7ba58a' : '#e9bd4f');
         return '<svg viewBox="0 0 ' + W + ' ' + H + '">' +
             '<rect x="' + links + '" y="18" width="' + (g1 - links) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
             '<rect x="' + g1 + '" y="18" width="' + (g2 - g1) + '" height="22" rx="4" fill="rgba(123,165,138,.4)"/>' +
-            '<rect x="' + g2 + '" y="18" width="' + (rechts - g2) + '" height="22" rx="4" fill="rgba(200,82,74,.3)"/>' +
+            '<rect x="' + g2 + '" y="18" width="' + (g3 - g2) + '" height="22" rx="4" fill="rgba(233,189,79,.28)"/>' +
+            '<rect x="' + g3 + '" y="18" width="' + (rechts - g3) + '" height="22" rx="4" fill="rgba(200,82,74,.3)"/>' +
             '<line x1="' + ((g1 + g2) / 2) + '" y1="12" x2="' + ((g1 + g2) / 2) + '" y2="46" stroke="rgba(212,207,191,.5)" stroke-dasharray="3 4" stroke-width="1"/>' +
             '<circle cx="' + x.toFixed(1) + '" cy="29" r="8" fill="' + kleur + '" stroke="#e8e4d6" stroke-width="2"/>' +
-            '<text x="' + links + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5">TE WEINIG KRACHTVOER</text>' +
+            '<text x="' + links + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5">TE WEINIG</text>' +
             '<text x="' + ((g1 + g2) / 2) + '" y="62" fill="rgba(123,165,138,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="middle">OPTIMUM</text>' +
-            '<text x="' + rechts + '" y="62" fill="rgba(224,132,125,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="end">TE VEEL &#183; VERZUURT</text>' +
+            '<text x="' + ((g2 + g3) / 2) + '" y="62" fill="rgba(233,189,79,.85)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="middle">TE VEEL</text>' +
+            '<text x="' + rechts + '" y="62" fill="rgba(224,132,125,.9)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" text-anchor="end">VERZUURT</text>' +
             '</svg>';
     }
 

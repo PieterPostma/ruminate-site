@@ -18,8 +18,8 @@
         '.koe.loopt .p1,.koe.loopt .p3{animation:koe-stap .5s ease-in-out infinite;}',
         '.koe.loopt .p2,.koe.loopt .p4{animation:koe-stap .5s ease-in-out infinite -.25s;}',
         '.koe.loopt .lijf{animation:koe-bob .25s ease-in-out infinite;}',
-        '.koe .kop{transform-box:fill-box;transform-origin:10% 85%;transition:transform .9s cubic-bezier(.45,0,.2,1);}',
-        '.koe.graast .kop{transform:rotate(50deg);}',
+        '.koe .kop{transform-box:fill-box;transform-origin:3% 62%;transition:transform 1.1s cubic-bezier(.45,0,.2,1);}',
+        '.koe.graast .kop{transform:translate(2px,10px) rotate(68deg);}',
         '.koe.graast .snuit{animation:koe-kauw 1.05s ease-in-out infinite;}',
         '.koe .staart{transform-box:fill-box;transform-origin:85% 8%;animation:koe-staart 3.4s ease-in-out infinite;}',
         '@keyframes koe-stap{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}',
@@ -34,17 +34,17 @@
 '<svg viewBox="0 0 230 150" xmlns="http://www.w3.org/2000/svg">' +
 '<g class="spiegel">' +
 '<g fill="none" stroke="var(--koe-lijn,#192b1b)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
-  // achterpoten
-'  <g class="poot p1"><path d="M64 91 L62 112 L63 131 M58 131 h11"/></g>' +
-'  <g class="poot p2"><path d="M80 92 L79 113 L80 131 M75 131 h11"/></g>' +
+  // achterpoten (iets korter, zodat de kop bij het grazen de grond haalt)
+'  <g class="poot p1"><path d="M64 91 L62 108 L63 124 M58 124 h11"/></g>' +
+'  <g class="poot p2"><path d="M80 92 L79 109 L80 124 M75 124 h11"/></g>' +
   // voorpoten
-'  <g class="poot p3"><path d="M136 92 L137 113 L137 131 M132 131 h11"/></g>' +
-'  <g class="poot p4"><path d="M152 90 L154 112 L154 131 M149 131 h11"/></g>' +
+'  <g class="poot p3"><path d="M136 92 L137 109 L137 124 M132 124 h11"/></g>' +
+'  <g class="poot p4"><path d="M152 90 L154 108 L154 124 M149 124 h11"/></g>' +
 '  <g class="lijf">' +
      // staart met pluim
-'    <g class="staart"><path d="M52 46 C 45 60 43 78 46 96 M46 96 c -2 5 -1 10 2 14"/></g>' +
-     // romp: kruis, rug met lichte deuk, schoft, nek, borst, buik, achterhand
-'    <path d="M52 44 C 54 37 63 33 74 32 C 96 29 122 29 142 32 C 152 33 162 34 172 33 L 178 44 C 172 56 166 66 162 76 C 158 85 150 90 138 92 C 116 96 94 96 78 93 C 64 90 55 82 53 70 C 51 60 51 51 52 44 Z"/>' +
+'    <g class="staart"><path d="M52 46 C 45 58 43 74 46 90 M46 90 c -2 5 -1 9 2 13"/></g>' +
+     // romp: kruis, rug met lichte deuk, schoft, borst, buik, achterhand
+'    <path d="M52 44 C 54 37 63 33 74 32 C 96 29 122 29 142 32 C 150 33 158 34 165 34 L 172 45 C 168 56 164 66 162 76 C 158 85 150 90 138 92 C 116 96 94 96 78 93 C 64 90 55 82 53 70 C 51 60 51 51 52 44 Z"/>' +
      // heupbot
 '    <path d="M62 35 l 4 6" stroke-width="3.2"/>' +
      // uier met spenen
@@ -54,23 +54,29 @@
 '    <path d="M96 32 C 87 48 95 63 115 61 C 133 59 138 44 128 31 Z" fill="var(--koe-lijn,#192b1b)" opacity=".16" stroke="none"/>' +
 '    <path d="M60 50 C 55 62 59 74 71 72 C 80 70 80 56 74 47 Z" fill="var(--koe-lijn,#192b1b)" opacity=".16" stroke="none"/>' +
 '    <path d="M148 40 C 143 48 146 57 155 56 C 162 55 163 45 158 39 Z" fill="var(--koe-lijn,#192b1b)" opacity=".12" stroke="none"/>' +
-     // kop (draait bij grazen)
+     // hals + kop (draait vanaf de schoft bij het grazen)
 '    <g class="kop">' +
-       // schedel en neusrug naar snuit
-'      <path d="M172 30 C 180 26 188 26 194 31 C 203 36 211 44 216 51"/>' +
+       // halslijnen vanaf de schoft
+'      <path d="M158 35 C 165 31 171 28 177 26"/>' +
+'      <path d="M170 60 C 178 56 186 53 194 51"/>' +
+       // schedel en neusrug naar de snuit
+'      <path d="M177 26 C 186 22 194 23 200 28 C 210 35 219 45 224 53"/>' +
 '      <g class="snuit">' +
-'        <path d="M216 51 C 218 55 215 59 209 59 C 202 60 196 57 192 52"/>' +
-'        <path d="M211 53 l 0 .1" stroke-width="4.5"/>' +
+'        <path d="M224 53 C 226 58 222 62 215 62 C 207 62 201 58 197 53"/>' +
+'        <path d="M218 56 l 0 .1" stroke-width="4.5"/>' +
+'        <path d="M213 60 C 209 61 205 60 202 58" stroke-width="2.8"/>' +
 '      </g>' +
-       // kaaklijn terug naar de nek
-'      <path d="M192 52 C 186 49 181 45 178 40"/>' +
+       // kaaklijn en wang
+'      <path d="M197 53 C 190 50 184 44 180 38"/>' +
        // oog
-'      <circle cx="193" cy="37" r="1.8" fill="var(--koe-lijn,#192b1b)" stroke="none"/>' +
-       // twee oren
-'      <path d="M176 29 C 171 24 164 23 159 26 C 163 30 170 31 176 29 Z"/>' +
-'      <path d="M185 27 C 183 21 177 17 172 19 C 175 24 180 27 185 27 Z"/>' +
-       // tittel-vlek (knipoog naar het logo)
-'      <circle cx="192" cy="27" r="4" fill="var(--koe-accent,#c8524a)" stroke="none"/>' +
+'      <circle cx="197" cy="36" r="2" fill="var(--koe-lijn,#192b1b)" stroke="none"/>' +
+       // horens (lier-vormig omhoog)
+'      <path d="M187 25 C 185 18 188 12 195 10" stroke-width="3.3"/>' +
+'      <path d="M197 26 C 198 18 204 13 211 13" stroke-width="3.3"/>' +
+       // oor opzij onder de horens
+'      <path d="M184 27 C 179 21 172 19 167 22 C 171 27 178 29 184 27 Z"/>' +
+       // tittel-vlek tussen de horens (knipoog naar het logo)
+'      <circle cx="192" cy="20" r="3.5" fill="var(--koe-accent,#c8524a)" stroke="none"/>' +
 '    </g>' +
 '  </g>' +
 '</g></g></svg>';

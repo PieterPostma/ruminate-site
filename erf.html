@@ -80,6 +80,10 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .kaart b{display:block;font-family:var(--merk);font-weight:700;font-size:clamp(40px,3.6vw,58px);line-height:1;color:#e0847d}
 .kaart.s b{color:var(--sage)}
 .kaart span{display:block;margin-top:14px;font-size:15px;color:rgba(212,207,191,.7)}
+.kaart.som{grid-column:1/-1;display:flex;align-items:center;gap:26px;flex-wrap:wrap;border-color:rgba(224,132,125,.4)}
+.kaart.som b{font-size:clamp(34px,3vw,48px);flex:none}
+.kaart.som span{margin-top:0;max-width:44em}
+.kaart.som strong{font-weight:500;color:#e8e4d6}
 .bron{margin-top:20px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(212,207,191,.4)}
 
 /* de lat, speels */
@@ -129,11 +133,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .knop{display:inline-block;margin-top:44px;font-family:var(--merk);font-weight:600;font-size:19px;background:var(--groen);color:var(--papier);padding:16px 36px;border-radius:99px;text-decoration:none;transition:transform .2s}
 .knop:hover{transform:scale(1.04) rotate(-1deg)}
 
-/* partners + team */
-.partners{display:flex;gap:14px;flex-wrap:wrap;margin-top:48px}
-.partners div{border:2px dashed rgba(25,43,27,.3);border-radius:20px;padding:22px 26px;min-width:230px;flex:1}
-.partners b{font-family:var(--merk);font-weight:600;font-size:20px;display:block}
-.partners span{font-size:14px;color:rgba(25,43,27,.65)}
+/* team */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:56px}
 .lid{background:#efecdf;border-radius:26px;overflow:hidden;border:2px solid rgba(25,43,27,.08)}
 .lid img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:saturate(.85)}
@@ -208,7 +208,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             <div class="lat reveal">
                 <div class="links"><h4>Te weinig krachtvoer</h4><p>Melk blijft liggen.</p></div>
                 <div class="midden"><h4>Optimaal</h4><p>Smal, en per koe anders.</p></div>
-                <div class="rechts"><h4>Te veel</h4><p>Pens verzuurt, &eacute;n korter leven.</p></div>
+                <div class="rechts"><h4>Te veel krachtvoer</h4><p>Pens verzuurt: lagere melkopbrengst &eacute;n korter leven.</p></div>
             </div>
         </div>
     </section>
@@ -221,6 +221,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                 <div class="kaart"><b>~3&nbsp;kg</b><span>minder melk per dag, per aangedane koe</span></div>
                 <div class="kaart"><b>&euro;200&ndash;400</b><span>schade per aangedane koe, per jaar</span></div>
                 <div class="kaart"><b>11&ndash;26%</b><span>van de melkkoeien heeft SARA, vaak onzichtbaar</span></div>
+                <div class="kaart som"><b>&plusmn;&nbsp;&euro;6.000</b><span><strong>Reken het door voor een bedrijf met 100 koeien:</strong> zo&#39;n 20 koeien met pensverzuring &times; &euro;200&ndash;400 schade per koe. Dan loopt de schade al snel richting de &euro;6.000 per jaar, nog los van vervroegde afvoer.</span></div>
             </div>
             <div class="bron">Bron: NL veldstudies &amp; inductieproeven, o.a. Kleen 2009; Khafipour 2009.</div>
         </div>
@@ -229,7 +230,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     <section class="blok" id="hoe">
         <div class="binnen">
             <div class="kicker">Hoe het werkt</div>
-            <h2 class="reveal">De data is er al. Wij leren <span class="s">ervan</span>.</h2>
+            <h2 class="reveal">De data is er al. Wij maken haar <span class="s">inzichtelijk</span>.</h2>
             <div class="stappen reveal">
                 <div class="stap"><div class="nr">1</div><h3>Lezen</h3><p>Wat het bedrijf al elke dag vastlegt:</p>
                     <ul><li><b>Halsband</b>: herkauwtijd, activiteit</li><li><b>Melkrobot</b>: melkgift, krachtvoerrest</li><li><b>Melkcontrole</b>: vet, eiwit, ureum</li><li><b>Veeregistratie</b>: lactatie, historie</li></ul></div>
@@ -286,7 +287,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
         <div class="binnen">
             <div class="kicker">Pilotprogramma</div>
             <h2 class="reveal">We zijn net gestart. Er is nog <u>plek</u>.</h2>
-            <p class="intro reveal">Het pilotprogramma loopt en er is nog ruimte voor enkele boeren om deel te nemen. Het kost je niets.</p>
+            <p class="intro reveal">Het pilotprogramma loopt en er zijn op dit moment nog enkele plekken beschikbaar. Het kost je niets.</p>
             <div class="pilotkaarten reveal">
                 <div class="pk"><div class="nr">1</div><h3>Wij komen langs</h3><p>Wij leggen zelf de koppelingen met je melkrobot, managementsysteem en CRV.</p></div>
                 <div class="pk"><div class="nr">2</div><h3>Jouw data blijft van jou</h3><p>Vertrouwelijk, vastgelegd in een NDA.</p></div>
@@ -294,19 +295,6 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             </div>
             <div class="citaat reveal">&bdquo;Denk ChatGPT, maar dan gevoed met de data van jouw koeien. Een second opinion voor jou &eacute;n je voeradviseur.&rdquo;</div>
             <a class="knop" href="#contact">Meld je bedrijf aan &rarr;</a>
-        </div>
-    </section>
-
-    <section class="blok" id="partners">
-        <div class="binnen">
-            <div class="kicker">Kennispartners</div>
-            <h2 class="reveal">Samen bouwen aan het <span class="s">consortium</span>.</h2>
-            <p class="intro reveal">Rantsoen optimaliseren voor melkgift, methaan &eacute;n diergezondheid doen we samen: binnen het NADI-programma bouwen we een consortium van praktijk, lab en wetenschap.</p>
-            <div class="partners reveal">
-                <div><b>NADI</b><span>Nationaal Agentschap voor Disruptieve Innovatie</span></div>
-                <div><b>Holomicrobioom Innovatie Instituut</b><span>microbi&euml;le fermentatie in de pens</span></div>
-                <div><b>Meer partners</b><span>praktijkdata, lab of kanaal naar de boer</span></div>
-            </div>
         </div>
     </section>
 

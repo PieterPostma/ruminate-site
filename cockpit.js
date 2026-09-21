@@ -182,7 +182,7 @@
         '.ck-gauge-legende .lg-groen{color:rgba(123,165,138,.9)}',
         '.ck-gauge-legende .lg-rood{color:rgba(224,132,125,.9)}',
         /* koppeladvies onderin */
-        '.ck-koppel{border-top:1px solid rgba(212,207,191,.14);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}',
+        '.ck-koppel{padding:16px 18px;display:flex;gap:12px;align-items:flex-start}',
         '.ck-koppel .ico{flex:none;font-size:15px;line-height:1.5}',
         '.ck-koppel div{font-size:13.5px;line-height:1.55;color:rgba(212,207,191,.75)}',
         '.ck-koppel h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#b8a472}',
@@ -254,8 +254,6 @@
             '    </div>' +
             '    <div class="ck-detail" id="ckDetail"></div>' +
             '  </div>' +
-            '  <div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1"><h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; per groep, aan het voerhek</h6>' +
-            '<div id="ckKoppelTekst"></div></div></div>' +
             '  <div class="ck-voetnoot">demo-omgeving met voorbeelddata &middot; in productie gekoppeld aan melkrobot, halsband en CRV</div>' +
             '</div>';
 
@@ -314,30 +312,40 @@
                 '</div>';
         }
 
-        /* koppeladvies: het ruwvoer-weekplan op groepsniveau, gestuurd door het koppelbeeld */
+        /* koppeladvies: eigen blok buiten de cockpit, voor de hele koppel */
         (function () {
-            var el = wortel.querySelector('#ckKoppelTekst');
-            var teLaag = koeien.filter(function (k) { return k.status === 'let-op' && k.afst < 0; }).length;
+            var doel = document.getElementById('koppeladvies');
+            if (!doel) return;
             var plan = [
                 { week: weeknr(0), titel: 'Structuur en buffer omhoog',
-                  tekst: 'Met ' + nZuur + ' koeien in de rode zone: +1 kg hooi of stro per koe per dag door het basisrantsoen, zetmeel iets terug en pensbuffer bijvoeren.',
-                  chips: [[nZuur + ' koeien rood', 'rood'], ['structuur +', 'geel'], ['zetmeel −', 'geel'], ['buffer', 'geel']] },
+                  tekst: 'Verhoog het structuuraandeel: +1 kg hooi of stro per koe per dag door het basisrantsoen, zetmeel iets terug en pensbuffer bijvoeren.',
+                  chips: [['structuur +', 'geel'], ['zetmeel −', 'geel'], ['buffer', 'geel']] },
                 { week: weeknr(1), titel: 'Herbeoordelen en energie',
-                  tekst: 'Zakt de risicogroep onder de 3 koeien, dan terug naar het basisrantsoen. Voor de ' + teLaag + ' koe(ien) onder haar kunnen: +0,5 kg maïs voor de hoogproductieve groep overwegen.',
-                  chips: [['risico < 3 koeien', 'groen'], ['maïs +0,5 kg', 'geel'], ['melkcontrole', 'goud']] }
+                  tekst: 'Bij herstel terug naar het basisrantsoen. Overweeg +0,5 kg maïs voor de hoogproductieve groep; neem vet, eiwit en ureum mee uit de melkcontrole.',
+                  chips: [['maïs +0,5 kg', 'geel'], ['melkcontrole', 'goud']] }
             ];
-            el.innerHTML = plan.map(function (w) {
-                return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">Week ' + w.week + '</span><b>' + w.titel + '</b></div>' +
-                    '<p>' + w.tekst + '</p><div class="ck-chips">' +
-                    w.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
-                    '</div></div>';
-            }).join('') +
+            doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
+                '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; voor de hele koppel, aan het voerhek</h6>' +
+                plan.map(function (w) {
+                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">Week ' + w.week + '</span><b>' + w.titel + '</b></div>' +
+                        '<p>' + w.tekst + '</p><div class="ck-chips">' +
+                        w.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
+                        '</div></div>';
+                }).join('') +
                 '<div class="ck-deel"><h6>Doorzetten</h6>' +
                 '<button class="ck-deelknop" type="button">Deel weekplan met je voeradviseur</button>' +
                 '<button class="ck-deelknop lev" type="button">Bestel via Mengvoeders van der Weide</button>' +
                 '<button class="ck-deelknop lev" type="button">Bestel via VoerLink Noord</button>' +
                 '<span class="ck-chip goud">integraties &middot; binnenkort</span></div>' +
-                '<small>o.b.v. ' + koeien.length + ' koeien &middot; bespreek wijzigingen met je voeradviseur</small>';
+                '<small>bespreek wijzigingen met je voeradviseur</small>' +
+                '</div></div></div>';
+            doel.querySelector('.ck').addEventListener('click', function (e) {
+                var b = e.target.closest('.ck-deelknop'); if (!b) return;
+                toast.textContent = 'Demo · deze koppeling bouwen we samen met de pilotbedrijven';
+                toast.classList.add('aan');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(function () { toast.classList.remove('aan'); }, 2400);
+            });
         })();
 
         function alles() { tekenLijst(); tekenDetail(); }

@@ -63,7 +63,12 @@
         if (k.status === 'zuur') return { signalen: signalen,
             kv: { delta: -0.8, titel: 'Opbouw pauzeren',
                   reden: 'Melkgift onder haar basislijn en herkauwtijd gezakt: het patroon van beginnende pensverzuring. Eerst de pens tot rust, dan stapsgewijs terug.' },
-            actie: 'Vandaag −0,8 kg via de robot; daarna in kleine stappen terug opbouwen. Overweeg haar tijdelijk hooi bij te zetten.'
+            actie: 'Vandaag −0,8 kg via de robot; daarna in kleine stappen terug opbouwen.',
+            apart: {
+                titel: 'Zet haar vandaag apart',
+                tekst: 'In de herstelgroep (strohok) kan zij wél individueel ruwvoer krijgen: onbeperkt hooi, structuurrijke kuil en pensbuffer. Zo komt de pens sneller tot rust.',
+                chips: [['strohok', 'rood'], ['onbeperkt hooi', 'geel'], ['buffer', 'geel'], ['terug bij herkauw-herstel', 'groen']]
+            }
         };
         if (k.status === 'let-op' && k.afst > 0) return { signalen: signalen,
             kv: { delta: -1.0, titel: 'Portie verlagen',
@@ -119,6 +124,8 @@
         '.ck-voer{display:grid;grid-template-columns:1fr 1fr;gap:13px}',
         '.ck-vkaart{border-radius:9px;padding:13px 15px;border:1px solid rgba(200,82,74,.5);background:rgba(200,82,74,.07)}',
         '.ck-vkaart.rv{border-color:rgba(184,164,114,.45);background:rgba(184,164,114,.07)}',
+        '.ck-vkaart.apart{border-color:#c8524a;background:rgba(200,82,74,.12);box-shadow:0 0 24px rgba(200,82,74,.18)}',
+        '.ck-vkaart.apart h5{color:#e0847d}',
         '.ck-vkaart h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#e0847d}',
         '.ck-vkaart.rv h5{color:#b8a472}',
         '.ck-vkaart .cijfer{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}',
@@ -286,11 +293,21 @@
                 '<span class="ck-badge ' + k.status + '">' + lbl[k.status] + '</span></div>' +
                 '<div class="ck-chips">' + chips + '</div>' +
                 '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
-                '<div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
-                '  <div class="cijfer">' + cijfer + '</div>' +
-                '  <div class="titel">' + a.kv.titel + '</div>' +
-                '  <p class="reden">' + a.kv.reden + '</p>' +
-                '  <div class="ck-actie"><h6>Vandaag &middot; automatisch</h6><p>' + a.actie + '</p></div></div>' +
+                (function () {
+                    var kvKaart = '<div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
+                        '  <div class="cijfer">' + cijfer + '</div>' +
+                        '  <div class="titel">' + a.kv.titel + '</div>' +
+                        '  <p class="reden">' + a.kv.reden + '</p>' +
+                        '  <div class="ck-actie"><h6>Vandaag &middot; automatisch</h6><p>' + a.actie + '</p></div></div>';
+                    if (!a.apart) return kvKaart;
+                    var apartKaart = '<div class="ck-vkaart apart"><h5>&#9888; Apart zetten &middot; herstelgroep</h5>' +
+                        '  <div class="titel">' + a.apart.titel + '</div>' +
+                        '  <p class="reden">' + a.apart.tekst + '</p>' +
+                        '  <div class="ck-chips" style="margin-top:8px">' +
+                        a.apart.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
+                        '</div></div>';
+                    return '<div class="ck-voer">' + kvKaart + apartKaart + '</div>';
+                })() +
                 '<div class="ck-grafieken">' +
                 '  <div class="ck-paneel"><h5>Melkgift &middot; 14 dagen &middot; stippellijn = basislijn</h5>' + spark(k.melk, k.basis, k.status === 'zuur' ? '#c8524a' : '#7ba58a', mMin, mMax) + '</div>' +
                 '  <div class="ck-paneel"><h5>Herkauwtijd &middot; min/dag</h5>' + spark(k.herkauw, null, '#b8a472', hMin, hMax) + '</div>' +

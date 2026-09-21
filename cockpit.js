@@ -43,37 +43,34 @@
         return koeien;
     }
 
-    /* ---------- voeradvies: krachtvoer per koe, ruwvoer per groep ---------- */
+    /* ---------- voeradvies: kort, met de reden als datachips ---------- */
     function advies(k) {
-        var lh = Math.round(k.herkauw[13]);
-        var voornaam = k.naam;
-        if (k.status === 'zuur') return {
-            kv: { delta: -0.8, titel: 'Terug naar ' + (k.kv - 0.8).toFixed(1).replace('.', ',') + ' kg/dag, opbouw pauzeren',
-                  uitleg: 'Melkgift onder haar basislijn, herkauwtijd gezakt naar ' + lh + ' min/dag: patroon van beginnende pensverzuring.' },
-            actie: 'Vandaag krijgt ' + voornaam + ' 0,8 kg minder dan haar standaardportie; de robot bouwt daarna in kleinere stappen weer op.',
-            rv: { titel: 'Extra structuur aan het voerhek',
-                  uitleg: 'Vandaag structuurrijk ruwvoer (hooi of stro) bijmengen; buffer overwegen zolang zij in de rode zone zit.' }
+        var md = k.melk[13] - k.basis, lh = Math.round(k.herkauw[13]);
+        function chip(t, kl) { return { t: t, kl: kl }; }
+        var signalen = [
+            chip('melk ' + (md >= 0 ? '+' : '−') + Math.abs(md).toFixed(1).replace('.', ',') + ' kg t.o.v. basislijn', md < -1 ? 'rood' : (md < -0.3 ? 'geel' : 'groen')),
+            chip('herkauw ' + lh + ' min', lh < 460 ? 'rood' : (lh < 490 ? 'geel' : 'groen')),
+            chip('rest ' + k.rest.toFixed(1).replace('.', ',') + ' kg', k.rest > 0.3 ? 'geel' : 'groen')
+        ];
+        if (k.status === 'zuur') return { signalen: signalen,
+            kv: { delta: -0.8, titel: 'Opbouw pauzeren' },
+            actie: 'Vandaag −0,8 kg via de robot; daarna in kleine stappen terug opbouwen.',
+            rv: { titel: 'Extra structuur (hooi/stro)', sub: 'buffer overwegen' }
         };
-        if (k.status === 'let-op' && k.afst > 0) return {
-            kv: { delta: -1.0, titel: 'Portie verlagen: −1,0 kg/dag',
-                  uitleg: 'Ze laat al drie dagen op rij zo’n ' + k.rest.toFixed(1).replace('.', ',') + ' kg krachtvoer liggen; de portie loopt vóór op wat zij opneemt.' },
-            actie: 'Vandaag krijgt ' + voornaam + ' 1,0 kg minder, omdat ze al 3 dagen op rij krachtvoer laat liggen.',
-            rv: { titel: 'Zetmeel niet verhogen',
-                  uitleg: 'Structuuraandeel van het basisrantsoen handhaven tot zij terug in de groene zone is.' }
+        if (k.status === 'let-op' && k.afst > 0) return { signalen: signalen,
+            kv: { delta: -1.0, titel: 'Portie verlagen' },
+            actie: 'Vandaag −1,0 kg: ze laat 3 dagen op rij krachtvoer liggen.',
+            rv: { titel: 'Zetmeel niet verhogen', sub: 'structuur handhaven' }
         };
-        if (k.status === 'let-op') return {
-            kv: { delta: 0.6, titel: 'Bijvoeren: +0,6 kg/dag, in twee stappen',
-                  uitleg: 'Melkgift blijft onder wat zij aankan; er ligt melk op tafel.' },
-            actie: 'Vandaag krijgt ' + voornaam + ' 0,6 kg extra boven op haar standaardportie krachtvoer.',
-            rv: { titel: 'Energiedichtheid controleren',
-                  uitleg: 'Check of het basisrantsoen genoeg energie biedt voor de hoogproductieve groep.' }
+        if (k.status === 'let-op') return { signalen: signalen,
+            kv: { delta: 0.6, titel: 'Bijvoeren, in twee stappen' },
+            actie: 'Vandaag +0,6 kg boven op haar standaardportie.',
+            rv: { titel: 'Energiedichtheid checken', sub: 'hoogproductieve groep' }
         };
-        return {
-            kv: { delta: 0, titel: 'Handhaven: ' + k.kv.toFixed(1).replace('.', ',') + ' kg/dag',
-                  uitleg: 'Melkgift en herkauwtijd binnen haar bandbreedte; herweging bij de melkcontrole.' },
-            actie: 'Geen wijziging: de robot verstrekt ' + voornaam + ' haar standaardportie.',
-            rv: { titel: 'Geen wijziging',
-                  uitleg: 'Basisrantsoen past bij deze groep.' }
+        return { signalen: signalen,
+            kv: { delta: 0, titel: 'Handhaven' },
+            actie: 'Vandaag de standaardportie; herweging bij de melkcontrole.',
+            rv: { titel: 'Geen wijziging', sub: 'rantsoen past' }
         };
     }
 
@@ -129,10 +126,17 @@
         '.ck-paneel{border:1px solid rgba(212,207,191,.12);border-radius:9px;padding:11px 13px;background:rgba(212,207,191,.03)}',
         '.ck-paneel h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
         '.ck-paneel svg{display:block;width:100%;height:64px}',
+        /* datachips: de reden en de actiepunten als meetwaarden */
+        '.ck-chips{display:flex;flex-wrap:wrap;gap:6px}',
+        '.ck-chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;padding:4px 10px;border-radius:99px;border:1px solid rgba(212,207,191,.25);color:rgba(212,207,191,.8);white-space:nowrap}',
+        '.ck-chip.groen{border-color:rgba(123,165,138,.55);color:#7ba58a}',
+        '.ck-chip.geel{border-color:rgba(233,189,79,.55);color:#e9bd4f}',
+        '.ck-chip.rood{border-color:rgba(200,82,74,.6);color:#e0847d}',
+        '.ck-chip.goud{border-color:rgba(184,164,114,.5);color:#b8a472;margin-top:8px}',
         /* hitte-alert bovenin */
-        '.ck-alert{display:flex;gap:12px;align-items:flex-start;padding:10px 18px;border-bottom:1px solid rgba(233,189,79,.35);background:rgba(233,189,79,.1);font-size:13px;line-height:1.5;color:rgba(212,207,191,.85)}',
-        '.ck-alert .ico{flex:none;font-size:15px;line-height:1.4}',
-        '.ck-alert b{font-weight:400;color:#e9bd4f}',
+        '.ck-alert{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 18px;border-bottom:1px solid rgba(233,189,79,.35);background:rgba(233,189,79,.1);font-size:12.5px;color:rgba(212,207,191,.85)}',
+        '.ck-alert .ico{flex:none;font-size:14px}',
+        '.ck-alert b{font-weight:400;color:#e9bd4f;margin-right:6px;white-space:nowrap}',
         /* actie van vandaag in de krachtvoerkaart */
         '.ck-actie{margin-top:9px;border-top:1px dashed rgba(212,207,191,.25);padding-top:8px}',
         '.ck-actie h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7ba58a}',
@@ -150,7 +154,7 @@
         '.ck-koppel .ico{flex:none;font-size:15px;line-height:1.5}',
         '.ck-koppel div{font-size:13.5px;line-height:1.55;color:rgba(212,207,191,.75)}',
         '.ck-koppel h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#b8a472}',
-        '.ck-koppel b{font-weight:400;color:#e8e4d6}',
+        '.ck-koppel small{display:block;margin-top:7px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.06em;color:rgba(212,207,191,.5)}',
         '.ck-voetnoot{padding:9px 18px;border-top:1px solid rgba(212,207,191,.12);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;color:rgba(212,207,191,.38)}',
         '@media (max-width:760px){.ck-romp{grid-template-columns:1fr}.ck-lijst{border-right:0;border-bottom:1px solid rgba(212,207,191,.14)}.ck-rijen{max-height:210px}.ck-grafieken,.ck-voer{grid-template-columns:1fr}.ck-kpis{width:100%;margin-left:0}}'
     ].join('\n');
@@ -202,8 +206,11 @@
             '    <span class="ck-merk">rum<i>&#305;</i>nate</span><span class="ck-tag">cockpit &middot; demobedrijf &middot; ' + koeien.length + ' koeien</span>' +
             '    <span class="ck-kpis"><span>optimum <b>' + nOk + '</b></span><span>aandacht <b class="g">' + nLet + '</b></span><span>risico <b class="r">' + nZuur + '</b></span></span>' +
             '  </div>' +
-            '  <div class="ck-alert" role="note"><span class="ico">&#9888;</span><span><b>Hitte-alert:</b> volgende week woensdag stijgt de temperatuur tot boven de 30&nbsp;&deg;C. ' +
-            'Controleer of de ventilatoren werken en bestel vast goed verteerbaar, smakelijk ruwvoer (bijv. luzerne of jong gemaaide kuil): bij hitte daalt de opname en stijgt het verzuringsrisico. Overweeg extra pensbuffer.</span></div>' +
+            '  <div class="ck-alert" role="note"><span class="ico">&#9888;</span>' +
+            '<b>Hitte-alert &middot; wo &gt;30&nbsp;&deg;C</b>' +
+            '<span class="ck-chip geel">ventilatoren checken</span>' +
+            '<span class="ck-chip geel">licht verteerbaar ruwvoer bestellen</span>' +
+            '<span class="ck-chip geel">pensbuffer klaarzetten</span></div>' +
             '  <div class="ck-romp">' +
             '    <div class="ck-lijst">' +
             '      <div class="ck-filters">' +
@@ -215,7 +222,7 @@
             '    </div>' +
             '    <div class="ck-detail" id="ckDetail"></div>' +
             '  </div>' +
-            '  <div class="ck-koppel"><span class="ico">&#127807;</span><div><h6>Koppeladvies &middot; basisrantsoen &middot; o.b.v. alle datapunten</h6>' +
+            '  <div class="ck-koppel"><span class="ico">&#127807;</span><div><h6>Koppeladvies &middot; basisrantsoen</h6>' +
             '<span id="ckKoppelTekst"></span></div></div>' +
             '  <div class="ck-voetnoot">demo-omgeving met voorbeelddata &middot; in productie gekoppeld aan melkrobot, halsband en CRV</div>' +
             '</div>';
@@ -248,17 +255,20 @@
                 ? '<b>' + k.kv.toFixed(1).replace('.', ',') + ' kg/dag</b><span class="delta nul">=</span>'
                 : '<b>' + k.kv.toFixed(1).replace('.', ',') + '</b><span class="pijl">&rarr;</span><b>' + doel.toFixed(1).replace('.', ',') + ' kg/dag</b>' +
                   '<span class="delta ' + deltaKlasse + '">' + deltaTekst + '</span>';
+            var chips = a.signalen.map(function (c) { return '<span class="ck-chip ' + c.kl + '">' + c.t + '</span>'; }).join('');
             detail.innerHTML =
-                '<div class="ck-dkop"><h4>' + k.naam + '</h4><span>krachtvoerrest ' + k.rest.toFixed(1).replace('.', ',') + ' kg</span>' +
+                '<div class="ck-dkop"><h4>' + k.naam + '</h4>' +
                 '<span class="ck-badge ' + k.status + '">' + lbl[k.status] + '</span></div>' +
+                '<div class="ck-chips">' + chips + '</div>' +
                 '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
                 '<div class="ck-voer">' +
-                '  <div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
+                '  <div class="ck-vkaart"><h5>Krachtvoer &middot; aan de robot</h5>' +
                 '    <div class="cijfer">' + cijfer + '</div>' +
-                '    <div class="titel">' + a.kv.titel + '</div><p>' + a.kv.uitleg + '</p>' +
-                '    <div class="ck-actie"><h6>Vandaag &middot; automatisch uitgevoerd door de melkrobot</h6><p>' + a.actie + '</p></div></div>' +
-                '  <div class="ck-vkaart rv"><h5>Ruwvoer &middot; per groep &middot; aan het voerhek</h5>' +
-                '    <div class="titel">' + a.rv.titel + '</div><p>' + a.rv.uitleg + '</p></div>' +
+                '    <div class="titel">' + a.kv.titel + '</div>' +
+                '    <div class="ck-actie"><h6>Vandaag &middot; automatisch</h6><p>' + a.actie + '</p></div></div>' +
+                '  <div class="ck-vkaart rv"><h5>Ruwvoer &middot; aan het voerhek</h5>' +
+                '    <div class="titel">' + a.rv.titel + '</div>' +
+                '    <span class="ck-chip goud">' + a.rv.sub + '</span></div>' +
                 '</div>' +
                 '<div class="ck-grafieken">' +
                 '  <div class="ck-paneel"><h5>Melkgift &middot; 14 dagen &middot; stippellijn = basislijn</h5>' + spark(k.melk, k.basis, k.status === 'zuur' ? '#c8524a' : '#7ba58a', mMin, mMax) + '</div>' +
@@ -266,13 +276,16 @@
                 '</div>';
         }
 
-        /* koppeladvies: een overkoepelend rantsoenadvies o.b.v. de hele koppel */
+        /* koppeladvies: kort, met de actiepunten als chips */
         (function () {
             var el = wortel.querySelector('#ckKoppelTekst');
-            var teLaag = koeien.filter(function (k) { return k.status === 'let-op' && k.afst < 0; }).length;
-            el.innerHTML = 'Gezien de staat van de koppel (' + nOk + ' op optimum, ' + nZuur + ' met verzuringsrisico, ' + teLaag + ' onder haar kunnen): ' +
-                'zorg voor voldoende <b>structuur (prikkelend NDF)</b> en een <b>stabiel zetmeelaandeel</b> in het ruwvoer, en houd een <b>pensbuffer</b> achter de hand. ' +
-                'De energiedichtheid kan iets omhoog voor de hoogproductieve groep. Bespreek dit met je voeradviseur bij het eerstvolgende rantsoenoverleg.';
+            el.innerHTML =
+                '<span class="ck-chips" style="margin-top:4px">' +
+                '<span class="ck-chip groen">structuur (peNDF) op peil</span>' +
+                '<span class="ck-chip groen">zetmeel stabiel</span>' +
+                '<span class="ck-chip groen">pensbuffer achter de hand</span>' +
+                '</span>' +
+                '<small>o.b.v. ' + koeien.length + ' koeien &middot; bespreek met je voeradviseur</small>';
         })();
 
         function alles() { tekenLijst(); tekenDetail(); }

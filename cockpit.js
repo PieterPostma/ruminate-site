@@ -174,9 +174,10 @@
         '.ck-chip.rood{border-color:rgba(200,82,74,.6);color:#e0847d}',
         '.ck-chip.goud{border-color:rgba(184,164,114,.5);color:#b8a472;margin-top:8px}',
         /* hitte-alert bovenin */
-        '.ck-alert{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 18px;border-bottom:1px solid rgba(233,189,79,.35);background:rgba(233,189,79,.1);font-size:12.5px;color:rgba(212,207,191,.85)}',
-        '.ck-alert .ico{flex:none;font-size:14px}',
-        '.ck-alert b{font-weight:400;color:#e9bd4f;margin-right:6px;white-space:nowrap}',
+        '.ck-alert{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid rgba(233,189,79,.5);border-left:4px solid #e9bd4f;background:rgba(233,189,79,.14);font-size:14px;color:rgba(212,207,191,.9)}',
+        '.ck-alert .ico{flex:none;font-size:22px;line-height:1;color:#e9bd4f}',
+        '.ck-alert b{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:16px;color:#e9bd4f;margin-right:8px;white-space:nowrap}',
+        '.ck-alert .ck-chip{font-size:12px;padding:6px 14px}',
         /* actie van vandaag in de krachtvoerkaart */
         '.ck-actie{margin-top:9px;border-top:1px dashed rgba(212,207,191,.25);padding-top:8px}',
         '.ck-actie h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7ba58a}',

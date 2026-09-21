@@ -43,7 +43,15 @@
         return koeien;
     }
 
-    /* ---------- voeradvies: kort, met de reden als datachips ---------- */
+    /* ---------- voeradvies: reden erbij, ruwvoer als weekplan ---------- */
+    function weeknr(offset) {
+        var d = new Date(); d.setDate(d.getDate() + (offset || 0) * 7);
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+        var start = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil(((d - start) / 864e5 + 1) / 7);
+    }
+
     function advies(k) {
         var md = k.melk[13] - k.basis, lh = Math.round(k.herkauw[13]);
         function chip(t, kl) { return { t: t, kl: kl }; }
@@ -53,30 +61,46 @@
             chip('rest ' + k.rest.toFixed(1).replace('.', ',') + ' kg', k.rest > 0.3 ? 'geel' : 'groen')
         ];
         if (k.status === 'zuur') return { signalen: signalen,
-            kv: { delta: -0.8, titel: 'Opbouw pauzeren' },
+            kv: { delta: -0.8, titel: 'Opbouw pauzeren',
+                  reden: 'Melkgift onder haar basislijn en herkauwtijd gezakt: het patroon van beginnende pensverzuring. Eerst de pens tot rust, dan stapsgewijs terug.' },
             actie: 'Vandaag −0,8 kg via de robot; daarna in kleine stappen terug opbouwen.',
-            rv: { titel: 'Extra structuur (hooi/stro)', sub: 'buffer overwegen' }
+            rv: { plan: [
+                { week: weeknr(0), titel: 'Structuur omhoog', tekst: '+1 kg hooi of stro per koe per dag door het basisrantsoen; zetmeel iets terug. Pensbuffer bijvoeren.', chips: [['structuur +', 'geel'], ['zetmeel −', 'geel'], ['buffer', 'geel']] },
+                { week: weeknr(1), titel: 'Afbouwen bij herstel', tekst: 'Herkauwtijd terug boven de 490 min? Dan terug naar het basisrantsoen en de buffer afbouwen.', chips: [['herkauw > 490 min', 'groen']] }
+            ] }
         };
         if (k.status === 'let-op' && k.afst > 0) return { signalen: signalen,
-            kv: { delta: -1.0, titel: 'Portie verlagen' },
+            kv: { delta: -1.0, titel: 'Portie verlagen',
+                  reden: 'Ze laat drie dagen op rij krachtvoer liggen: de portie loopt vóór op haar opname. Verlagen voorkomt vervuiling in de box en selectief vreten.' },
             actie: 'Vandaag −1,0 kg: ze laat 3 dagen op rij krachtvoer liggen.',
-            rv: { titel: 'Zetmeel niet verhogen', sub: 'structuur handhaven' }
+            rv: { plan: [
+                { week: weeknr(0), titel: 'Basisrantsoen handhaven', tekst: 'Geen extra zetmeel; structuuraandeel op peil houden tot zij terug in de groene zone is.', chips: [['zetmeel =', 'groen'], ['structuur =', 'groen']] },
+                { week: weeknr(1), titel: 'Herbeoordelen', tekst: 'Opname en rest opnieuw wegen na de eerstvolgende melkcontrole.', chips: [['melkcontrole', 'goud']] }
+            ] }
         };
         if (k.status === 'let-op') return { signalen: signalen,
-            kv: { delta: 0.6, titel: 'Bijvoeren, in twee stappen' },
+            kv: { delta: 0.6, titel: 'Bijvoeren, in twee stappen',
+                  reden: 'Haar gezondheidssignalen zijn goed, maar de melkgift blijft achter bij haar kunnen: er is ruimte voor meer energie.' },
             actie: 'Vandaag +0,6 kg boven op haar standaardportie.',
-            rv: { titel: 'Energiedichtheid checken', sub: 'hoogproductieve groep' }
+            rv: { plan: [
+                { week: weeknr(0), titel: 'Energiedichtheid omhoog', tekst: 'Overweeg +0,5 kg maïs in het basisrantsoen voor de hoogproductieve groep.', chips: [['maïs +0,5 kg', 'geel'], ['hoogproductief', 'goud']] },
+                { week: weeknr(1), titel: 'Effect meten', tekst: 'Melkgift en herkauwtijd volgen; bij respons het niveau vasthouden.', chips: [['melk ↗', 'groen']] }
+            ] }
         };
         return { signalen: signalen,
-            kv: { delta: 0, titel: 'Handhaven' },
+            kv: { delta: 0, titel: 'Handhaven',
+                  reden: 'Melkgift en herkauwtijd bewegen binnen haar eigen bandbreedte.' },
             actie: 'Vandaag de standaardportie; herweging bij de melkcontrole.',
-            rv: { titel: 'Geen wijziging', sub: 'rantsoen past' }
+            rv: { plan: [
+                { week: weeknr(0), titel: 'Basisrantsoen handhaven', tekst: 'Geen wijziging nodig; het rantsoen past bij deze groep.', chips: [['rantsoen =', 'groen']] },
+                { week: weeknr(1), titel: 'Nieuwe weging', tekst: 'Vet, eiwit en ureum meenemen uit de eerstvolgende melkcontrole.', chips: [['melkcontrole', 'goud']] }
+            ] }
         };
     }
 
     /* ---------- opmaak ---------- */
     var css = [
-        '.ck{background:#101a11;color:#d4cfbf;border:1px solid rgba(212,207,191,.16);border-radius:14px;overflow:hidden;',
+        '.ck{position:relative;background:#101a11;color:#d4cfbf;border:1px solid rgba(212,207,191,.16);border-radius:14px;overflow:hidden;',
         '    font-family:"Jost",system-ui,sans-serif;font-weight:300;box-shadow:0 24px 70px rgba(0,0,0,.28);text-align:left}',
         '.ck *{box-sizing:border-box}',
         '.ck-kop{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid rgba(212,207,191,.14);flex-wrap:wrap}',
@@ -122,6 +146,22 @@
         '.ck-vkaart .cijfer .delta.nul{background:rgba(123,165,138,.18);color:#7ba58a}',
         '.ck-vkaart .titel{font-size:14.5px;color:#e8e4d6;line-height:1.35}',
         '.ck-vkaart p{margin:5px 0 0;font-size:12.5px;line-height:1.5;color:rgba(212,207,191,.62)}',
+        '.ck-vkaart p.reden{margin-top:7px}',
+        /* weekplan in de ruwvoerkaart */
+        '.ck-week{padding:9px 0;border-top:1px dashed rgba(212,207,191,.18)}',
+        '.ck-week:first-of-type{border-top:0;padding-top:2px}',
+        '.ck-week-kop{display:flex;align-items:center;gap:9px}',
+        '.ck-week-kop .wk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#101a11;background:#b8a472;border-radius:99px;padding:3px 9px;white-space:nowrap}',
+        '.ck-week-kop b{font-weight:400;font-size:13.5px;color:#e8e4d6}',
+        '.ck-week p{margin:5px 0 7px}',
+        /* doorzetten: delen en (toekomstige) leveranciers-integraties */
+        '.ck-deel{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px dashed rgba(212,207,191,.25);border-radius:9px;padding:10px 13px}',
+        '.ck-deel h6{margin:0 8px 0 0;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
+        '.ck-deelknop{font-family:"Jost",system-ui,sans-serif;font-weight:400;font-size:12.5px;color:#e8e4d6;background:rgba(212,207,191,.08);border:1px solid rgba(212,207,191,.3);border-radius:99px;padding:6px 14px;cursor:pointer;transition:background .2s ease-out,border-color .2s ease-out}',
+        '.ck-deelknop:hover{background:rgba(212,207,191,.16);border-color:rgba(212,207,191,.5)}',
+        '.ck-deelknop.lev{border-style:dashed;color:rgba(212,207,191,.7)}',
+        '.ck-toast{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:#e8e4d6;color:#101a11;font-size:12.5px;padding:8px 18px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s ease-out;z-index:5;white-space:nowrap}',
+        '.ck-toast.aan{opacity:1}',
         '.ck-grafieken{display:grid;grid-template-columns:1fr 1fr;gap:13px}',
         '.ck-paneel{border:1px solid rgba(212,207,191,.12);border-radius:9px;padding:11px 13px;background:rgba(212,207,191,.03)}',
         '.ck-paneel h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
@@ -262,14 +302,25 @@
                 '<div class="ck-chips">' + chips + '</div>' +
                 '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
                 '<div class="ck-voer">' +
-                '  <div class="ck-vkaart"><h5>Krachtvoer &middot; aan de robot</h5>' +
+                '  <div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
                 '    <div class="cijfer">' + cijfer + '</div>' +
                 '    <div class="titel">' + a.kv.titel + '</div>' +
+                '    <p class="reden">' + a.kv.reden + '</p>' +
                 '    <div class="ck-actie"><h6>Vandaag &middot; automatisch</h6><p>' + a.actie + '</p></div></div>' +
-                '  <div class="ck-vkaart rv"><h5>Ruwvoer &middot; aan het voerhek</h5>' +
-                '    <div class="titel">' + a.rv.titel + '</div>' +
-                '    <span class="ck-chip goud">' + a.rv.sub + '</span></div>' +
+                '  <div class="ck-vkaart rv"><h5>Ruwvoer &middot; per groep &middot; weekplan</h5>' +
+                a.rv.plan.map(function (w) {
+                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">Week ' + w.week + '</span><b>' + w.titel + '</b></div>' +
+                        '<p>' + w.tekst + '</p><div class="ck-chips">' +
+                        w.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
+                        '</div></div>';
+                }).join('') +
+                '  </div>' +
                 '</div>' +
+                '<div class="ck-deel"><h6>Doorzetten</h6>' +
+                '  <button class="ck-deelknop" type="button">Deel weekplan met je voeradviseur</button>' +
+                '  <button class="ck-deelknop lev" type="button">Bestel via Mengvoeders van der Weide</button>' +
+                '  <button class="ck-deelknop lev" type="button">Bestel via VoerLink Noord</button>' +
+                '  <span class="ck-chip goud">integraties &middot; binnenkort</span></div>' +
                 '<div class="ck-grafieken">' +
                 '  <div class="ck-paneel"><h5>Melkgift &middot; 14 dagen &middot; stippellijn = basislijn</h5>' + spark(k.melk, k.basis, k.status === 'zuur' ? '#c8524a' : '#7ba58a', mMin, mMax) + '</div>' +
                 '  <div class="ck-paneel"><h5>Herkauwtijd &middot; min/dag</h5>' + spark(k.herkauw, null, '#b8a472', hMin, hMax) + '</div>' +
@@ -293,6 +344,19 @@
         rijen.addEventListener('click', function (e) {
             var b = e.target.closest('.ck-rij'); if (!b) return;
             huidig = koeien[+b.getAttribute('data-i')]; alles();
+        });
+
+        /* doorzetten-knoppen: nette demo-melding */
+        var toast = document.createElement('div');
+        toast.className = 'ck-toast';
+        wortel.querySelector('.ck').appendChild(toast);
+        var toastTimer;
+        detail.addEventListener('click', function (e) {
+            var b = e.target.closest('.ck-deelknop'); if (!b) return;
+            toast.textContent = 'Demo · deze koppeling bouwen we samen met de pilotbedrijven';
+            toast.classList.add('aan');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toast.classList.remove('aan'); }, 2400);
         });
         wortel.querySelector('.ck-filters').addEventListener('click', function (e) {
             var b = e.target.closest('button'); if (!b) return;

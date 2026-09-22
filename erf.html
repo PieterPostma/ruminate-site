@@ -199,6 +199,11 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .pk li{padding:7px 0 7px 24px;position:relative;font-size:var(--t-body);line-height:1.5;color:rgba(232,228,214,.92);border-top:1px dashed rgba(232,228,214,.25)}
 .pk li:first-child{border-top:0}
 .pk li::before{content:"\2713";position:absolute;left:2px;color:#e8e4d6;font-weight:600}
+.datakring{margin-top:14px}
+.datakring svg{display:block;width:min(320px,100%);height:auto;margin:0 auto}
+.datakring .stroom{stroke-dasharray:3 7;animation:dk-stroom 1.4s linear infinite}
+@keyframes dk-stroom{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.datakring .stroom{animation:none;stroke-dasharray:none}}
 .logos-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
 .logos-mini span{display:flex;flex-direction:column;align-items:center;gap:7px;background:#fff;border:1px solid rgba(25,43,27,.12);border-radius:10px;padding:11px 4px 9px;text-align:center;
     font-family:var(--merk);font-weight:700;font-size:.75rem;color:var(--groen)}
@@ -356,17 +361,8 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                 <div class="pk"><div class="nr">2</div><h3>Wij koppelen</h3>
                     <ul><li>Melkrobot, halsband en CRV</li><li>Veilig via JoinData</li><li>Jij hoeft niets in te richten</li></ul></div>
                 <div class="pk gratis"><div class="nr">3</div><h3>Jij krijgt de inzichten</h3>
-                    <p>Een second opinion op je voeradvies en direct zicht op alle metrics van je koppel.</p>
-                    <div class="logos-mini" aria-label="Systemen die we koppelen">
-                        <span><img src="media/logos/lely.png" alt="">Lely</span>
-                        <span><img src="media/logos/delaval.png" alt="">DeLaval</span>
-                        <span><img src="media/logos/gea.svg" alt="">GEA</span>
-                        <span><img src="media/logos/nedap.svg" alt="">Nedap</span>
-                        <span><img src="media/logos/crv.png" alt="">CRV</span>
-                        <span><img src="media/logos/qlip.png" alt="">Qlip</span>
-                        <span><img src="media/logos/joindata.png" alt="">JoinData</span>
-                        <span><img src="media/logos/knmi.png" alt="">KNMI</span>
-                    </div></div>
+                    <p>We koppelen alle relevante en beschikbare datastromen en presenteren ze als &eacute;&eacute;n helder beeld: een second opinion op je voeradvies en direct zicht op je koppel.</p>
+                    <div class="datakring reveal" aria-label="Datastromen komen samen bij Ruminate en gaan naar de boer"><svg viewBox="0 0 340 348" xmlns="http://www.w3.org/2000/svg"><defs><marker id="dkpijl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1 L8 5 L0 9 Z" fill="var(--groen)"/></marker></defs><g stroke="rgba(71,98,79,.55)" stroke-width="1.6"><line class="stroom" x1="257" y1="164" x2="170" y2="128"/><line class="stroom" x1="206" y1="215" x2="170" y2="128"/><line class="stroom" x1="134" y1="215" x2="170" y2="128"/><line class="stroom" x1="83" y1="164" x2="170" y2="128"/><line class="stroom" x1="83" y1="92" x2="170" y2="128"/><line class="stroom" x1="134" y1="41" x2="170" y2="128"/><line class="stroom" x1="206" y1="41" x2="170" y2="128"/><line class="stroom" x1="257" y1="92" x2="170" y2="128"/></g><g><circle cx="257" cy="164" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/lely.png" x="243" y="150" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>Lely</title></g><g><circle cx="206" cy="215" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/delaval.png" x="192" y="201" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>DeLaval</title></g><g><circle cx="134" cy="215" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/gea.svg" x="120" y="201" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>GEA</title></g><g><circle cx="83" cy="164" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/nedap.svg" x="69" y="150" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>Nedap</title></g><g><circle cx="83" cy="92" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/crv.png" x="69" y="78" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>CRV</title></g><g><circle cx="134" cy="41" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/qlip.png" x="120" y="27" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>Qlip</title></g><g><circle cx="206" cy="41" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/joindata.png" x="192" y="27" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>JoinData</title></g><g><circle cx="257" cy="92" r="22" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/knmi.png" x="243" y="78" width="28" height="28" preserveAspectRatio="xMidYMid meet"/><title>KNMI</title></g><circle cx="170" cy="128" r="36" fill="var(--groen)"/><image href="branding/ruminate-logo-creme.svg" x="141" y="117" width="58" height="22" preserveAspectRatio="xMidYMid meet"/><line x1="170" y1="168" x2="170" y2="266" stroke="var(--groen)" stroke-width="2.4" marker-end="url(#dkpijl)"/><g fill="none" stroke="var(--groen)" stroke-width="3" stroke-linecap="round"><circle cx="170" cy="290" r="9"/><path d="M158 287 a 12 12 0 0 1 24 0"/><path d="M156 285 h28" stroke-width="2.4"/><path d="M150 324 c 0 -13 9 -20 20 -20 s 20 7 20 20"/></g><text x="170" y="342" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" fill="rgba(25,43,27,.55)">DE BOER</text></svg></div></div>
             </div>
             <a class="knop" href="mailto:pilot@ruminate.nl?subject=Aanmelding%20pilotprogramma%20Ruminate">Meld je bedrijf aan &rarr;</a>
         </div>
@@ -380,11 +376,11 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                 <div class="lid reveal"><img src="team/pieter-postma-headshot.jpg" alt="Pieter Postma"><div class="tekst">
                     <h3>Pieter Postma</h3><div class="rol">Praktijk, markt en cijfers</div>
                     <p>Opgegroeid op een biologische boerderij in Frysl&acirc;n. 15+ jaar finance en operations, o.a. bij Feadship. Vertaalt de techniek naar de stal.</p>
-                    <div class="links"><a href="mailto:pieter@ruminate.nl">pieter@ruminate.nl</a><a href="https://www.linkedin.com/in/pieter-postma-b867252b" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.novastarfinance.nl" target="_blank" rel="noopener">Site</a></div></div></div>
+                    <div class="links"><a href="https://www.linkedin.com/in/pieter-postma-b867252b" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.novastarfinance.nl" target="_blank" rel="noopener">Site</a></div></div></div>
                 <div class="lid reveal"><img src="team/harm-de-vries-headshot.jpg" alt="Dr. Harm de Vries"><div class="tekst">
                     <h3>Dr. Harm de Vries</h3><div class="rol">AI en modelarchitectuur</div>
                     <p>PhD aan Mila, het AI-instituut van Yoshua Bengio. Daarna de AI-labs van Meta, Twitter (X) en ServiceNow.</p>
-                    <div class="links"><a href="mailto:harm@ruminate.nl">harm@ruminate.nl</a><a href="https://www.linkedin.com/in/harm-de-vries-8506ab57" target="_blank" rel="noopener">LinkedIn</a><a href="https://scholar.google.com/citations?user=LWrdpCsAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://mila.quebec/en/directory/harm-de-vries" target="_blank" rel="noopener">Mila</a><a href="https://www.harmdevries.com/" target="_blank" rel="noopener">Site</a></div></div></div>
+                    <div class="links"><a href="https://www.linkedin.com/in/harm-de-vries-8506ab57" target="_blank" rel="noopener">LinkedIn</a><a href="https://scholar.google.com/citations?user=LWrdpCsAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://mila.quebec/en/directory/harm-de-vries" target="_blank" rel="noopener">Mila</a><a href="https://www.harmdevries.com/" target="_blank" rel="noopener">Site</a></div></div></div>
                 <div class="lid reveal"><img src="team/frens-hoeve-headshot.jpg" alt="Frens Hoeve"><div class="tekst">
                     <h3>Frens Hoeve</h3><div class="rol">Adviseur veevoeding</div>
                     <p>Veertig jaar melkveevoeding: ACM, Agrifirm, Rovecom, Speerstra. Auteur van <em>Professionele Rundveevoeding</em>.</p>

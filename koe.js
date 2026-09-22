@@ -11,7 +11,8 @@
     var css = [
         '.koe-wrap{position:fixed;left:0;right:0;bottom:0;height:0;pointer-events:none;z-index:60;}',
         '.koe{position:absolute;bottom:var(--koe-bodem,10px);left:0;width:var(--koe-breedte,150px);will-change:transform;}',
-        '.koe svg{display:block;width:100%;height:auto;overflow:visible;}',
+        '.koe svg{display:block;width:100%;height:auto;overflow:visible;'
+            + 'filter:drop-shadow(0 0 1.5px rgba(232,228,214,.95)) drop-shadow(0 0 1.5px rgba(232,228,214,.9)) drop-shadow(0 1px 2px rgba(232,228,214,.7));}',
         '.koe .spiegel{transform-box:fill-box;transform-origin:50% 50%;}',
         '.koe.kijkt-links .spiegel{transform:scaleX(-1);}',
         '.koe .poot{transform-box:fill-box;transform-origin:50% 0%;}',

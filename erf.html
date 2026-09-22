@@ -125,6 +125,9 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     0%{left:14%}18%{left:46%}32%{left:53%}48%{left:38%}62%{left:82%}78%{left:50%}90%{left:24%}100%{left:14%}}
 @media (prefers-reduced-motion:reduce){.naald{animation:none;left:50%}}
 .lat{display:grid;grid-template-columns:1.6fr 1fr 1.6fr;gap:12px}
+.lat-basis{margin-top:12px;border:2px dashed rgba(71,98,79,.45);border-radius:20px;padding:18px 24px;background:rgba(123,165,138,.1)}
+.lat-basis h4{font-family:var(--mono);font-size:var(--t-label-s);line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-tekst)}
+.lat-basis p{font-size:var(--t-body);line-height:1.55;color:rgba(25,43,27,.72);margin-top:6px;max-width:52em}
 .lat>div{border-radius:20px;padding:22px 24px}
 .lat .links{background:var(--geel);color:var(--groen)}
 .lat .midden{background:var(--sage);color:var(--groen)}
@@ -181,7 +184,13 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .logo-tegel b{font-family:var(--merk);font-weight:700;font-size:1.25rem;letter-spacing:.02em;display:block;color:var(--groen)}
 .logo-tegel span{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.12em;text-transform:uppercase;color:rgba(25,43,27,.45)}
 .logos-noot{margin-top:22px;font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.12em;text-transform:uppercase;color:rgba(25,43,27,.45)}
-.pilot-logos{margin-top:48px;font-family:var(--merk);font-weight:600;font-size:1.0625rem;letter-spacing:.02em;color:rgba(232,228,214,.8)}
+.pk ul{list-style:none;margin-top:14px}
+.pk li{padding:7px 0 7px 24px;position:relative;font-size:var(--t-body);line-height:1.5;color:rgba(232,228,214,.92);border-top:1px dashed rgba(232,228,214,.25)}
+.pk li:first-child{border-top:0}
+.pk li::before{content:"\2713";position:absolute;left:2px;color:#e8e4d6;font-weight:600}
+.logos-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.logos-mini span{background:#fff;border:1px solid rgba(25,43,27,.12);border-radius:10px;padding:9px 4px;text-align:center;
+    font-family:var(--merk);font-weight:700;font-size:.8125rem;color:var(--groen)}
 
 /* team */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:56px}
@@ -251,7 +260,6 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     <a class="woordmerk" href="#top">rum<span class="rum-i">&#305;</span>nate</a>
     <nav>
         <a href="#probleem">Probleem</a>
-        <a href="#integraties">Integraties</a>
         <a href="#product">Product</a>
         <a href="#pilot">Pilot</a>
         <a href="#team">Team</a>
@@ -294,26 +302,8 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                     <div class="midden"><h4>Optimaal</h4><p>De sweetspot: hier is ze op haar best. Smal, en per koe anders.</p></div>
                     <div class="rechts"><h4>Te veel krachtvoer</h4><p>Meer voer dan zij kan benutten.</p></div>
                 </div>
+                <div class="lat-basis reveal"><h4>Het fundament: ruwvoer</h4><p>Ook het basisrantsoen aan het voerhek bepaalt of ze haar optimum haalt: voldoende structuur en de juiste energie voor de hele koppel.</p></div>
             </div>
-        </div>
-    </section>
-
-    <section class="blok" id="integraties" style="padding-top:4vh">
-        <div class="binnen">
-            <div class="kicker">Integraties</div>
-            <h2 class="reveal">Werkt met de stal die je <span class="s">al hebt</span>.</h2>
-            <p class="intro reveal">Ruminate leest mee met de systemen die er al staan. Koppelingen en toestemmingen lopen via JoinData en bouwen we tijdens de pilot samen op.</p>
-            <div class="logos reveal">
-                <div class="logo-tegel"><b>Lely</b><span>melkrobot</span></div>
-                <div class="logo-tegel"><b>DeLaval</b><span>melkrobot</span></div>
-                <div class="logo-tegel"><b>GEA</b><span>melkrobot</span></div>
-                <div class="logo-tegel"><b>Nedap</b><span>halsband</span></div>
-                <div class="logo-tegel"><b>CRV</b><span>mpr &amp; registratie</span></div>
-                <div class="logo-tegel"><b>Qlip</b><span>melkanalyse</span></div>
-                <div class="logo-tegel"><b>JoinData</b><span>dataplatform</span></div>
-                <div class="logo-tegel"><b>KNMI</b><span>weerdata</span></div>
-            </div>
-            <div class="logos-noot reveal">integraties in opbouw tijdens de pilot &middot; ook in gesprek met voerleveranciers</div>
         </div>
     </section>
 
@@ -335,15 +325,21 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 
     <section class="blok rood-blok" id="pilot">
         <div class="binnen">
-            <div class="kicker">Join the pilot</div>
-            <h2 class="reveal">We zijn net gestart. Er zijn nog enkele <u>plekken</u>.</h2>
+            <div class="kicker">Pilotprogramma</div>
+            <h2 class="reveal">Join the <u>pilot</u>.</h2>
             <p class="intro reveal">Het pilotprogramma loopt en er zijn op dit moment nog enkele plekken beschikbaar. Het kost je niets.</p>
             <div class="pilotkaarten reveal">
-                <div class="pk"><div class="nr">1</div><h3>Kennismaken &amp; NDA</h3><p>We komen langs op het bedrijf. Vertrouwelijkheid leggen we vast in een NDA, en het eigendom van je data blijft altijd bij jou.</p></div>
-                <div class="pk"><div class="nr">2</div><h3>Wij koppelen</h3><p>Wij regelen de koppelingen met je melkrobot, halsband en CRV, via JoinData. Eventuele externe JoinData-kosten zijn beperkt en melden we vooraf.</p></div>
-                <div class="pk gratis"><div class="nr">3</div><h3>Jij krijgt de cockpit</h3><p>Gratis. Niet alleen tijdens de pilot: groeit Ruminate uit tot een volwaardig product, dan blijft het voor deelnemers van het eerste uur kosteloos, zolang wij het aanbieden.</p></div>
+                <div class="pk"><div class="nr">1</div><h3>Kennismaken &amp; NDA</h3>
+                    <ul><li>We komen langs op het bedrijf</li><li>Vertrouwelijkheid vast in een NDA</li><li>Jouw data blijft van jou</li></ul></div>
+                <div class="pk"><div class="nr">2</div><h3>Wij koppelen</h3>
+                    <ul><li>Melkrobot, halsband en CRV</li><li>Veilig via JoinData</li><li>Jij hoeft niets in te richten</li></ul></div>
+                <div class="pk gratis"><div class="nr">3</div><h3>Jij krijgt de inzichten</h3>
+                    <p>Een second opinion op je voeradvies en direct zicht op alle metrics van je koppel.</p>
+                    <div class="logos-mini" aria-label="Systemen die we koppelen">
+                        <span>Lely</span><span>DeLaval</span><span>GEA</span><span>Nedap</span>
+                        <span>CRV</span><span>Qlip</span><span>JoinData</span><span>KNMI</span>
+                    </div></div>
             </div>
-            <div class="pilot-logos reveal">Lely &middot; DeLaval &middot; GEA &middot; Nedap &middot; CRV &middot; Qlip &middot; JoinData</div>
             <a class="knop" href="mailto:pilot@ruminate.nl?subject=Aanmelding%20pilotprogramma%20Ruminate">Meld je bedrijf aan &rarr;</a>
         </div>
     </section>
@@ -353,14 +349,14 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             <div class="kicker">Wie wij zijn</div>
             <h2 class="reveal">Het team.</h2>
             <div class="team">
-                <div class="lid reveal"><img src="team/harm-de-vries-headshot.jpg" alt="Dr. Harm de Vries"><div class="tekst">
-                    <h3>Dr. Harm de Vries</h3><div class="rol">AI en modelarchitectuur</div>
-                    <p>PhD aan Mila, het AI-instituut van Yoshua Bengio. Daarna de AI-labs van Meta, Twitter (X) en ServiceNow.</p>
-                    <div class="links"><a href="https://www.linkedin.com/in/harm-de-vries-8506ab57" target="_blank" rel="noopener">LinkedIn</a><a href="https://scholar.google.com/citations?user=LWrdpCsAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://mila.quebec/en/directory/harm-de-vries" target="_blank" rel="noopener">Mila</a><a href="https://www.harmdevries.com/" target="_blank" rel="noopener">Site</a></div></div></div>
                 <div class="lid reveal"><img src="team/pieter-postma-headshot.jpg" alt="Pieter Postma"><div class="tekst">
                     <h3>Pieter Postma</h3><div class="rol">Praktijk, markt en cijfers</div>
                     <p>Opgegroeid op een biologische boerderij in Frysl&acirc;n. 15+ jaar finance en operations, o.a. bij Feadship. Vertaalt de techniek naar de stal.</p>
-                    <div class="links"><a href="https://www.linkedin.com/in/pieter-postma-b867252b" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.novastarfinance.nl" target="_blank" rel="noopener">Site</a></div></div></div>
+                    <div class="links"><a href="mailto:pieter@ruminate.nl">pieter@ruminate.nl</a><a href="https://www.linkedin.com/in/pieter-postma-b867252b" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.novastarfinance.nl" target="_blank" rel="noopener">Site</a></div></div></div>
+                <div class="lid reveal"><img src="team/harm-de-vries-headshot.jpg" alt="Dr. Harm de Vries"><div class="tekst">
+                    <h3>Dr. Harm de Vries</h3><div class="rol">AI en modelarchitectuur</div>
+                    <p>PhD aan Mila, het AI-instituut van Yoshua Bengio. Daarna de AI-labs van Meta, Twitter (X) en ServiceNow.</p>
+                    <div class="links"><a href="mailto:harm@ruminate.nl">harm@ruminate.nl</a><a href="https://www.linkedin.com/in/harm-de-vries-8506ab57" target="_blank" rel="noopener">LinkedIn</a><a href="https://scholar.google.com/citations?user=LWrdpCsAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://mila.quebec/en/directory/harm-de-vries" target="_blank" rel="noopener">Mila</a><a href="https://www.harmdevries.com/" target="_blank" rel="noopener">Site</a></div></div></div>
                 <div class="lid reveal"><img src="team/frens-hoeve-headshot.jpg" alt="Frens Hoeve"><div class="tekst">
                     <h3>Frens Hoeve</h3><div class="rol">Adviseur veevoeding</div>
                     <p>Veertig jaar melkveevoeding: ACM, Agrifirm, Rovecom, Speerstra. Auteur van <em>Professionele Rundveevoeding</em>.</p>

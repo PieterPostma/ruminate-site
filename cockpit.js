@@ -124,7 +124,7 @@
         '.ck-voer{display:grid;grid-template-columns:1fr 1fr;gap:13px}',
         '.ck-vkaart{border-radius:9px;padding:13px 15px;border:1px solid rgba(200,82,74,.5);background:rgba(200,82,74,.07)}',
         '.ck-vkaart.rv{border-color:rgba(184,164,114,.45);background:rgba(184,164,114,.07)}',
-        '.ck-vkaart.apart{border-color:#c8524a;background:rgba(200,82,74,.12);box-shadow:0 0 24px rgba(200,82,74,.18)}',
+        '.ck-vkaart.apart{border-color:rgba(200,82,74,.7);background:rgba(200,82,74,.1)}',
         '.ck-vkaart.apart h5{color:#e0847d}',
         '.ck-vkaart h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#e0847d}',
         '.ck-vkaart.rv h5{color:#b8a472}',
@@ -138,6 +138,9 @@
         '.ck-vkaart .titel{font-size:14.5px;color:#e8e4d6;line-height:1.35}',
         '.ck-vkaart p{margin:5px 0 0;font-size:12.5px;line-height:1.5;color:rgba(212,207,191,.62)}',
         '.ck-vkaart p.reden{margin-top:7px}',
+        /* groepslabels: status en advies gescheiden */
+        '.ck-groep{margin:0 0 -4px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,207,191,.45)}',
+        '.ck-groep.advies{border-top:1px solid rgba(212,207,191,.14);padding-top:13px;margin-top:3px}',
         /* weekplan in de ruwvoerkaart */
         '.ck-week{padding:9px 0;border-top:1px dashed rgba(212,207,191,.18)}',
         '.ck-week:first-of-type{border-top:0;padding-top:2px}',
@@ -289,8 +292,10 @@
             detail.innerHTML =
                 '<div class="ck-dkop"><h4>' + k.naam + '</h4>' +
                 '<span class="ck-badge ' + k.status + '">' + lbl[k.status] + '</span></div>' +
+                '<h6 class="ck-groep">Status</h6>' +
                 '<div class="ck-chips">' + chips + '</div>' +
                 '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
+                '<h6 class="ck-groep advies">Advies</h6>' +
                 (function () {
                     var kvKaart = '<div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
                         '  <div class="cijfer">' + cijfer + '</div>' +

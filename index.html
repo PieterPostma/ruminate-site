@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ruminate AI · meer melk, gezonde pens, minder methaan</title>
-<meta name="description" content="Ruminate AI voert elke koe naar haar eigen optimum, met de data die het bedrijf al heeft. Gratis pilotprogramma voor melkveehouders.">
+<title>Ruminate · inzicht per koe</title>
+<meta name="description" content="Ruminate maakt de data van je melkveebedrijf inzichtelijk: zie welke koeien niet optimaal presteren. Gratis pilotprogramma.">
 <link rel="icon" href="branding/ruminate-icon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,6 +173,16 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .knop:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(25,43,27,.28)}
 .knop:active{transform:translateY(0);box-shadow:0 3px 10px rgba(25,43,27,.22);transition-duration:.1s}
 
+/* integraties: logowand */
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:56px}
+.logo-tegel{background:#efecdf;border:2px solid rgba(25,43,27,.08);border-radius:18px;padding:24px 16px;text-align:center;
+    transition:transform .26s cubic-bezier(.2,.6,.2,1),box-shadow .26s ease-out}
+.logo-tegel:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(25,43,27,.1)}
+.logo-tegel b{font-family:var(--merk);font-weight:700;font-size:1.25rem;letter-spacing:.02em;display:block;color:var(--groen)}
+.logo-tegel span{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.12em;text-transform:uppercase;color:rgba(25,43,27,.45)}
+.logos-noot{margin-top:22px;font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.12em;text-transform:uppercase;color:rgba(25,43,27,.45)}
+.pilot-logos{margin-top:48px;font-family:var(--merk);font-weight:600;font-size:1.0625rem;letter-spacing:.02em;color:rgba(232,228,214,.8)}
+
 /* team */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:56px}
 .lid{background:#efecdf;border-radius:26px;overflow:hidden;border:2px solid rgba(25,43,27,.08);
@@ -241,7 +251,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     <a class="woordmerk" href="#top">rum<span class="rum-i">&#305;</span>nate</a>
     <nav>
         <a href="#probleem">Probleem</a>
-        <a href="#hoe">Hoe</a>
+        <a href="#integraties">Integraties</a>
         <a href="#product">Product</a>
         <a href="#pilot">Pilot</a>
         <a href="#team">Team</a>
@@ -253,14 +263,10 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 
     <section class="blok hero">
         <div class="binnen">
-            <div class="kicker">Ruminate AI &middot; slim voeren, per koe</div>
+            <div class="kicker">Ruminate &middot; voor melkveehouders</div>
             <h1>Elke koe<br>haar <span class="r">eigen</span><br>optimum<span class="r">.</span></h1>
-            <p class="intro">Ruminate AI leest de data die dagelijks op jouw bedrijf wordt gegenereerd en vertaalt die naar voeradvies op maat, voor elke koe.</p>
-            <div class="badges reveal">
-                <span class="badge b1">Meer melk</span>
-                <span class="badge b2">Gezonde pens</span>
-                <span class="badge b3">Minder methaan</span>
-            </div>
+            <p class="intro">Ruminate maakt de data die je bedrijf al heeft inzichtelijk: zie in één oogopslag welke koeien niet optimaal presteren, en wat je vandaag kunt doen.</p>
+            <a class="knop reveal" style="margin-top:38px" href="#pilot">Join the pilot &rarr;</a>
         </div>
     </section>
 
@@ -272,8 +278,8 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
     <section class="blok" id="probleem" style="padding-top:6vh">
         <div class="binnen">
             <div class="kicker">Het probleem</div>
-            <h2 class="reveal">Geen koe is <span class="r">gemiddeld</span>.</h2>
-            <p class="intro reveal">E&eacute;n voertabel voor de hele koppel, terwijl iedere koe haar eigen smalle optimum heeft.</p>
+            <h2 class="reveal">Niet elke koe presteert <span class="r">optimaal</span>.</h2>
+            <p class="intro reveal">E&eacute;n voertabel voor de hele koppel, terwijl iedere koe haar eigen sweet spot heeft. Zit ze daarboven of daaronder, dan blijft er rendement liggen.</p>
             <div class="lat-wrap reveal">
                 <div class="lat-schaal" aria-hidden="true">
                     <span class="s-min">&larr;&nbsp;weinig krachtvoer</span><span class="s-max">veel krachtvoer&nbsp;&rarr;</span>
@@ -284,66 +290,30 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                     <span class="naald" title="Iedere koe zit ergens anders op de lat"></span>
                 </div>
                 <div class="lat">
-                    <div class="links"><h4>Te weinig krachtvoer</h4><p>Melk blijft liggen &eacute;n ze teert in op haar conditie.</p></div>
+                    <div class="links"><h4>Te weinig krachtvoer</h4><p>Haar potentieel blijft onbenut.</p></div>
                     <div class="midden"><h4>Optimaal</h4><p>De sweetspot: hier is ze op haar best. Smal, en per koe anders.</p></div>
-                    <div class="rechts"><h4>Te veel krachtvoer</h4><p>Pens verzuurt: lagere melkopbrengst &eacute;n korter leven.</p></div>
+                    <div class="rechts"><h4>Te veel krachtvoer</h4><p>Meer voer dan zij kan benutten.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="blok donker">
+    <section class="blok" id="integraties" style="padding-top:4vh">
         <div class="binnen">
-            <div class="kicker">Wat dat kost</div>
-            <h2 class="reveal">Pensverzuring merk je vaak pas <span class="r">laat</span> op, met alle gevolgen van dien.</h2>
-            <div class="kaarten reveal">
-                <div class="kaart"><b>~3&nbsp;kg</b><span>minder melk per dag, per aangedane koe</span></div>
-                <div class="kaart"><b>&euro;200&ndash;400</b><span>schade per aangedane koe, per jaar</span></div>
-                <div class="kaart"><b>11&ndash;26%</b><span>van de melkkoeien heeft SARA, vaak onzichtbaar</span></div>
-                <div class="kaart som"><b>&plusmn;&nbsp;&euro;6.000</b><span><strong>Reken het door voor een bedrijf met 100 koeien:</strong> zo&#39;n 20 koeien met pensverzuring &times; &euro;200&ndash;400 schade per koe. Dan loopt de schade al snel richting de &euro;6.000 per jaar, nog los van een mogelijk kortere levensduur.</span></div>
+            <div class="kicker">Integraties</div>
+            <h2 class="reveal">Werkt met de stal die je <span class="s">al hebt</span>.</h2>
+            <p class="intro reveal">Ruminate leest mee met de systemen die er al staan. Koppelingen en toestemmingen lopen via JoinData en bouwen we tijdens de pilot samen op.</p>
+            <div class="logos reveal">
+                <div class="logo-tegel"><b>Lely</b><span>melkrobot</span></div>
+                <div class="logo-tegel"><b>DeLaval</b><span>melkrobot</span></div>
+                <div class="logo-tegel"><b>GEA</b><span>melkrobot</span></div>
+                <div class="logo-tegel"><b>Nedap</b><span>halsband</span></div>
+                <div class="logo-tegel"><b>CRV</b><span>mpr &amp; registratie</span></div>
+                <div class="logo-tegel"><b>Qlip</b><span>melkanalyse</span></div>
+                <div class="logo-tegel"><b>JoinData</b><span>dataplatform</span></div>
+                <div class="logo-tegel"><b>KNMI</b><span>weerdata</span></div>
             </div>
-            <div class="bron">Bron: NL veldstudies &amp; inductieproeven, o.a. Kleen 2009; Khafipour 2009.</div>
-        </div>
-    </section>
-
-    <section class="blok" id="hoe">
-        <div class="binnen">
-            <div class="kicker">Hoe het werkt</div>
-            <h2 class="reveal">De data is er al. Wij maken haar <span class="s">inzichtelijk</span>.</h2>
-            <div class="stappen reveal">
-                <div class="stap"><div class="nr">1</div><h3>Lezen</h3><p>Wat het bedrijf al elke dag vastlegt:</p>
-                    <ul><li><b>Halsband</b>: herkauwtijd, activiteit</li><li><b>Melkrobot</b>: melkgift, krachtvoerrest</li><li><b>Melkcontrole</b>: vet, eiwit, ureum</li><li><b>Veeregistratie</b>: lactatie, historie</li></ul></div>
-                <div class="stap"><div class="nr">2</div><h3>Voorspellen</h3><p>Ruminate AI bouwt per koe een basislijn en voorspelt wat zij aankan, v&oacute;&oacute;r de pens verzuurt.</p>
-                    <ul><li><b>Validatie</b>: pens-pH-bolus en methaansniffer</li></ul></div>
-                <div class="stap"><div class="nr">3</div><h3>Bijsturen</h3><p>Op de twee knoppen die er zijn:</p>
-                    <ul><li><b>Krachtvoer</b>: per koe, aan de robot</li><li><b>Basisrantsoen</b>: per groep, aan het voerhek</li></ul></div>
-            </div>
-            <div class="oogst reveal">
-                <div>Gezonde pens</div><div>Meer melk</div><div>Minder methaan</div><div>Gaat langer mee</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="blok donker" id="demo">
-        <div class="binnen">
-            <div class="kicker">Demo</div>
-            <h2 class="reveal">E&eacute;n bedrijf, honderd <span class="r">optima</span>.</h2>
-            <div class="demo">
-                <div class="demopaneel reveal balken">
-                    <h3>Generieke voertabel</h3>
-                    <div class="noot">&eacute;&eacute;n formule voor elke koe</div>
-                    <div class="balkrij"><span>Te weinig krachtvoer</span><div class="balk" style="width:21%"></div><span class="n">21</span></div>
-                    <div class="balkrij"><span>Op haar optimum</span><div class="balk ok" style="width:59%"></div><span class="n">59</span></div>
-                    <div class="balkrij"><span>Pens verzuurt</span><div class="balk zuur" style="width:20%"></div><span class="n">20</span></div>
-                </div>
-                <div class="demopaneel reveal balken">
-                    <h3>Ruminate AI &middot; per koe</h3>
-                    <div class="noot">afgezet tegen haar eigen basislijn</div>
-                    <div class="balkrij"><span>Te weinig krachtvoer</span><div class="balk" style="width:9%"></div><span class="n">9</span></div>
-                    <div class="balkrij"><span>Op haar optimum</span><div class="balk ok" style="width:84%"></div><span class="n">84</span></div>
-                    <div class="balkrij"><span>Pens verzuurt</span><div class="balk zuur" style="width:7%"></div><span class="n">7</span></div>
-                </div>
-            </div>
+            <div class="logos-noot reveal">integraties in opbouw tijdens de pilot &middot; ook in gesprek met voerleveranciers</div>
         </div>
     </section>
 
@@ -351,7 +321,7 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
         <div class="binnen">
             <div class="kicker">Het product &middot; live</div>
             <h2 class="reveal">Dit is de <span class="r">cockpit</span>.</h2>
-            <p class="intro reveal">De koppel in &eacute;&eacute;n oogopslag, per koe haar signalen en een concreet voeradvies. Klik gerust rond: demo met voorbeelddata.</p>
+            <p class="intro reveal">De koppel in &eacute;&eacute;n oogopslag: wie doet het goed, wie vraagt aandacht, en wat je vandaag kunt doen. Klik gerust rond: demo met voorbeelddata.</p>
             <div class="product-rij reveal" style="margin-top:56px">
                 <div id="cockpit"></div>
                 <figure class="product-film" aria-label="Koeien aan het voerhek">
@@ -365,15 +335,15 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 
     <section class="blok rood-blok" id="pilot">
         <div class="binnen">
-            <div class="kicker">Pilotprogramma</div>
+            <div class="kicker">Join the pilot</div>
             <h2 class="reveal">We zijn net gestart. Er zijn nog enkele <u>plekken</u>.</h2>
             <p class="intro reveal">Het pilotprogramma loopt en er zijn op dit moment nog enkele plekken beschikbaar. Het kost je niets.</p>
             <div class="pilotkaarten reveal">
-                <div class="pk"><div class="nr">1</div><h3>Wij komen langs</h3><p>Wij leggen zelf de koppelingen met je melkrobot, managementsysteem en CRV.</p></div>
-                <div class="pk"><div class="nr">2</div><h3>Jouw data blijft van jou</h3><p>Vertrouwelijk, vastgelegd in een NDA.</p></div>
-                <div class="pk gratis"><div class="nr">3</div><h3>Gratis, ook straks</h3><p>Voor pilotbedrijven betaal je niets. Niet tijdens de pilot, en ook niet daarna: groeit Ruminate uit tot een volwaardig product, dan blijft het voor deelnemers van het eerste uur kosteloos, zolang wij het aanbieden.</p></div>
+                <div class="pk"><div class="nr">1</div><h3>Kennismaken &amp; NDA</h3><p>We komen langs op het bedrijf. Vertrouwelijkheid leggen we vast in een NDA, en het eigendom van je data blijft altijd bij jou.</p></div>
+                <div class="pk"><div class="nr">2</div><h3>Wij koppelen</h3><p>Wij regelen de koppelingen met je melkrobot, halsband en CRV, via JoinData. Eventuele externe JoinData-kosten zijn beperkt en melden we vooraf.</p></div>
+                <div class="pk gratis"><div class="nr">3</div><h3>Jij krijgt de cockpit</h3><p>Gratis. Niet alleen tijdens de pilot: groeit Ruminate uit tot een volwaardig product, dan blijft het voor deelnemers van het eerste uur kosteloos, zolang wij het aanbieden.</p></div>
             </div>
-            <div class="citaat reveal">&bdquo;Denk ChatGPT, maar dan gevoed met de data van jouw koeien. Een second opinion voor jou &eacute;n je voeradviseur.&rdquo;</div>
+            <div class="pilot-logos reveal">Lely &middot; DeLaval &middot; GEA &middot; Nedap &middot; CRV &middot; Qlip &middot; JoinData</div>
             <a class="knop" href="mailto:pilot@ruminate.nl?subject=Aanmelding%20pilotprogramma%20Ruminate">Meld je bedrijf aan &rarr;</a>
         </div>
     </section>

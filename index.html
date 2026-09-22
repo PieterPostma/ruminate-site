@@ -69,10 +69,12 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 
 /* hero */
 .hero{min-height:0;display:flex;flex-direction:column;justify-content:center;padding-top:17vh;padding-bottom:5vh}
-/* hero gecentreerd op dezelfde as als de grazende koe eronder */
-.hero .binnen{display:flex;flex-direction:column;align-items:center;text-align:center}
-.hero .intro{margin-left:auto;margin-right:auto}
-.hero .badges{justify-content:center}
+/* hero: tekst links, grazende koe rechts */
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center}
+.hero-grid h1{font-size:clamp(2.75rem,5vw,5rem)}
+.hero .kicker{font-size:1.0625rem;letter-spacing:.16em}
+.hero-grid .koefilm{padding:0;justify-self:end;width:min(400px,100%)}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-grid .koefilm{justify-self:center;margin-top:8px}}
 .koefilm{display:flex;flex-direction:column;align-items:center;gap:20px;padding:0 5vw 5vh}
 .koefilm .kader{width:min(440px,82vw);aspect-ratio:834/1050;
     border-radius:999px 999px 26px 26px;overflow:hidden;
@@ -82,6 +84,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     transform:scale(1.18);will-change:transform}
 .koefilm figcaption{font-family:var(--mono);font-size:var(--t-label-s);line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.68)}
 .product-rij{display:flex;flex-direction:column;gap:20px}
+.product-kop{font-family:var(--merk);font-weight:600;font-size:var(--t-h3);line-height:1.25;letter-spacing:-.01em;color:var(--groen);margin:14px 0 -6px}
 .product-film{margin:0;display:flex;flex-direction:column;background:#101a11;border:1px solid rgba(212,207,191,.16);
     border-radius:14px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.28)}
 .product-film video{width:100%;height:clamp(220px,30vw,380px);object-fit:cover}
@@ -128,6 +131,14 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .lat-basis{margin-top:12px;border:2px dashed rgba(71,98,79,.45);border-radius:20px;padding:18px 24px;background:rgba(123,165,138,.1)}
 .lat-basis h4{font-family:var(--mono);font-size:var(--t-label-s);line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-tekst)}
 .lat-basis p{font-size:var(--t-body);line-height:1.55;color:rgba(25,43,27,.72);margin-top:6px;max-width:52em}
+/* de feiten: subtiel, met bron */
+.feiten{margin-top:44px;border-top:1px solid rgba(25,43,27,.14);padding-top:24px}
+.feiten h4{font-family:var(--mono);font-size:var(--t-label-s);line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.5)}
+.feiten-rij{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:16px}
+.feiten-rij b{display:block;font-family:var(--merk);font-weight:600;font-size:1.375rem;line-height:1.2;color:var(--groen)}
+.feiten-rij span{display:block;margin-top:4px;font-size:var(--t-body-s);line-height:1.5;color:rgba(25,43,27,.6)}
+.feiten-bron{margin-top:18px;font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.1em;color:rgba(25,43,27,.45)}
+@media (max-width:640px){.feiten-rij{grid-template-columns:1fr}}
 .lat>div{border-radius:20px;padding:22px 24px}
 .lat .links{background:var(--geel);color:var(--groen)}
 .lat .midden{background:var(--sage);color:var(--groen)}
@@ -189,8 +200,9 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 .pk li:first-child{border-top:0}
 .pk li::before{content:"\2713";position:absolute;left:2px;color:#e8e4d6;font-weight:600}
 .logos-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
-.logos-mini span{background:#fff;border:1px solid rgba(25,43,27,.12);border-radius:10px;padding:9px 4px;text-align:center;
-    font-family:var(--merk);font-weight:700;font-size:.8125rem;color:var(--groen)}
+.logos-mini span{display:flex;flex-direction:column;align-items:center;gap:7px;background:#fff;border:1px solid rgba(25,43,27,.12);border-radius:10px;padding:11px 4px 9px;text-align:center;
+    font-family:var(--merk);font-weight:700;font-size:.75rem;color:var(--groen)}
+.logos-mini img{height:24px;width:auto;max-width:82%;object-fit:contain}
 
 /* team */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:56px}
@@ -270,18 +282,18 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
 <main id="top">
 
     <section class="blok hero">
-        <div class="binnen">
-            <div class="kicker">Ruminate &middot; voor melkveehouders</div>
-            <h1>Elke koe<br>haar <span class="r">eigen</span><br>optimum<span class="r">.</span></h1>
-            <p class="intro">Ruminate maakt de data die je bedrijf al heeft inzichtelijk: zie in één oogopslag welke koeien niet optimaal presteren, en wat je vandaag kunt doen.</p>
-            <a class="knop reveal" style="margin-top:38px" href="#pilot">Join the pilot &rarr;</a>
+        <div class="binnen hero-grid">
+            <div class="hero-tekst">
+                <div class="kicker">Ruminate &middot; voor melkveehouders</div>
+                <h1>Elke koe<br>haar <span class="r">eigen</span><br>optimum<span class="r">.</span></h1>
+                <p class="intro">Ruminate maakt de data die je bedrijf al heeft inzichtelijk: zie in één oogopslag welke koeien niet optimaal presteren, en wat je vandaag kunt doen.</p>
+                <a class="knop reveal" style="margin-top:38px" href="#pilot">Join the pilot &rarr;</a>
+            </div>
+            <figure class="koefilm" aria-label="Grazende koe">
+                <div class="kader"><video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/grazende-koe.mp4"></video></div>
+            </figure>
         </div>
     </section>
-
-    <figure class="koefilm" aria-label="Grazende koe">
-        <div class="kader"><video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/grazende-koe.mp4"></video></div>
-        <figcaption>Elke koe haar eigen optimum</figcaption>
-    </figure>
 
     <section class="blok" id="probleem" style="padding-top:6vh">
         <div class="binnen">
@@ -303,6 +315,15 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                     <div class="rechts"><h4>Te veel krachtvoer</h4><p>Meer voer dan zij kan benutten.</p></div>
                 </div>
                 <div class="lat-basis reveal"><h4>Het fundament: ruwvoer</h4><p>Ook het basisrantsoen aan het voerhek bepaalt of ze haar optimum haalt: voldoende structuur en de juiste energie voor de hele koppel.</p></div>
+                <div class="feiten reveal">
+                    <h4>Wat onderzoek laat zien</h4>
+                    <div class="feiten-rij">
+                        <div><b>~3&nbsp;kg</b><span>minder melk per dag bij een koe met pensverzuring</span></div>
+                        <div><b>11&ndash;26%</b><span>van de melkkoeien heeft er in Nederlandse studies last van</span></div>
+                        <div><b>&euro;200&ndash;400</b><span>geschatte schade per aangedane koe, per jaar</span></div>
+                    </div>
+                    <div class="feiten-bron">Bron: NL veldstudies &amp; inductieproeven, o.a. Kleen (2009); Khafipour (2009).</div>
+                </div>
             </div>
         </div>
     </section>
@@ -314,11 +335,12 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
             <p class="intro reveal">De koppel in &eacute;&eacute;n oogopslag: wie doet het goed, wie vraagt aandacht, en wat je vandaag kunt doen. Klik gerust rond: demo met voorbeelddata.</p>
             <div class="product-rij reveal" style="margin-top:56px">
                 <div id="cockpit"></div>
+                <h3 class="product-kop">Voeradvies voor de komende weken</h3>
+                <div id="koppeladvies" aria-label="Koppeladvies"></div>
                 <figure class="product-film" aria-label="Koeien aan het voerhek">
                     <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture src="media/koeien-eten.mp4"></video>
                     <figcaption>Live uit de stal &middot; het voerhek</figcaption>
                 </figure>
-                <div id="koppeladvies" aria-label="Koppeladvies"></div>
             </div>
         </div>
     </section>
@@ -336,8 +358,14 @@ body.koe-donker .koe{--koe-lijn:var(--creme)}
                 <div class="pk gratis"><div class="nr">3</div><h3>Jij krijgt de inzichten</h3>
                     <p>Een second opinion op je voeradvies en direct zicht op alle metrics van je koppel.</p>
                     <div class="logos-mini" aria-label="Systemen die we koppelen">
-                        <span>Lely</span><span>DeLaval</span><span>GEA</span><span>Nedap</span>
-                        <span>CRV</span><span>Qlip</span><span>JoinData</span><span>KNMI</span>
+                        <span><img src="media/logos/lely.png" alt="">Lely</span>
+                        <span><img src="media/logos/delaval.png" alt="">DeLaval</span>
+                        <span><img src="media/logos/gea.svg" alt="">GEA</span>
+                        <span><img src="media/logos/nedap.svg" alt="">Nedap</span>
+                        <span><img src="media/logos/crv.png" alt="">CRV</span>
+                        <span><img src="media/logos/qlip.png" alt="">Qlip</span>
+                        <span><img src="media/logos/joindata.png" alt="">JoinData</span>
+                        <span><img src="media/logos/knmi.png" alt="">KNMI</span>
                     </div></div>
             </div>
             <a class="knop" href="mailto:pilot@ruminate.nl?subject=Aanmelding%20pilotprogramma%20Ruminate">Meld je bedrijf aan &rarr;</a>

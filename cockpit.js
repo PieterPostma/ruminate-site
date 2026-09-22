@@ -322,9 +322,9 @@
             var doel = document.getElementById('koppeladvies');
             if (!doel) return;
             var plan = [
-                { week: weeknr(0), titel: 'Structuur en buffer omhoog',
-                  tekst: 'Verhoog het structuuraandeel: +1 kg hooi of stro per koe per dag door het basisrantsoen, zetmeel iets terug en pensbuffer bijvoeren.',
-                  chips: [['structuur +', 'geel'], ['zetmeel −', 'geel'], ['buffer', 'geel']] },
+                { week: weeknr(0), titel: 'Structuur omhoog én voorbereiden op de hitte',
+                  tekst: 'Verhoog het structuuraandeel (+1 kg hooi of stro per koe per dag) en voeg pensbuffer toe. Vanwege de verwachte hitte van woensdag (>30 °C): kies licht verteerbaar, smakelijk ruwvoer, bijvoorbeeld luzerne, vroeg gemaaide kuil of bietenpulp, en voer op de koele uren.',
+                  chips: [['hitte wo >30 °C', 'rood'], ['structuur +', 'geel'], ['buffer', 'geel'], ['luzerne / vroege kuil / bietenpulp', 'groen']] },
                 { week: weeknr(1), titel: 'Herbeoordelen en energie',
                   tekst: 'Bij herstel terug naar het basisrantsoen. Overweeg +0,5 kg maïs voor de hoogproductieve groep; neem vet, eiwit en ureum mee uit de melkcontrole.',
                   chips: [['maïs +0,5 kg', 'geel'], ['melkcontrole', 'goud']] }

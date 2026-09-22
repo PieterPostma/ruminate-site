@@ -66,8 +66,7 @@
             actie: 'Vandaag −0,8 kg via de robot; daarna in kleine stappen terug opbouwen.',
             apart: {
                 titel: 'Zet haar vandaag apart',
-                tekst: 'In de herstelgroep (strohok) kan zij wél individueel ruwvoer krijgen: onbeperkt hooi, structuurrijke kuil en pensbuffer. Zo komt de pens sneller tot rust.',
-                chips: [['strohok', 'rood'], ['onbeperkt hooi', 'geel'], ['buffer', 'geel'], ['terug bij herkauw-herstel', 'groen']]
+                tekst: 'In het strohok krijgt ze onbeperkt hooi en pensbuffer; terug bij de koppel zodra het herkauwen herstelt.'
             }
         };
         if (k.status === 'let-op' && k.afst > 0) return { signalen: signalen,
@@ -168,10 +167,9 @@
         '.ck-chip.rood{border-color:rgba(200,82,74,.6);color:#e0847d}',
         '.ck-chip.goud{border-color:rgba(184,164,114,.5);color:#b8a472;margin-top:8px}',
         /* hitte-alert bovenin */
-        '.ck-alert{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid rgba(233,189,79,.5);border-left:4px solid #e9bd4f;background:rgba(233,189,79,.14);font-size:14px;color:rgba(212,207,191,.9)}',
-        '.ck-alert .ico{flex:none;font-size:22px;line-height:1;color:#e9bd4f}',
-        '.ck-alert b{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:16px;color:#e9bd4f;margin-right:8px;white-space:nowrap}',
-        '.ck-alert .ck-chip{font-size:12px;padding:6px 14px}',
+        '.ck-alert{display:flex;gap:10px;align-items:center;padding:11px 18px;border-bottom:1px solid rgba(233,189,79,.4);border-left:3px solid #e9bd4f;background:rgba(233,189,79,.09);font-size:13px;line-height:1.5;color:rgba(212,207,191,.85)}',
+        '.ck-alert .ico{flex:none;font-size:15px;line-height:1;color:#e9bd4f}',
+        '.ck-alert b{font-weight:400;color:#e9bd4f}',
         /* actie van vandaag in de krachtvoerkaart */
         '.ck-actie{margin-top:9px;border-top:1px dashed rgba(212,207,191,.25);padding-top:8px}',
         '.ck-actie h6{margin:0 0 3px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7ba58a}',
@@ -242,10 +240,7 @@
             '    <span class="ck-kpis"><span>optimum <b>' + nOk + '</b></span><span>aandacht <b class="g">' + nLet + '</b></span><span>risico <b class="r">' + nZuur + '</b></span></span>' +
             '  </div>' +
             '  <div class="ck-alert" role="note"><span class="ico">&#9888;</span>' +
-            '<b>Hitte-alert &middot; wo &gt;30&nbsp;&deg;C</b>' +
-            '<span class="ck-chip geel">ventilatoren checken</span>' +
-            '<span class="ck-chip geel">licht verteerbaar ruwvoer bestellen</span>' +
-            '<span class="ck-chip geel">pensbuffer klaarzetten</span></div>' +
+            '<span><b>Hitte-alert &middot; wo &gt;30&nbsp;&deg;C.</b> Check de ventilatoren; het voeradvies houdt er rekening mee.</span></div>' +
             '  <div class="ck-romp">' +
             '    <div class="ck-lijst">' +
             '      <div class="ck-filters">' +
@@ -271,8 +266,8 @@
                 var i = koeien.indexOf(k);
                 return '<button class="ck-rij' + (k === huidig ? ' aan' : '') + '" data-i="' + i + '">' +
                     '<span class="ck-dot ' + k.status + '"></span>' +
-                    '<span class="n">' + k.naam + '<small>lactatie ' + k.lactatie + ' &middot; ' + k.dim + ' dagen in melk</small></span>' +
-                    '<span class="m">' + k.melk[13].toFixed(1) + ' kg<br>' + Math.round(k.herkauw[13]) + ' min</span></button>';
+                    '<span class="n">' + k.naam + '</span>' +
+                    '<span class="m">' + k.melk[13].toFixed(1) + ' kg</span></button>';
             }).join('');
         }
 
@@ -292,29 +287,20 @@
             detail.innerHTML =
                 '<div class="ck-dkop"><h4>' + k.naam + '</h4>' +
                 '<span class="ck-badge ' + k.status + '">' + lbl[k.status] + '</span></div>' +
-                '<h6 class="ck-groep">Status</h6>' +
                 '<div class="ck-chips">' + chips + '</div>' +
                 '<div class="ck-gauge"><h5>Haar positie t.o.v. haar eigen optimum</h5>' + gauge(k) + '</div>' +
-                '<h6 class="ck-groep advies">Advies</h6>' +
+                '<div class="ck-paneel"><h5>Melkgift &middot; 14 dagen &middot; stippellijn = basislijn</h5>' + spark(k.melk, k.basis, k.status === 'zuur' ? '#c8524a' : '#7ba58a', mMin, mMax) + '</div>' +
                 (function () {
-                    var kvKaart = '<div class="ck-vkaart"><h5>Krachtvoer &middot; per koe &middot; aan de robot</h5>' +
+                    var kvKaart = '<div class="ck-vkaart"><h5>Advies &middot; krachtvoer aan de robot</h5>' +
                         '  <div class="cijfer">' + cijfer + '</div>' +
                         '  <div class="titel">' + a.kv.titel + '</div>' +
-                        '  <p class="reden">' + a.kv.reden + '</p>' +
-                        '  <div class="ck-actie"><h6>Vandaag &middot; automatisch</h6><p>' + a.actie + '</p></div></div>';
+                        '  <p>' + a.actie + '</p></div>';
                     if (!a.apart) return kvKaart;
-                    var apartKaart = '<div class="ck-vkaart apart"><h5>&#9888; Apart zetten &middot; herstelgroep</h5>' +
+                    var apartKaart = '<div class="ck-vkaart apart"><h5>&#9888; Apart zetten</h5>' +
                         '  <div class="titel">' + a.apart.titel + '</div>' +
-                        '  <p class="reden">' + a.apart.tekst + '</p>' +
-                        '  <div class="ck-chips" style="margin-top:8px">' +
-                        a.apart.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
-                        '</div></div>';
+                        '  <p>' + a.apart.tekst + '</p></div>';
                     return '<div class="ck-voer">' + kvKaart + apartKaart + '</div>';
-                })() +
-                '<div class="ck-grafieken">' +
-                '  <div class="ck-paneel"><h5>Melkgift &middot; 14 dagen &middot; stippellijn = basislijn</h5>' + spark(k.melk, k.basis, k.status === 'zuur' ? '#c8524a' : '#7ba58a', mMin, mMax) + '</div>' +
-                '  <div class="ck-paneel"><h5>Herkauwtijd &middot; min/dag</h5>' + spark(k.herkauw, null, '#b8a472', hMin, hMax) + '</div>' +
-                '</div>';
+                })();
         }
 
         /* koppeladvies: eigen blok buiten de cockpit, voor de hele koppel */
@@ -322,27 +308,20 @@
             var doel = document.getElementById('koppeladvies');
             if (!doel) return;
             var plan = [
-                { week: weeknr(0), titel: 'Structuur omhoog én voorbereiden op de hitte',
-                  tekst: 'Verhoog het structuuraandeel (+1 kg hooi of stro per koe per dag) en voeg pensbuffer toe. Vanwege de verwachte hitte van woensdag (>30 °C): kies licht verteerbaar, smakelijk ruwvoer, bijvoorbeeld luzerne, vroeg gemaaide kuil of bietenpulp, en voer op de koele uren.',
-                  chips: [['hitte wo >30 °C', 'rood'], ['structuur +', 'geel'], ['buffer', 'geel'], ['luzerne / vroege kuil / bietenpulp', 'groen']] },
-                { week: weeknr(1), titel: 'Herbeoordelen en energie',
-                  tekst: 'Bij herstel terug naar het basisrantsoen. Overweeg +0,5 kg maïs voor de hoogproductieve groep; neem vet, eiwit en ureum mee uit de melkcontrole.',
-                  chips: [['maïs +0,5 kg', 'geel'], ['melkcontrole', 'goud']] }
+                { week: weeknr(0), titel: 'Structuur omhoog én klaar voor de hitte',
+                  tekst: '+1 kg hooi of stro per koe per dag en pensbuffer erbij. Met de hitte van woensdag: licht verteerbaar ruwvoer, zoals luzerne of vroeg gemaaide kuil.' },
+                { week: weeknr(1), titel: 'Herbeoordelen',
+                  tekst: 'Bij herstel terug naar het basisrantsoen; neem de melkcontrole mee.' }
             ];
             doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
-                '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; voor de hele koppel, aan het voerhek</h6>' +
+                '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; aan het voerhek</h6>' +
                 plan.map(function (w) {
                     return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">Week ' + w.week + '</span><b>' + w.titel + '</b></div>' +
-                        '<p>' + w.tekst + '</p><div class="ck-chips">' +
-                        w.chips.map(function (c) { return '<span class="ck-chip ' + c[1] + '">' + c[0] + '</span>'; }).join('') +
-                        '</div></div>';
+                        '<p>' + w.tekst + '</p></div>';
                 }).join('') +
-                '<div class="ck-deel"><h6>Doorzetten</h6>' +
-                '<button class="ck-deelknop" type="button">Deel weekplan met je voeradviseur</button>' +
-                '<button class="ck-deelknop lev" type="button">Bestel via Mengvoeders van der Weide</button>' +
-                '<button class="ck-deelknop lev" type="button">Bestel via VoerLink Noord</button>' +
+                '<div class="ck-deel">' +
+                '<button class="ck-deelknop" type="button">Deel met je voeradviseur</button>' +
                 '<span class="ck-chip goud">integraties &middot; binnenkort</span></div>' +
-                '<small>bespreek wijzigingen met je voeradviseur</small>' +
                 '</div></div></div>';
             doel.querySelector('.ck').addEventListener('click', function (e) {
                 var b = e.target.closest('.ck-deelknop'); if (!b) return;

@@ -205,6 +205,8 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .pk.gratis li::before{color:var(--sage-tekst)}
 .datakring{margin-top:14px}
 .datakring svg{display:block;width:min(320px,100%);height:auto;margin:0 auto}
+.datakring g circle{transition:stroke .22s ease-out,stroke-width .22s ease-out}
+.datakring g:hover circle{stroke:rgba(25,43,27,.4);stroke-width:2.5}
 .datakring .stroom{stroke-dasharray:3 7;animation:dk-stroom 1.4s linear infinite}
 @keyframes dk-stroom{to{stroke-dashoffset:-10}}
 @media (prefers-reduced-motion:reduce){.datakring .stroom{animation:none;stroke-dasharray:none}}
@@ -244,14 +246,16 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .26s ease-out,transform .26s cubic-bezier(.2,.6,.2,1)}
 .reveal.zichtbaar{opacity:1;transform:none}
 /* kaarten in een raster volgen elkaar met 50ms op */
-.reveal>.kaart,.reveal>.stap,.reveal>.pk,.reveal>.lid,.reveal .lat>div{opacity:0;transform:translateY(10px);
+.reveal>.kaart,.reveal>.stap,.reveal>.pk,.reveal>.lid,.reveal .lat>div,.reveal .feiten-rij>div{opacity:0;transform:translateY(10px);
     transition:opacity .26s ease-out,transform .26s cubic-bezier(.2,.6,.2,1)}
-.reveal.zichtbaar>.kaart,.reveal.zichtbaar>.stap,.reveal.zichtbaar>.pk,.reveal.zichtbaar>.lid,.reveal.zichtbaar .lat>div{opacity:1;transform:none}
+.reveal.zichtbaar>.kaart,.reveal.zichtbaar>.stap,.reveal.zichtbaar>.pk,.reveal.zichtbaar>.lid,.reveal.zichtbaar .lat>div,.reveal.zichtbaar .feiten-rij>div{opacity:1;transform:none}
 .reveal.zichtbaar>:nth-child(2){transition-delay:.05s}
 .reveal.zichtbaar>:nth-child(3){transition-delay:.1s}
 .reveal.zichtbaar>:nth-child(4){transition-delay:.15s}
 .reveal.zichtbaar .lat>:nth-child(2){transition-delay:.05s}
 .reveal.zichtbaar .lat>:nth-child(3){transition-delay:.1s}
+.reveal.zichtbaar .feiten-rij>:nth-child(2){transition-delay:.05s}
+.reveal.zichtbaar .feiten-rij>:nth-child(3){transition-delay:.1s}
 
 @media (max-width:860px){
     nav{display:none}
@@ -269,7 +273,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
     .balkrij .balk{order:3;grid-column:1/-1}
 }
 @media (prefers-reduced-motion:reduce){
-    .reveal,.reveal>*,.reveal .lat>div{opacity:1;transform:none;transition:none}
+    .reveal,.reveal>*,.reveal .lat>div,.reveal .feiten-rij>div{opacity:1;transform:none;transition:none}
     .balk{transform:scaleX(1);transition:none}
     .knop,.knop:hover,.lid,.lid:hover{transform:none;transition:none}
 }

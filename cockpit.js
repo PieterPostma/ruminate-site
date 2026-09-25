@@ -147,6 +147,16 @@
         '.ck-week-kop .wk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#101a11;background:#b8a472;border-radius:99px;padding:3px 9px;white-space:nowrap}',
         '.ck-week-kop b{font-weight:400;font-size:13.5px;color:#e8e4d6}',
         '.ck-week p{margin:5px 0 7px}',
+        /* inkooplijst: advies doorgerekend naar bestelbare volumes */
+        '.ck-inkoop{margin-top:12px;border:1px solid rgba(212,207,191,.14);border-radius:9px;padding:12px 14px;background:rgba(212,207,191,.03)}',
+        '.ck-inkoop h6{margin:0 0 8px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
+        '.ck-inkoop-rij{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:8px 0;border-top:1px dashed rgba(212,207,191,.15)}',
+        '.ck-inkoop-rij:first-of-type{border-top:0;padding-top:2px}',
+        '.ck-inkoop-rij .wat{font-size:13.5px;color:#e8e4d6}',
+        '.ck-inkoop-rij .wat small{display:block;font-size:11px;color:rgba(212,207,191,.45)}',
+        '.ck-inkoop-rij .kg{font-family:"JetBrains Mono",monospace;font-size:13px;color:#e9bd4f;white-space:nowrap}',
+        '.ck-inkoop-rij .eenheid{font-size:12px;color:rgba(212,207,191,.6);white-space:nowrap}',
+        '@media (max-width:640px){.ck-inkoop-rij{grid-template-columns:1fr auto}.ck-inkoop-rij .eenheid{grid-column:1/-1;margin-top:-4px}}',
         /* doorzetten: delen en (toekomstige) leveranciers-integraties */
         '.ck-deel{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px dashed rgba(212,207,191,.25);border-radius:9px;padding:10px 13px;margin-top:12px}',
         '.ck-deel h6{margin:0 8px 0 0;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
@@ -312,19 +322,43 @@
                 { maand: maand(1), titel: 'Herbeoordelen met je voeradviseur',
                   tekst: 'Bij herstel terug naar het basisrantsoen; neem de melkcontrole en dit overzicht mee in het maandbezoek.' }
             ];
+            /* inkooplijst: het advies doorgerekend naar bestelbare volumes voor deze koppel */
+            var N = koeien.length, dagen = 30;
+            function rond(kg, stap) { return Math.ceil(kg / stap) * stap; }
+            var inkoop = [
+                { wat: 'Hooi of stro (structuur)', basis: '1 kg per koe per dag',
+                  kg: rond(N * 1 * dagen, 10), eenheid: Math.ceil(N * 1 * dagen / 250) + ' grote balen (à 250 kg)' },
+                { wat: 'Pensbuffer (natriumbicarbonaat)', basis: '150 g per koe per dag',
+                  kg: rond(N * 0.15 * dagen, 5), eenheid: Math.ceil(N * 0.15 * dagen / 25) + ' zakken (à 25 kg)' },
+                { wat: 'Luzerne (warme dagen)', basis: '2 kg per koe, ±10 dagen',
+                  kg: rond(N * 2 * 10, 10), eenheid: Math.ceil(N * 2 * 10 / 250) + ' balen (à 250 kg)' }
+            ];
             doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
                 '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; aan het voerhek</h6>' +
                 plan.map(function (w) {
                     return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">' + w.maand + '</span><b>' + w.titel + '</b></div>' +
                         '<p>' + w.tekst + '</p></div>';
                 }).join('') +
+                '<div class="ck-inkoop"><h6>Inkooplijst &middot; ' + maand(0) + ' &middot; ' + N + ' koeien</h6>' +
+                inkoop.map(function (r) {
+                    return '<div class="ck-inkoop-rij"><span class="wat">' + r.wat + '<small>' + r.basis + '</small></span>' +
+                        '<span class="kg">±' + r.kg + ' kg</span><span class="eenheid">' + r.eenheid + '</span></div>';
+                }).join('') + '</div>' +
                 '<div class="ck-deel">' +
+                '<button class="ck-deelknop" type="button" data-actie="kopieer">Kopieer inkooplijst</button>' +
                 '<button class="ck-deelknop" type="button">Deel met je voeradviseur</button>' +
                 '<span class="ck-chip goud">integraties &middot; binnenkort</span></div>' +
                 '</div></div></div>';
             doel.querySelector('.ck').addEventListener('click', function (e) {
                 var b = e.target.closest('.ck-deelknop'); if (!b) return;
-                toast.textContent = 'Demo · deze koppeling bouwen we samen met de pilotbedrijven';
+                if (b.getAttribute('data-actie') === 'kopieer') {
+                    var tekst = 'Inkooplijst ' + maand(0) + ' · ' + N + ' koeien (Ruminate)\n' +
+                        inkoop.map(function (r) { return '- ' + r.wat + ': ±' + r.kg + ' kg (' + r.eenheid + ')'; }).join('\n');
+                    try { navigator.clipboard.writeText(tekst); } catch (err) {}
+                    toast.textContent = 'Inkooplijst gekopieerd';
+                } else {
+                    toast.textContent = 'Demo · deze koppeling bouwen we samen met de pilotbedrijven';
+                }
                 toast.classList.add('aan');
                 clearTimeout(toastTimer);
                 toastTimer = setTimeout(function () { toast.classList.remove('aan'); }, 2400);

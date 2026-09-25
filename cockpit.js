@@ -317,9 +317,9 @@
             var doel = document.getElementById('koppeladvies');
             if (!doel) return;
             var plan = [
-                { maand: maand(0), titel: 'Structuur omhoog én klaar voor de hitte',
+                { maand: maand(1), titel: 'Structuur omhoog én klaar voor de hitte',
                   tekst: '+1 kg hooi of stro per koe per dag en pensbuffer erbij. Rond de warme dagen: licht verteerbaar ruwvoer, zoals luzerne of vroeg gemaaide kuil.' },
-                { maand: maand(1), titel: 'Herbeoordelen met je voeradviseur',
+                { maand: maand(2), titel: 'Herbeoordelen met je voeradviseur',
                   tekst: 'Bij herstel terug naar het basisrantsoen; neem de melkcontrole en dit overzicht mee in het maandbezoek.' }
             ];
             /* inkooplijst: het advies doorgerekend naar bestelbare volumes voor deze koppel */
@@ -339,7 +339,7 @@
                     return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">' + w.maand + '</span><b>' + w.titel + '</b></div>' +
                         '<p>' + w.tekst + '</p></div>';
                 }).join('') +
-                '<div class="ck-inkoop"><h6>Inkooplijst &middot; ' + maand(0) + ' &middot; ' + N + ' koeien</h6>' +
+                '<div class="ck-inkoop"><h6>Inkooplijst &middot; ' + maand(1) + ' &middot; ' + N + ' koeien</h6>' +
                 inkoop.map(function (r) {
                     return '<div class="ck-inkoop-rij"><span class="wat">' + r.wat + '<small>' + r.basis + '</small></span>' +
                         '<span class="kg">±' + r.kg + ' kg</span><span class="eenheid">' + r.eenheid + '</span></div>';
@@ -352,7 +352,7 @@
             doel.querySelector('.ck').addEventListener('click', function (e) {
                 var b = e.target.closest('.ck-deelknop'); if (!b) return;
                 if (b.getAttribute('data-actie') === 'kopieer') {
-                    var tekst = 'Inkooplijst ' + maand(0) + ' · ' + N + ' koeien (Ruminate)\n' +
+                    var tekst = 'Inkooplijst ' + maand(1) + ' · ' + N + ' koeien (Ruminate)\n' +
                         inkoop.map(function (r) { return '- ' + r.wat + ': ±' + r.kg + ' kg (' + r.eenheid + ')'; }).join('\n');
                     try { navigator.clipboard.writeText(tekst); } catch (err) {}
                     toast.textContent = 'Inkooplijst gekopieerd';

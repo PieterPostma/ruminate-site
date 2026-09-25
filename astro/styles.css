@@ -42,7 +42,7 @@ nav{display:flex;gap:8px}
 nav a{font-family:var(--merk);font-weight:500;font-size:var(--t-body);letter-spacing:.01em;color:var(--groen);text-decoration:none;padding:7px 15px;border-radius:99px;transition:background-color .2s ease-out,color .2s ease-out}
 nav a:hover{background:var(--rood-diep);color:var(--papier)}
 
-.blok{padding:16vh 5vw;position:relative}
+.blok{padding:11vh 5vw;position:relative}
 .blok.donker{background:var(--groen);color:var(--creme);border-radius:38px;margin:16px 10px}
 .blok.rood-blok{background:var(--terra);color:var(--papier);border-radius:38px;margin:16px 10px}
 .binnen{max-width:1160px;margin:0 auto}
@@ -57,7 +57,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .donker .intro{color:rgba(212,207,191,.72)} .rood-blok .intro{color:rgba(232,228,214,.85)}
 
 /* hero */
-.hero{min-height:0;display:flex;flex-direction:column;justify-content:center;padding-top:17vh;padding-bottom:7vh}
+.hero{min-height:0;display:flex;flex-direction:column;justify-content:center;padding-top:15vh;padding-bottom:6vh}
 /* hero: tekst links, grazende koe rechts */
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(14px,2.5vw,36px);align-items:center}
 .hero-grid h1{font-size:clamp(2.75rem,5vw,5rem)}
@@ -223,7 +223,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .lid .links a:hover{border-color:var(--rood-diep);color:var(--rood-diep)}
 
 /* voet */
-.voet{background:var(--groen);color:var(--creme);border-radius:38px 38px 0 0;margin:10vh 10px 0;padding:14vh 5vw 20vh}
+.voet{background:var(--groen);color:var(--creme);border-radius:38px 38px 0 0;margin:7vh 10px 0;padding:10vh 5vw 15vh}
 .voet h2 .r{color:var(--rood-licht)}
 .voet .contact{display:flex;gap:40px;flex-wrap:wrap;margin-top:56px;font-family:var(--mono);font-size:var(--t-body-s);line-height:1.7}
 .voet .contact a{color:var(--creme);text-decoration:none;border-bottom:1px solid rgba(212,207,191,.35);transition:border-color .2s ease-out,color .2s ease-out}

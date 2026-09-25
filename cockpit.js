@@ -43,13 +43,13 @@
         return koeien;
     }
 
-    /* ---------- voeradvies: reden erbij, ruwvoer als weekplan ---------- */
-    function weeknr(offset) {
-        var d = new Date(); d.setDate(d.getDate() + (offset || 0) * 7);
-        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-        var start = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-        return Math.ceil(((d - start) / 864e5 + 1) / 7);
+    /* ---------- voeradvies: reden erbij, ruwvoer als maandplan ---------- */
+    var MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni',
+        'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+    function maand(offset) {
+        var d = new Date();
+        var naam = MAANDEN[(d.getMonth() + (offset || 0)) % 12];
+        return naam.charAt(0).toUpperCase() + naam.slice(1);
     }
 
     function advies(k) {
@@ -307,15 +307,15 @@
             var doel = document.getElementById('koppeladvies');
             if (!doel) return;
             var plan = [
-                { week: weeknr(0), titel: 'Structuur omhoog én klaar voor de hitte',
-                  tekst: '+1 kg hooi of stro per koe per dag en pensbuffer erbij. Met de hitte van woensdag: licht verteerbaar ruwvoer, zoals luzerne of vroeg gemaaide kuil.' },
-                { week: weeknr(1), titel: 'Herbeoordelen',
-                  tekst: 'Bij herstel terug naar het basisrantsoen; neem de melkcontrole mee.' }
+                { maand: maand(0), titel: 'Structuur omhoog én klaar voor de hitte',
+                  tekst: '+1 kg hooi of stro per koe per dag en pensbuffer erbij. Rond de warme dagen: licht verteerbaar ruwvoer, zoals luzerne of vroeg gemaaide kuil.' },
+                { maand: maand(1), titel: 'Herbeoordelen met je voeradviseur',
+                  tekst: 'Bij herstel terug naar het basisrantsoen; neem de melkcontrole en dit overzicht mee in het maandbezoek.' }
             ];
             doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
                 '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; aan het voerhek</h6>' +
                 plan.map(function (w) {
-                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">Week ' + w.week + '</span><b>' + w.titel + '</b></div>' +
+                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">' + w.maand + '</span><b>' + w.titel + '</b></div>' +
                         '<p>' + w.tekst + '</p></div>';
                 }).join('') +
                 '<div class="ck-deel">' +

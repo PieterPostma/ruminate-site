@@ -157,6 +157,8 @@
         '.ck-inkoop-rij .kg{font-family:"JetBrains Mono",monospace;font-size:13px;color:#e9bd4f;white-space:nowrap}',
         '.ck-inkoop-rij .eenheid{font-size:12px;color:rgba(212,207,191,.6);white-space:nowrap}',
         '@media (max-width:640px){.ck-inkoop-rij{grid-template-columns:1fr auto}.ck-inkoop-rij .eenheid{grid-column:1/-1;margin-top:-4px}}',
+        '.ck-inkoop.volgt{border-style:dashed;background:none}',
+        '.ck-inkoop.volgt p{margin:0;font-size:12.5px;line-height:1.5;color:rgba(212,207,191,.55);font-style:italic}',
         /* doorzetten: delen en (toekomstige) leveranciers-integraties */
         '.ck-deel{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px dashed rgba(212,207,191,.25);border-radius:9px;padding:10px 13px;margin-top:12px}',
         '.ck-deel h6{margin:0 8px 0 0;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.5)}',
@@ -333,17 +335,20 @@
                 { wat: 'Luzerne (warme dagen)', basis: '2 kg per koe, ±10 dagen',
                   kg: rond(N * 2 * 10, 10), eenheid: Math.ceil(N * 2 * 10 / 250) + ' balen (à 250 kg)' }
             ];
-            doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
-                '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; aan het voerhek</h6>' +
-                plan.map(function (w) {
-                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">' + w.maand + '</span><b>' + w.titel + '</b></div>' +
-                        '<p>' + w.tekst + '</p></div>';
-                }).join('') +
-                '<div class="ck-inkoop"><h6>Inkooplijst &middot; ' + maand(1) + ' &middot; ' + N + ' koeien</h6>' +
+            var inkoopHtml = '<div class="ck-inkoop"><h6>Inkooplijst &middot; ' + maand(1) + ' &middot; ' + N + ' koeien</h6>' +
                 inkoop.map(function (r) {
                     return '<div class="ck-inkoop-rij"><span class="wat">' + r.wat + '<small>' + r.basis + '</small></span>' +
                         '<span class="kg">±' + r.kg + ' kg</span><span class="eenheid">' + r.eenheid + '</span></div>';
-                }).join('') + '</div>' +
+                }).join('') + '</div>';
+            /* de lijst hoort bij de eerstvolgende maand; de maand erna kondigt de zijne aan */
+            var volgtHtml = '<div class="ck-inkoop volgt"><h6>Inkooplijst &middot; ' + maand(2) + '</h6>' +
+                '<p>Volgt medio ' + maand(1).toLowerCase() + ', twee weken voor het maandbezoek van je voeradviseur.</p></div>';
+            doel.innerHTML = '<div class="ck"><div class="ck-koppel"><span class="ico">&#127807;</span><div style="flex:1">' +
+                '<h6>Koppeladvies &middot; ruwvoer &amp; basisrantsoen &middot; aan het voerhek</h6>' +
+                plan.map(function (w, i) {
+                    return '<div class="ck-week"><div class="ck-week-kop"><span class="wk">' + w.maand + '</span><b>' + w.titel + '</b></div>' +
+                        '<p>' + w.tekst + '</p>' + (i === 0 ? inkoopHtml : volgtHtml) + '</div>';
+                }).join('') +
                 '<div class="ck-deel">' +
                 '<button class="ck-deelknop" type="button" data-actie="kopieer">Kopieer inkooplijst</button>' +
                 '<button class="ck-deelknop" type="button">Deel met je voeradviseur</button>' +
@@ -354,7 +359,7 @@
                 if (b.getAttribute('data-actie') === 'kopieer') {
                     var tekst = 'Inkooplijst ' + maand(1) + ' · ' + N + ' koeien (Ruminate)\n' +
                         inkoop.map(function (r) { return '- ' + r.wat + ': ±' + r.kg + ' kg (' + r.eenheid + ')'; }).join('\n');
-                    try { navigator.clipboard.writeText(tekst); } catch (err) {}
+                    try { navigator.clipboard.writeText(tekst).catch(function () {}); } catch (err) {}
                     toast.textContent = 'Inkooplijst gekopieerd';
                 } else {
                     toast.textContent = 'Demo · deze koppeling bouwen we samen met de pilotbedrijven';

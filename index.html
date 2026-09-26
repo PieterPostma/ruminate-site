@@ -19,7 +19,6 @@
     --rood-licht:#e0847d;     /* rood accent op donkergroen */
     --sage-tekst:#47624f;     /* kleine groene tekst en tekstdragende groene vlakken */
     --geel:#e9bd4f;
-    --oranje:#ef7a2a;         /* zone 'te veel' op de lat; alleen vlak, geen tekst */
     --terra:#9a4f47;          /* pilotblok, met papier-tekst op 4,6:1 */
     --merk:'Baloo 2',system-ui,sans-serif;
     --sans:'Jost',system-ui,sans-serif;
@@ -114,12 +113,11 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .lat-wrap{margin-top:56px}
 .lat-schaal{display:flex;justify-content:space-between;margin-bottom:10px;
     font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.55)}
-.lat-balk{position:relative;display:grid;grid-template-columns:1.6fr 1fr .8fr .8fr;height:18px;border-radius:99px;overflow:visible;margin-bottom:14px}
+.lat-balk{position:relative;display:grid;grid-template-columns:1.6fr 1fr 1.6fr;height:18px;border-radius:99px;overflow:visible;margin-bottom:14px}
 .lat-balk i{display:block;height:100%}
 .lat-balk .z1{background:var(--geel);border-radius:99px 0 0 99px}
 .lat-balk .z2{background:var(--sage)}
-.lat-balk .z3{background:var(--oranje)}
-.lat-balk .z4{background:var(--rood-diep);border-radius:0 99px 99px 0}
+.lat-balk .z3{background:var(--rood-diep);border-radius:0 99px 99px 0}
 .optimum-tik{position:absolute;left:50%;top:-7px;bottom:-7px;width:0;border-left:2px dashed rgba(25,43,27,.5)}
 .naald{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;
     background:var(--papier);border:4px solid var(--groen);box-shadow:0 2px 10px rgba(25,43,27,.35);
@@ -320,7 +318,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
                     <span class="s-min">&larr;&nbsp;weinig krachtvoer</span><span class="s-max">veel krachtvoer&nbsp;&rarr;</span>
                 </div>
                 <div class="lat-balk" aria-hidden="true">
-                    <i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i>
+                    <i class="z1"></i><i class="z2"></i><i class="z3"></i>
                     <span class="optimum-tik"></span>
                     <span class="naald" title="Iedere koe zit ergens anders op de lat"></span>
                 </div>
@@ -368,7 +366,7 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
             <p class="intro reveal">Het pilotprogramma loopt en er zijn op dit moment nog enkele plekken beschikbaar. Het kost je niets.</p>
             <div class="pilotkaarten reveal">
                 <div class="pk"><div class="nr">1</div><h3>Kennismaken</h3>
-                    <ul><li>We komen langs op het bedrijf</li><li>Samen brengen we in kaart welke datapunten er al zijn</li><li>Jouw data blijft uiteraard van jou</li></ul></div>
+                    <ul><li>We komen langs op het bedrijf</li><li>Samen brengen we in kaart welke datapunten er al zijn</li><li>Jij bepaalt wie je data ziet, en je kunt je toestemming altijd intrekken</li></ul></div>
                 <div class="pk"><div class="nr">2</div><h3>Wij koppelen</h3>
                     <ul><li>We ontsluiten die datapunten, uit bijv. melkrobot, halsband en CRV</li><li>Koppeling via bijv. JoinData</li><li>Jouw enige actie: ons toestemming geven om de data op te halen &mdash; wij regelen de rest</li></ul>
                     <div class="datakring reveal" aria-label="Datastromen komen samen bij Ruminate en gaan naar de boer"><svg viewBox="0 0 340 348" xmlns="http://www.w3.org/2000/svg"><defs><marker id="dkpijl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1 L8 5 L0 9 Z" fill="var(--groen)"/></marker></defs><g stroke="rgba(71,98,79,.55)" stroke-width="1.6"><line class="stroom" x1="257" y1="164" x2="170" y2="128"/><line class="stroom" x1="206" y1="215" x2="170" y2="128"/><line class="stroom" x1="134" y1="215" x2="170" y2="128"/><line class="stroom" x1="83" y1="164" x2="170" y2="128"/><line class="stroom" x1="83" y1="92" x2="170" y2="128"/><line class="stroom" x1="134" y1="41" x2="170" y2="128"/><line class="stroom" x1="206" y1="41" x2="170" y2="128"/><line class="stroom" x1="257" y1="92" x2="170" y2="128"/></g><g><circle cx="257" cy="164" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/lely.png" x="239" y="146" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>Lely</title></g><g><circle cx="206" cy="215" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/delaval.png" x="188" y="197" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>DeLaval</title></g><g><circle cx="134" cy="215" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/gea.svg" x="116" y="197" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>GEA</title></g><g><circle cx="83" cy="164" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/nedap.svg" x="65" y="146" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>Nedap</title></g><g><circle cx="83" cy="92" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/crv.png" x="65" y="74" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>CRV</title></g><g><circle cx="134" cy="41" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/qlip.png" x="116" y="23" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>Qlip</title></g><g><circle cx="206" cy="41" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/joindata.png" x="188" y="23" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>JoinData</title></g><g><circle cx="257" cy="92" r="27" fill="#fff" stroke="rgba(25,43,27,.15)"/><image href="media/logos/knmi.png" x="239" y="74" width="36" height="36" preserveAspectRatio="xMidYMid meet"/><title>KNMI</title></g><circle cx="170" cy="128" r="36" fill="var(--groen)"/><image href="branding/ruminate-logo-creme.svg" x="141" y="117" width="58" height="22" preserveAspectRatio="xMidYMid meet"/><line x1="170" y1="168" x2="170" y2="266" stroke="var(--groen)" stroke-width="2.4" marker-end="url(#dkpijl)"/><g fill="none" stroke="var(--groen)" stroke-width="3" stroke-linecap="round"><circle cx="170" cy="290" r="9"/><path d="M158 287 a 12 12 0 0 1 24 0"/><path d="M156 285 h28" stroke-width="2.4"/><path d="M150 324 c 0 -13 9 -20 20 -20 s 20 7 20 20"/></g><text x="170" y="342" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="1.6" fill="rgba(25,43,27,.55)">DE BOER</text></svg></div></div>

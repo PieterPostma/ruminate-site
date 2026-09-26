@@ -130,7 +130,7 @@
         '.ck-merk i::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:.09em;width:.17em;height:.17em;border-radius:50%;background:#c8524a}',
         '.ck-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,207,191,.45)}',
         '.ck-kpis{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(212,207,191,.6)}',
-        '.ck-kpis b{font-weight:400} .ck-kpis b.laag{color:#e9bd4f} .ck-kpis b.ok{color:#7ba58a} .ck-kpis b.hoog{color:#e59a52} .ck-kpis b.zuur{color:#e0847d}',
+        '.ck-kpis b{font-weight:400} .ck-kpis b.laag{color:#e9bd4f} .ck-kpis b.ok{color:#7ba58a} .ck-kpis b.hoog{color:#ef7a2a} .ck-kpis b.zuur{color:#e0847d}',
         '.ck-romp{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr)}',
         '.ck-lijst{border-right:1px solid rgba(212,207,191,.14);display:flex;flex-direction:column}',
         '.ck-filters{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid rgba(212,207,191,.1)}',
@@ -144,9 +144,9 @@
         '.ck-rij.aan{background:rgba(200,82,74,.1)}',
         /* stip = kleur van haar zone op de lat */
         '.ck-dot{width:9px;height:9px;border-radius:50%}',
-        '.ck-dot.laag{background:#e9bd4f}.ck-dot.ok{background:#7ba58a}.ck-dot.hoog{background:#e59a52}.ck-dot.zuur{background:#c8524a;box-shadow:0 0 8px rgba(200,82,74,.7)}',
+        '.ck-dot.laag{background:#e9bd4f}.ck-dot.ok{background:#7ba58a}.ck-dot.hoog{background:#ef7a2a}.ck-dot.zuur{background:#c8524a;box-shadow:0 0 8px rgba(200,82,74,.7)}',
         '.ck-rij .n{font-size:14.5px;color:#e8e4d6} .ck-rij .n small{display:block;margin-top:1px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.03em;color:rgba(212,207,191,.42)}',
-        '.ck-rij .n small em{font-style:normal;color:#e59a52}',
+        '.ck-rij .n small em{font-style:normal;color:#ef7a2a}',
         '.ck-rij .m{font-family:"JetBrains Mono",monospace;font-size:12px;color:rgba(212,207,191,.65);text-align:right}',
         '.ck-detail{padding:18px 22px;display:flex;flex-direction:column;gap:13px}',
         '.ck-dkop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}',
@@ -154,15 +154,15 @@
         '.ck-dsub{margin-top:-9px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.03em;color:rgba(212,207,191,.55)}',
         '.ck-badge{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:99px}',
         '.ck-badge.laag{background:rgba(233,189,79,.14);color:#e9bd4f}.ck-badge.ok{background:rgba(123,165,138,.18);color:#7ba58a}',
-        '.ck-badge.hoog{background:rgba(229,154,82,.16);color:#e59a52}.ck-badge.zuur{background:rgba(200,82,74,.2);color:#e0847d}',
-        '.ck-badge.vlag{background:none;border:1px solid rgba(229,154,82,.6);color:#e59a52}',
+        '.ck-badge.hoog{background:rgba(239,122,42,.16);color:#ef7a2a}.ck-badge.zuur{background:rgba(200,82,74,.2);color:#e0847d}',
+        '.ck-badge.vlag{background:none;border:1px solid rgba(239,122,42,.6);color:#ef7a2a}',
         /* voeradvies: kaarten */
         '.ck-voer{display:grid;grid-template-columns:1fr 1fr;gap:13px}',
         '.ck-vkaart{border-radius:9px;padding:13px 15px;border:1px solid rgba(212,207,191,.22);background:rgba(212,207,191,.04)}',
         '.ck-vkaart.rood{border-color:rgba(200,82,74,.7);background:rgba(200,82,74,.1)}',
-        '.ck-vkaart.oranje{border-color:rgba(229,154,82,.6);background:rgba(229,154,82,.08)}',
+        '.ck-vkaart.oranje{border-color:rgba(239,122,42,.6);background:rgba(239,122,42,.08)}',
         '.ck-vkaart h5{margin:0 0 7px;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,207,191,.55)}',
-        '.ck-vkaart.rood h5{color:#e0847d}.ck-vkaart.oranje h5{color:#e59a52}',
+        '.ck-vkaart.rood h5{color:#e0847d}.ck-vkaart.oranje h5{color:#ef7a2a}',
         '.ck-vkaart .cijfer{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}',
         '.ck-vkaart .cijfer b{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:21px;color:#e8e4d6}',
         '.ck-vkaart .cijfer .pijl{color:rgba(212,207,191,.45);font-size:14px}',
@@ -222,7 +222,7 @@
         '.ck-gauge-legende{display:grid;grid-template-columns:1.3fr .6fr .5fr .8fr;margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center}',
         '.ck-gauge-legende .lg-laag{color:rgba(233,189,79,.85)}',
         '.ck-gauge-legende .lg-ok{color:rgba(123,165,138,.9)}',
-        '.ck-gauge-legende .lg-hoog{color:rgba(229,154,82,.9)}',
+        '.ck-gauge-legende .lg-hoog{color:rgba(239,122,42,.9)}',
         '.ck-gauge-legende .lg-zuur{color:rgba(224,132,125,.9)}',
         /* koppeladvies onderin */
         '.ck-koppel{padding:16px 18px;display:flex;gap:12px;align-items:flex-start}',
@@ -234,7 +234,7 @@
         '@media (max-width:520px){.ck-sig{grid-template-columns:1fr}.ck-detail{padding:16px}.ck-kpis{gap:11px}.ck-gauge-legende{font-size:9px;letter-spacing:0;white-space:nowrap}}'
     ].join('\n');
 
-    var KLEUR = { laag: '#e9bd4f', ok: '#7ba58a', hoog: '#e59a52', zuur: '#c8524a' };
+    var KLEUR = { laag: '#e9bd4f', ok: '#7ba58a', hoog: '#ef7a2a', zuur: '#c8524a' };
 
     /* mini-grafiek: 14 dagen, stippellijn = haar norm */
     function spark(reeksen, norm, min, max) {
@@ -258,8 +258,8 @@
         var g1 = X(-0.3), g2 = X(0.3), g3 = X(0.8), x = X(k.afst);
         function vak(x1, x2, kleur) { return '<rect x="' + x1.toFixed(1) + '" y="12" width="' + (x2 - x1).toFixed(1) + '" height="22" rx="4" fill="' + kleur + '"/>'; }
         return '<svg viewBox="0 0 ' + W + ' 46" aria-hidden="true">' +
-            vak(links, g1 - 1, 'rgba(233,189,79,.3)') + vak(g1, g2 - 1, 'rgba(123,165,138,.42)') +
-            vak(g2, g3 - 1, 'rgba(229,154,82,.34)') + vak(g3, rechts, 'rgba(200,82,74,.34)') +
+            vak(links, g1 - 1, 'rgba(233,189,79,.8)') + vak(g1, g2 - 1, 'rgba(123,165,138,.62)') +
+            vak(g2, g3 - 1, 'rgba(239,122,42,.72)') + vak(g3, rechts, 'rgba(200,82,74,.72)') +
             '<line x1="' + ((g1 + g2) / 2) + '" y1="6" x2="' + ((g1 + g2) / 2) + '" y2="40" stroke="rgba(212,207,191,.5)" stroke-dasharray="3 4" stroke-width="1"/>' +
             '<circle cx="' + x.toFixed(1) + '" cy="23" r="8" fill="' + KLEUR[k.zone] + '" stroke="#e8e4d6" stroke-width="2"/>' +
             '</svg>' +

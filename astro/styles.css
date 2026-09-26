@@ -8,6 +8,7 @@
     --rood-licht:#e0847d;     /* rood accent op donkergroen */
     --sage-tekst:#47624f;     /* kleine groene tekst en tekstdragende groene vlakken */
     --geel:#e9bd4f;
+    --oranje:#e59a52;         /* zone 'te veel' op de lat; alleen vlak, geen tekst */
     --terra:#9a4f47;          /* pilotblok, met papier-tekst op 4,6:1 */
     --merk:'Baloo 2',system-ui,sans-serif;
     --sans:'Jost',system-ui,sans-serif;
@@ -102,11 +103,12 @@ h1 .s,h2 .s{color:var(--sage-d)} .donker h2 .s{color:var(--sage)}
 .lat-wrap{margin-top:56px}
 .lat-schaal{display:flex;justify-content:space-between;margin-bottom:10px;
     font-family:var(--mono);font-size:var(--t-label-s);letter-spacing:.14em;text-transform:uppercase;color:rgba(25,43,27,.55)}
-.lat-balk{position:relative;display:grid;grid-template-columns:1.6fr 1fr 1.6fr;height:18px;border-radius:99px;overflow:visible;margin-bottom:14px}
+.lat-balk{position:relative;display:grid;grid-template-columns:1.6fr 1fr .8fr .8fr;height:18px;border-radius:99px;overflow:visible;margin-bottom:14px}
 .lat-balk i{display:block;height:100%}
 .lat-balk .z1{background:var(--geel);border-radius:99px 0 0 99px}
 .lat-balk .z2{background:var(--sage)}
-.lat-balk .z3{background:var(--rood-diep);border-radius:0 99px 99px 0}
+.lat-balk .z3{background:var(--oranje)}
+.lat-balk .z4{background:var(--rood-diep);border-radius:0 99px 99px 0}
 .optimum-tik{position:absolute;left:50%;top:-7px;bottom:-7px;width:0;border-left:2px dashed rgba(25,43,27,.5)}
 .naald{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;
     background:var(--papier);border:4px solid var(--groen);box-shadow:0 2px 10px rgba(25,43,27,.35);
